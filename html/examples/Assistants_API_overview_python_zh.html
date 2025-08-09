@@ -1,0 +1,3465 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../">
+    <title>Assistants API 概述 (Python SDK)</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">articles</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="articles/how_to_work_with_large_language_models_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用大型语言模型</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="articles/openai-harmony_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">OpenAI harmony 响应格式</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="articles/related_resources_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">网上相关资源</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="articles/run-nvidia_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 NVIDIA TensorRT-LLM 优化 OpenAI GPT-OSS 模型</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="articles/techniques_to_improve_reliability_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">提高可靠性的技术</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="articles/text_comparison_examples_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">文本比较示例</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="articles/what_makes_documentation_good_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">什么样的文档是好文档</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">gpt-oss</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="articles/gpt-oss/fine-tune-transfomers_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">微调多语言推理器，使用 Hugging Face</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="articles/gpt-oss/handle-raw-cot_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">gpt-oss 中如何处理原始思维链</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="articles/gpt-oss/run-colab_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="articles/gpt-oss/run-locally-lmstudio_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何在本地使用 LM Studio 运行 gpt-oss</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="articles/gpt-oss/run-locally-ollama_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何在本地运行 gpt-oss 并使用 Ollama</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="articles/gpt-oss/run-transformers_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Hugging Face Transformers 运行 gpt-oss</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="articles/gpt-oss/run-vllm_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 vLLM 运行 gpt-oss</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder expanded" data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">examples</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item active" style="padding-left: 20px;">
+                        <a href="examples/Assistants_API_overview_python_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Assistants API 概述 (Python SDK)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/batch_processing_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">批量处理与 Batch API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Chat_finetuning_data_prep_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">数据准备与分析，用于聊天模型微调</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Classification_using_embeddings_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">split data into train and test</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Clustering_for_transaction_classification_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">交易分类聚类</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Clustering_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">导入</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Code_search_using_embeddings_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">数据加载</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/completions_usage_api_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">OpenAI Completions 使用 API 扩展示例</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Context_summarization_with_realtime_api_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">摘要 — 实时 API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Creating_slides_with_Assistants_API_and_DALL-E3_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Assistants API (GPT-4) 和 DALL·E-3 创建幻灯片</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Custom-LLM-as-a-Judge_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Braintrust 构建 LLM-as-a-judge 评估来检测幻觉</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/custom_image_embedding_search_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">安装</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Customizing_embeddings_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">0. 导入</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Data-intensive-Realtime-apps_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">实用指南：使用实时 API 处理数据密集型应用</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Data_extraction_transformation_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Developing_hallucination_guardrails_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">设置 pandas 显示选项的函数</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Embedding_long_inputs_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Embedding 长度超过模型最大上下文的文本</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Embedding_Wikipedia_articles_for_search_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">嵌入维基百科文章以供搜索</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Enhance_your_prompts_with_meta_prompting_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">元提示：自动化提示优化指南</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Entity_extraction_for_long_documents_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">长文档内容提取</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/File_Search_Responses_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用文件搜索工具的响应 API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Fine-tuned_classification_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">示例：微调分类器</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Fine_tuning_for_function_calling_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Function_calling_finding_nearby_places_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">函数调用，查找附近地点：利用谷歌地图 API 和客户档案</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Function_calling_with_an_OpenAPI_spec_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Function-calling with an OpenAPI specification</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Generate_Images_With_GPT_Image_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 GPT Image 生成和编辑图像</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Generate_Images_With_High_Input_Fidelity_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">以高输入保真度生成图像</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Get_embeddings_from_dataset_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">从数据集中获取嵌入</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/gpt4-1_prompting_guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT-4.1 提示指南</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/How_to_build_a_tool-using_agent_with_Langchain_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 LangChain 构建一个使用工具的 Agent</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/How_to_call_functions_for_knowledge_retrieval_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用具有知识库的函数</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/How_to_call_functions_with_chat_models_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何结合聊天模型调用函数</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/How_to_combine_GPT4o_with_RAG_Outfit_Assistant_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何结合 GPT-4o Mini 与 RAG - 创建服装搭配应用</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/How_to_count_tokens_with_tiktoken_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 tiktoken 计算 token 数量</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/How_to_finetune_chat_models_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何微调聊天模型</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/How_to_format_inputs_to_ChatGPT_models_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何为 ChatGPT 模型格式化输入</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/How_to_handle_rate_limits_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何处理速率限制</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/How_to_stream_completions_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何流式传输补全</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/How_to_use_guardrails_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用护栏</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/How_to_use_moderation_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用审核 API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Leveraging_model_distillation_to_fine-tune_a_model_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">利用模型蒸馏微调模型</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Multiclass_classification_for_transactions_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">多类别交易分类</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Named_Entity_Recognition_to_enrich_text_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">naively consider the first result as the best</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Optimize_Prompts_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">优化提示词</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Orchestrating_agents_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">代理编排：例程和交接</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Prompt_Caching101_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">提示缓存入门</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Prompt_migration_guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Question_answering_using_a_search_API_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Question_answering_using_embeddings_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用基于嵌入的搜索来回答问题</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/RAG_with_graph_db_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">检索增强生成与图数据库</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/reasoning_function_calls_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用推理模型管理函数调用</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Recommendation_using_embeddings_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用嵌入和最近邻搜索进行推荐</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Regression_using_embeddings_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Reinforcement_Fine_Tuning_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">**探索用于强化微调的模型评分器**</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Reproducible_outputs_with_the_seed_parameter_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何通过新的 seed 参数使您的 completions 输出可复现</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/SDG1_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">生成合成数据（第一部分）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Search_reranking_with_cross-encoders_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">搜索重排与交叉编码器</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Semantic_text_search_using_embeddings_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">搜索特定产品的评论</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Speech_transcription_methods_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">🗣️ 说话转文本方法与 OpenAI API 的比较</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Structured_Outputs_Intro_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">结构化输出简介</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Structured_outputs_multi_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">结构化输出用于多代理系统</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Summarizing_long_documents_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">总结长文档</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Tag_caption_images_with_GPT4V_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 GPT-4o mini 标记和说明图片</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Unit_test_writing_using_a_multi-step_prompt_with_older_completions_API_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">单元测试编写：多步提示（使用旧版 API）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Unit_test_writing_using_a_multi-step_prompt_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">多步提示单元测试</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/User_and_product_embeddings_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">将嵌入作为推荐项在 X_test 上进行评估</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Using_embeddings_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">负面示例（速度慢且有速率限制）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Using_logprobs_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 logprobs 进行分类和问答评估</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Using_tool_required_for_customer_service_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用工具处理客户服务</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Visualizing_embeddings_in_2D_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">加载嵌入</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Visualizing_embeddings_in_3D_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">三维可视化嵌入</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Whisper_correct_misspelling_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">imports</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Whisper_processing_guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Whisper_prompting_guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">提示词指南</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="examples/Zero-shot_classification_with_embeddings_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">convert 5-star rating to binary sentiment</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">agents_sdk</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/agents_sdk/dispute_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">引言</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/agents_sdk/evaluate_agents_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Langfuse 评估代理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/agents_sdk/parallel_agents_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">并行运行OpenAI Agents SDK的专用代理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">multi-agent-portfolio-collaboration</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/agents_sdk/multi-agent-portfolio-collaboration/multi_agent_portfolio_collaboration_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">多智能体编排与OpenAI Agents SDK：金融投资组合分析示例</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="3" style="padding-left: 60px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">prompts</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 80px;">
+                        <a href="examples/agents_sdk/multi-agent-portfolio-collaboration/prompts/code_interpreter_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">代码解释器提示（最佳实践，GPT-4.1）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 80px;">
+                        <a href="examples/agents_sdk/multi-agent-portfolio-collaboration/prompts/editor_base_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">备忘录编辑器 – 提示</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 80px;">
+                        <a href="examples/agents_sdk/multi-agent-portfolio-collaboration/prompts/fundamental_base_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">首席基本面分析师 – 提示</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 80px;">
+                        <a href="examples/agents_sdk/multi-agent-portfolio-collaboration/prompts/macro_base_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 80px;">
+                        <a href="examples/agents_sdk/multi-agent-portfolio-collaboration/prompts/pm_base_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">投资组合经理 – 系统提示</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 80px;">
+                        <a href="examples/agents_sdk/multi-agent-portfolio-collaboration/prompts/quant_base_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">定量研究员 – 提示</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 80px;">
+                        <a href="examples/agents_sdk/multi-agent-portfolio-collaboration/prompts/tool_retry_prompt_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">工具调用重试说明</span>
+                        </a>
+                    </div>
+                </div></div></div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">azure</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/azure/chat_with_your_own_data_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Azure chat completion models with your own data (preview)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/azure/chat_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Azure 聊天补全示例</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/azure/embeddings_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Azure 嵌入示例</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/azure/functions_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Azure 函数示例</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/azure/whisper_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Azure 音频耳语（预览）示例</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">archive</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/azure/archive/chat_with_your_own_data_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Azure OpenAI on your own data is only supported by the 2023-08-01-preview API version</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/azure/archive/chat_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Azure 聊天补全示例 (预览)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/azure/archive/completions_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Azure completions 示例</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/azure/archive/DALL-E_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Azure DALL·E 图像生成示例</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/azure/archive/embeddings_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Azure 嵌入示例</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/azure/archive/functions_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Azure 函数示例</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/azure/archive/whisper_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Azure 音频耳语（预览）示例</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">book_translation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/book_translation/translate_latex_book_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">翻译一本用LaTeX写成的斯洛文尼亚语书籍成英语</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">chatgpt</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">gpt_actions_library</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/.gpt_action_getting_started_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT Action 库：入门指南 (Weather.gov)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_bigquery_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT Action 库：BigQuery</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_box_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT 操作库：Box</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_canvas_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Canvas LMS 食谱</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_confluence_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT 操作库：Confluence</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_github_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT 操作库：GitHub</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_gmail_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT 操作库：Gmail</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_google_calendar_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT 操作库：Google 日历</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_google_drive_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">**GPT 操作库：Google 云端硬盘**</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_googleads_adzviser_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT 操作库 - 通过 Adzviser 连接 Google Ads</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_jira_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT 操作库：Jira</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_notion_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT Action 库：Notion</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_outlook_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT 操作库：Outlook</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_redshift_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT 操作库：AWS RedShift</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_retool_workflow_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT 操作库：Retool 工作流</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_salesforce_gong_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT 操作库：Salesforce + Gong</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_salesforce_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_sharepoint_doc_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT 操作库：Sharepoint (返回文件以供数据分析/文档摘要)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_sharepoint_text_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT 操作库：Sharepoint (以文档形式返回)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_snowflake_direct_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT Actions - Snowflake 直接连接</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_snowflake_middleware_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT 操作 - Snowflake 中间件</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_sql_database_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT 操作库：SQL 数据库</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_trayai_apim_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT 操作库：Tray.ai API 管理操作</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_workday_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">**Workday GPT 操作手册**</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_action_zapier_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT 操作库：Zapier</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_middleware_aws_function_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT Action 库（中间件）：AWS Lambda</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_middleware_azure_function_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT 操作库（中间件）：Azure Function</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/gpt_actions_library/gpt_middleware_google_cloud_function_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT 操作库（中间件）：Google Cloud Function</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">rag-quickstart</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-folder " data-level="3" style="padding-left: 60px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">azure</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 80px;">
+                        <a href="examples/chatgpt/rag-quickstart/azure/Azure_AI_Search_with_Azure_Functions_and_GPT_Actions_in_ChatGPT_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">架构</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="3" style="padding-left: 60px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">gcp</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 80px;">
+                        <a href="examples/chatgpt/rag-quickstart/gcp/Getting_started_with_bigquery_vector_search_and_openai_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GCP BigQuery 与 GCP Functions 和 ChatGPT 中的 GPT 操作</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="3" style="padding-left: 60px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">pinecone-retool</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 80px;">
+                        <a href="examples/chatgpt/rag-quickstart/pinecone-retool/gpt-action-pinecone-retool-rag_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">sharepoint_azure_function</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/chatgpt/sharepoint_azure_function/Using_Azure_Functions_and_Microsoft_Graph_to_Query_SharePoint_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Azure Functions 结合 OAuth 和 Microsoft Graph API 从 ChatGPT 搜索 O365 / SharePoint</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">codex</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/codex/jira-github_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 `codex-cli` 自动化 Jira ↔ GitHub</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">dalle</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/dalle/How_to_create_dynamic_masks_with_DALL-E_and_Segment_Anything_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 DALL·E 和 Segment Anything 创建动态蒙版</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/dalle/Image_generations_edits_and_variations_with_DALL-E_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 DALL·E API</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">data</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">structured_outputs_articles</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/data/structured_outputs_articles/cnns_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/data/structured_outputs_articles/llms_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/data/structured_outputs_articles/moe_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">deep_research_api</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/deep_research_api/introduction_to_deep_research_api_agents_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">深度研究代理食谱</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/deep_research_api/introduction_to_deep_research_api_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Deep Research API 入门</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">how_to_build_a_deep_research_mcp_server</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/deep_research_api/how_to_build_a_deep_research_mcp_server/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">深度研究的 MCP</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/evaluation/Evaluate_RAG_with_LlamaIndex_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 LlamaIndex 构建和评估 RAG</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/evaluation/Getting_Started_with_OpenAI_Evals_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 OpenAI Evals 入门</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/evaluation/How_to_eval_abstractive_summarization_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何评估摘要任务</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/evaluation/How_to_evaluate_LLMs_for_SQL_generation_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何为 SQL 生成测试和评估 LLM</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">use-cases</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/evaluation/use-cases/bulk-experimentation_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">设置您的评估</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/evaluation/use-cases/completion-monitoring_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">生成我们的测试数据</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/evaluation/use-cases/EvalsAPI_Image_Inputs_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Evals API：图像输入</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/evaluation/use-cases/mcp_eval_notebook_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用自定义数据集评估基于 MCP 的答案</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/evaluation/use-cases/regression_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">设置你的评估</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/evaluation/use-cases/responses-evaluation_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">评估现有响应的新模型</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/evaluation/use-cases/structured-outputs-evaluation_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">结构化输出评估食谱</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/evaluation/use-cases/tools-evaluation_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 OpenAI Evals 进行工具评估</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/evaluation/use-cases/web-search-evaluation_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用自定义数据集评估网络搜索质量</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">fine-tuned_qa</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/fine-tuned_qa/ft_retrieval_augmented_generation_qdrant_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Qdrant 和少样本学习对 OpenAI 模型进行检索增强生成 (RAG) 微调</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/fine-tuned_qa/olympics-1-collect-data_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">1. 收集关于 2020 年奥运会的维基百科数据</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/fine-tuned_qa/olympics-2-create-qa_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">2. 创建合成问答数据集</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/fine-tuned_qa/olympics-3-train-qa_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">3. 训练专门用于问答的微调模型</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/fine-tuned_qa/reinforcement_finetuning_healthbench_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 OpenAI API 进行对话推理的强化微调</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">gpt-5</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/gpt-5/gpt-5_frontend_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT-5 驱动的前端开发</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/gpt-5/gpt-5_new_params_and_tools_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT-5 新参数和工具</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/gpt-5/gpt-5_prompting_guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT-5 提示指南</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/gpt-5/prompt-optimization-cookbook_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">GPT-5 提示迁移与改进：使用新的提示优化器</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">mcp</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/mcp/databricks_mcp_cookbook_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用OpenAI Agent SDK和Databricks MCP服务器构建供应链Copilot</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/mcp/mcp_tool_guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">指南：使用响应式API的MCP工具</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">building-a-supply-chain-copilot-with-agent-sdk-and-databricks-mcp</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/mcp/building-a-supply-chain-copilot-with-agent-sdk-and-databricks-mcp/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Databricks MCP 助手（含 React UI）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="3" style="padding-left: 60px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">ui</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 80px;">
+                        <a href="examples/mcp/building-a-supply-chain-copilot-with-agent-sdk-and-databricks-mcp/ui/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">React + Vite</span>
+                        </a>
+                    </div>
+                </div></div></div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">multimodal</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/multimodal/image_understanding_with_rag_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Download the dataset</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/multimodal/Using_GPT4_Vision_With_Function_Calling_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用具有函数调用的 GPT-4o Vision</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/multimodal/Vision_Fine_tuning_on_GPT4o_for_Visual_Question_Answering_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">加载数据集</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">o-series</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/o-series/o3o4-mini_prompting_guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">o3/o4-mini 函数调用指南</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">o1</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/o1/Using_chained_calls_for_o1_structured_outputs_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">提示</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/o1/Using_reasoning_for_data_validation_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Generate data three times using the existing dataGeneration function</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/o1/Using_reasoning_for_routine_generation_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Set display options to show all text in the dataframe cells</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">object_oriented_agentic_approach</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/object_oriented_agentic_approach/Secure_code_interpreter_tool_for_LLM_agents_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Run the container in restricted mode. The container will run in the background.</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">partners</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">eval_driven_system_design</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/partners/eval_driven_system_design/receipt_inspection_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">评估驱动的系统设计：从原型到生产</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">model_selection_guide</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/partners/model_selection_guide/model_selection_guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">实用模型选择指南，面向真实用例</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">temporal_agents_with_knowledge_graphs</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/partners/temporal_agents_with_knowledge_graphs/Appendix_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">A. 原型到生产</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/partners/temporal_agents_with_knowledge_graphs/temporal_agents_with_knowledge_graphs_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">1. 执行摘要</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">responses_api</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/responses_api/reasoning_items_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">调用函数</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/responses_api/responses_api_tool_orchestration_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/responses_api/responses_example_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Display the image from the provided URL</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">stripe_model_eval</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/stripe_model_eval/selecting_a_model_based_on_stripe_conversion_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">根据 Stripe 转化率选择模型：初创公司的实用评估</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">third_party</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/third_party/Code_quality_and_security_scan_with_GitHub_Actions_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Reasoning over Code Quality and Security in GitHub Pull Requests</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/third_party/financial_document_analysis_with_llamaindex_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">金融文档分析与 LlamaIndex</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/third_party/How_to_automate_S3_storage_with_functions_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用函数自动化任务（S3 存储桶示例）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/third_party/Openai_monitoring_with_wandb_weave_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 W&B Weave 进行 OpenAI API 监控</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/third_party/Visualizing_embeddings_in_Kangas_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Column                Non-Null Count DataGrid Type</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/third_party/Visualizing_embeddings_in_wandb_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">加载嵌入</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/third_party/Visualizing_embeddings_with_Atlas_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">加载嵌入</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/third_party/Web_search_with_google_api_bring_your_own_browser_tool_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Check if 'items' exists in the results</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">vector_databases</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/vector_databases/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">向量数据库</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">PolarDB</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/PolarDB/Getting_started_with_PolarDB_and_OpenAI_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 PolarDB-PG 作为 OpenAI 嵌入的向量数据库</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">SingleStoreDB</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/SingleStoreDB/OpenAI_wikipedia_semantic_search_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">简介</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/SingleStoreDB/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">analyticdb</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/analyticdb/Getting_started_with_AnalyticDB_and_OpenAI_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 AnalyticDB 作为 OpenAI 嵌入的向量数据库</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/analyticdb/QA_with_Langchain_AnalyticDB_and_OpenAI_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">问答系统：Langchain、AnalyticDB 和 OpenAI</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">azuresearch</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/azuresearch/Getting_started_with_azure_ai_search_and_openai_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Azure AI Search 作为 OpenAI 嵌入的向量数据库</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">cassandra_astradb</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/cassandra_astradb/Philosophical_Quotes_AstraPy_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">哲学与向量嵌入、OpenAI 和 Astra DB</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/cassandra_astradb/Philosophical_Quotes_cassIO_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Philosophy with Vector Embeddings, OpenAI and Cassandra / Astra DB through CQL</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/cassandra_astradb/Philosophical_Quotes_CQL_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">哲学与向量嵌入、OpenAI 和 Cassandra / Astra DB</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/cassandra_astradb/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">RAG 与 Astra DB 和 Cassandra</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">chroma</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/chroma/hyde-with-chroma-and-openai_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">鲁棒问答系统：结合 Chroma 和 OpenAI</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/chroma/Using_Chroma_for_embeddings_search_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Chroma 进行嵌入搜索</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">deeplake</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/deeplake/deeplake_langchain_qa_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 LangChain、Deep Lake 和 OpenAI 进行问答</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">elasticsearch</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/elasticsearch/elasticsearch-retrieval-augmented-generation_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">检索增强生成，使用 Elasticsearch 和 OpenAI</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/elasticsearch/elasticsearch-semantic-search_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Elasticsearch 和 OpenAI 进行语义搜索</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/elasticsearch/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Elasticsearch</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">hologres</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/hologres/Getting_started_with_Hologres_and_OpenAI_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用Hologres作为OpenAI嵌入的向量数据库</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">kusto</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/kusto/Getting_started_with_kusto_and_openai_embeddings_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">文件大约为 700 MB，因此这需要一些时间</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/kusto/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Kusto 作为向量数据库</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">milvus</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/milvus/Filtered_search_with_Milvus_and_OpenAI_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Milvus 和 OpenAI 进行过滤搜索</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/milvus/Getting_started_with_Milvus_and_OpenAI_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Milvus 和 OpenAI 入门指南</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">mongodb_atlas</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/mongodb_atlas/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">MongoDB Atlas 向量搜索</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/mongodb_atlas/semantic_search_using_mongodb_atlas_vector_search_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 1 步：设置环境</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">myscale</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/myscale/Getting_started_with_MyScale_and_OpenAI_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 MyScale 作为 OpenAI 嵌入的向量数据库</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/myscale/Using_MyScale_for_embeddings_search_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 MyScale 进行嵌入搜索</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">neon</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/neon/neon-postgres-vector-search-pgvector_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Neon Postgres 向量相似性搜索</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/neon/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">什么是 Neon？</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">pinecone</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/pinecone/Gen_QA_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Pinecone 进行检索增强生成问答</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/pinecone/GPT4_Retrieval_Augmentation_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">create the length function</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/pinecone/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Pinecone 向量数据库</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/pinecone/Semantic_Search_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">我们可以将嵌入提取到一个列表中</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/pinecone/Using_Pinecone_for_embeddings_search_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Pinecone 进行嵌入搜索</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/pinecone/Using_vision_modality_for_RAG_with_Pinecone_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">导入Pinecone库</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">qdrant</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/qdrant/Getting_started_with_Qdrant_and_OpenAI_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Qdrant 作为 OpenAI embedding 的向量数据库</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/qdrant/QA_with_Langchain_Qdrant_and_OpenAI_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Langchain、Qdrant 和 OpenAI 的问答系统</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/qdrant/Using_Qdrant_for_embeddings_search_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Qdrant 进行嵌入搜索</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">redis</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/redis/getting-started-with-redis-and-openai_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Redis 和 OpenAI 作为向量数据库</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/redis/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Redis</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/redis/redis-hybrid-query-examples_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Redis 和 OpenAI 运行混合 VSS 查询</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/redis/Using_Redis_for_embeddings_search_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Redis 进行嵌入搜索</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="3" style="padding-left: 60px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">redisjson</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 80px;">
+                        <a href="examples/vector_databases/redis/redisjson/redisjson_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Redis Vectors as JSON with OpenAI</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="3" style="padding-left: 60px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">redisqna</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 80px;">
+                        <a href="examples/vector_databases/redis/redisqna/redisqna_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Redis 作为上下文存储与 OpenAI Chat</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">supabase</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/supabase/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Supabase 向量数据库</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">tair</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/tair/Getting_started_with_Tair_and_OpenAI_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Tair作为OpenAI嵌入的向量数据库使用指南</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/tair/QA_with_Langchain_Tair_and_OpenAI_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Langchain、Tair 和 OpenAI 进行问答</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">typesense</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/typesense/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Typesense</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/typesense/Using_Typesense_for_embeddings_search_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Typesense 进行嵌入搜索</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">weaviate</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/weaviate/generative-search-with-weaviate-and-openai_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">导出 OpenAI API 密钥</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/weaviate/getting-started-with-weaviate-and-openai_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">安装 Weaviate Python 客户端</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/weaviate/hybrid-search-with-weaviate-and-openai_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">安装用于 Python 的 Weaviate 客户端</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/weaviate/question-answering-with-weaviate-and-openai_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">在 Weaviate 中使用 OpenAI Q&A 模块进行问答</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/weaviate/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Weaviate <> OpenAI</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/weaviate/Using_Weaviate_for_embeddings_search_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Weaviate 进行嵌入搜索</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">zilliz</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/zilliz/Filtered_search_with_Zilliz_and_OpenAI_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Zilliz和OpenAI的过滤搜索</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/vector_databases/zilliz/Getting_started_with_Zilliz_and_OpenAI_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Zilliz 和 OpenAI 入门指南</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">voice_solutions</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/voice_solutions/running_realtime_api_speech_on_esp32_arduino_edge_runtime_elatoai_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">在 .env.local 中设置您的环境变量</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/voice_solutions/steering_tts_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="examples/voice_solutions/voice_translation_into_different_languages_using_GPT-4o_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">确保已安装 requests 包</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">one_way_translation_using_realtime_api</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="examples/voice_solutions/one_way_translation_using_realtime_api/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Translation Demo</span>
+                        </a>
+                    </div>
+                </div></div></div></div></div></div></nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="assistants-api-python-sdk">Assistants API 概述 (Python SDK)</h1>
+<p>新的 <a href="https://platform.openai.com/docs/assistants/overview">Assistants API</a> 是我们 <a href="https://platform.openai.com/docs/guides/text-generation/chat-completions-api">Chat Completions API</a> 的有状态演进，旨在简化类似助手的体验的创建，并使开发者能够访问 Code Interpreter 和 File Search 等强大工具。</p>
+<p><img alt="Assistants API Diagram" src="../images/assistants_overview_diagram.png" /></p>
+<h2 id="chat-completions-api-vs-assistants-api">Chat Completions API vs Assistants API</h2>
+<p><strong>Chat Completions API</strong> 的基本单元是 <code>Messages</code>，您对其执行 <code>Completion</code>，使用 <code>Model</code>（如 <code>gpt-4o</code>、<code>gpt-4o-mini</code> 等）。它轻量且强大，但本质上是无状态的，这意味着您必须手动管理对话状态、工具定义、检索文档和代码执行。</p>
+<p><strong>Assistants API</strong> 的基本单元是：</p>
+<ul>
+<li><code>Assistants</code>：封装了基础模型、指令、工具和（上下文）文档。</li>
+<li><code>Threads</code>：代表对话的状态。</li>
+<li><code>Runs</code>：驱动 <code>Assistant</code> 在 <code>Thread</code> 上的执行，包括文本响应和多步工具使用。</li>
+</ul>
+<p>我们将探讨如何使用它们来创建强大、有状态的体验。</p>
+<h2 id="_1">设置</h2>
+<h3 id="python-sdk">Python SDK</h3>
+<blockquote>
+<p><strong>注意</strong>
+我们已更新 <a href="https://github.com/openai/openai-python">Python SDK</a> 以支持 Assistants API，因此您需要将其更新到最新版本（撰写本文时为 <code>1.59.4</code>）。</p>
+</blockquote>
+<pre class="codehilite"><code class="language-python">!pip install --upgrade openai
+</code></pre>
+
+<pre class="codehilite"><code>Requirement already satisfied: openai in /Users/lee.spacagna/myenv/lib/python3.12/site-packages (1.59.4)
+Requirement already satisfied: anyio&lt;5,&gt;=3.5.0 in /Users/lee.spacagna/myenv/lib/python3.12/site-packages (from openai) (3.7.1)
+Requirement already satisfied: distro&lt;2,&gt;=1.7.0 in /Users/lee.spacagna/myenv/lib/python3.12/site-packages (from openai) (1.9.0)
+Requirement already satisfied: httpx&lt;1,&gt;=0.23.0 in /Users/lee.spacagna/myenv/lib/python3.12/site-packages (from openai) (0.27.0)
+Requirement already satisfied: jiter&lt;1,&gt;=0.4.0 in /Users/lee.spacagna/myenv/lib/python3.12/site-packages (from openai) (0.7.0)
+Requirement already satisfied: pydantic&lt;3,&gt;=1.9.0 in /Users/lee.spacagna/myenv/lib/python3.12/site-packages (from openai) (2.8.2)
+Requirement already satisfied: sniffio in /Users/lee.spacagna/myenv/lib/python3.12/site-packages (from openai) (1.3.1)
+Requirement already satisfied: tqdm&gt;4 in /Users/lee.spacagna/myenv/lib/python3.12/site-packages (from openai) (4.66.4)
+Requirement already satisfied: typing-extensions&lt;5,&gt;=4.11 in /Users/lee.spacagna/myenv/lib/python3.12/site-packages (from openai) (4.12.2)
+Requirement already satisfied: idna&gt;=2.8 in /Users/lee.spacagna/myenv/lib/python3.12/site-packages (from anyio&lt;5,&gt;=3.5.0-&gt;openai) (3.7)
+Requirement already satisfied: certifi in /Users/lee.spacagna/myenv/lib/python3.12/site-packages (from httpx&lt;1,&gt;=0.23.0-&gt;openai) (2024.7.4)
+Requirement already satisfied: httpcore==1.* in /Users/lee.spacagna/myenv/lib/python3.12/site-packages (from httpx&lt;1,&gt;=0.23.0-&gt;openai) (1.0.5)
+Requirement already satisfied: h11&lt;0.15,&gt;=0.13 in /Users/lee.spacagna/myenv/lib/python3.12/site-packages (from httpcore==1.*-&gt;httpx&lt;1,&gt;=0.23.0-&gt;openai) (0.14.0)
+Requirement already satisfied: annotated-types&gt;=0.4.0 in /Users/lee.spacagna/myenv/lib/python3.12/site-packages (from pydantic&lt;3,&gt;=1.9.0-&gt;openai) (0.7.0)
+Requirement already satisfied: pydantic-core==2.20.1 in /Users/lee.spacagna/myenv/lib/python3.12/site-packages (from pydantic&lt;3,&gt;=1.9.0-&gt;openai) (2.20.1)
+</code></pre>
+
+<p>运行以下命令确保其为最新版本：</p>
+<pre class="codehilite"><code class="language-python">!pip show openai | grep Version
+</code></pre>
+
+<pre class="codehilite"><code>Version: 1.59.4
+</code></pre>
+
+<h3 id="_2">美化打印助手</h3>
+<pre class="codehilite"><code class="language-python">import json
+
+def show_json(obj):
+    display(json.loads(obj.model_dump_json()))
+</code></pre>
+
+<h2 id="assistants-api">Assistants API 完整示例</h2>
+<h3 id="assistants">Assistants</h3>
+<p>开始使用 Assistants API 最简单的方法是通过 <a href="https://platform.openai.com/playground">Assistants Playground</a>。</p>
+<p><img alt="Assistants Playground" src="../images/assistants_overview_assistants_playground.png" /></p>
+<p>让我们从创建一个助手开始！我们将创建一个数学导师，就像我们在 <a href="https://platform.openai.com/docs/assistants/overview">文档</a> 中一样。</p>
+<p><img alt="Creating New Assistant" src="../images/assistants_overview_new_assistant.png" /></p>
+<p>您也可以直接通过 Assistants API 创建 Assistants，如下所示：</p>
+<pre class="codehilite"><code class="language-python">from openai import OpenAI
+import os
+
+client = OpenAI(api_key=os.environ.get(&quot;OPENAI_API_KEY&quot;, &quot;&lt;your OpenAI API key if not set as env var&gt;&quot;))
+
+assistant = client.beta.assistants.create(
+    name=&quot;Math Tutor&quot;,
+    instructions=&quot;You are a personal math tutor. Answer questions briefly, in a sentence or less.&quot;,
+    model=&quot;gpt-4o&quot;,
+)
+show_json(assistant)
+</code></pre>
+
+<pre class="codehilite"><code>{'id': 'asst_qvXmYlZV8zhABI2RtPzDfV6z',
+ 'created_at': 1736340398,
+ 'description': None,
+ 'instructions': 'You are a personal math tutor. Answer questions briefly, in a sentence or less.',
+ 'metadata': {},
+ 'model': 'gpt-4o',
+ 'name': 'Math Tutor',
+ 'object': 'assistant',
+ 'tools': [],
+ 'response_format': 'auto',
+ 'temperature': 1.0,
+ 'tool_resources': {'code_interpreter': None, 'file_search': None},
+ 'top_p': 1.0} 'tools': [],
+ 'response_format': 'auto',
+ 'temperature': 1.0,
+ 'tool_resources': {'code_interpreter': None, 'file_search': None},
+ 'top_p': 1.0}
+</code></pre>
+
+<p>无论您是通过仪表板还是 API 创建 Assistant，您都需要跟踪 Assistant ID。这是您在 Threads 和 Runs 中引用 Assistant 的方式。</p>
+<p>接下来，我们将创建一个新的 Thread 并向其中添加一个 Message。这将保存对话的状态，因此我们不必每次都发送整个消息历史记录。</p>
+<h3 id="threads">Threads</h3>
+<p>创建一个新的 thread：</p>
+<pre class="codehilite"><code class="language-python">thread = client.beta.threads.create()
+show_json(thread)
+</code></pre>
+
+<pre class="codehilite"><code>{'id': 'thread_j4dc1TiHPfkviKUHNi4aAsA6',
+ 'created_at': 1736340398,
+ 'metadata': {},
+ 'object': 'thread',
+ 'tool_resources': {'code_interpreter': None, 'file_search': None}} 'object': 'thread',
+ 'tool_resources': {'code_interpreter': None, 'file_search': None}}
+</code></pre>
+
+<p>然后将 Message 添加到 thread 中：</p>
+<pre class="codehilite"><code class="language-python">message = client.beta.threads.messages.create(
+    thread_id=thread.id,
+    role=&quot;user&quot;,
+    content=&quot;I need to solve the equation `3x + 11 = 14`. Can you help me?&quot;,
+)
+show_json(message)
+</code></pre>
+
+<pre class="codehilite"><code>{'id': 'msg_1q4Y7ZZ9gIcPoAKSx9UtrrKJ',
+ 'assistant_id': None,
+ 'attachments': [],
+ 'completed_at': None,
+ 'attachments': [],
+ 'completed_at': None,
+ 'content': [{'text': {'annotations': [],
+    'value': 'I need to solve the equation `3x + 11 = 14`. Can you help me?'},
+   'type': 'text'}],
+ 'created_at': 1736340400,
+ 'incomplete_at': None,
+ 'incomplete_details': None,
+ 'metadata': {},
+ 'object': 'thread.message',
+ 'role': 'user',
+ 'run_id': None,
+ 'status': None,
+ 'thread_id': 'thread_j4dc1TiHPfkviKUHNi4aAsA6'}
+</code></pre>
+
+<blockquote>
+<p><strong>注意</strong>
+即使您不再每次都发送整个历史记录，您仍然需要为每次 Run 的整个对话历史记录的 token 付费。</p>
+</blockquote>
+<h3 id="runs">Runs</h3>
+<p>请注意，我们创建的 Thread <strong>不</strong>与我们之前创建的 Assistant 相关联！Threads 独立于 Assistants 存在，这可能与您使用 ChatGPT 的体验不同（在 ChatGPT 中，一个 thread 与一个模型/GPT 相关联）。</p>
+<p>要为给定 Thread 获取 Assistant 的完成，我们必须创建一个 Run。创建 Run 将指示 Assistant 查看 Thread 中的消息并采取行动：可以是通过添加单个响应，或使用工具。</p>
+<blockquote>
+<p><strong>注意</strong>
+Runs 是 Assistants API 和 Chat Completions API 之间的关键区别。在 Chat Completions 中，模型只会响应一条消息，而在 Assistants API 中，Run 可能会导致 Assistant 使用一个或多个工具，并可能向 Thread 添加多条消息。</p>
+</blockquote>
+<p>为了让我们的 Assistant 回复用户，让我们创建 Run。如前所述，您必须同时指定 Assistant 和 Thread。</p>
+<pre class="codehilite"><code class="language-python">run = client.beta.threads.runs.create(
+    thread_id=thread.id,
+    assistant_id=assistant.id,
+)
+show_json(run)
+</code></pre>
+
+<pre class="codehilite"><code>{'id': 'run_qVYsWok6OCjHxkajpIrdHuVP',
+ 'assistant_id': 'asst_qvXmYlZV8zhABI2RtPzDfV6z',
+ 'cancelled_at': None,
+ 'completed_at': None,
+ 'created_at': 1736340403,
+ 'expires_at': 1736341003,
+ 'failed_at': None,
+ 'incomplete_details': None,
+ 'incomplete_details': None,
+ 'instructions': 'You are a personal math tutor. Answer questions briefly, in a sentence or less.',
+ 'last_error': None,
+ 'max_completion_tokens': None,
+ 'max_prompt_tokens': None,
+ 'max_completion_tokens': None,
+ 'max_prompt_tokens': None,
+ 'metadata': {},
+ 'model': 'gpt-4o',
+ 'object': 'thread.run',
+ 'parallel_tool_calls': True,
+ 'parallel_tool_calls': True,
+ 'required_action': None,
+ 'response_format': 'auto',
+ 'response_format': 'auto',
+ 'started_at': None,
+ 'status': 'queued',
+ 'thread_id': 'thread_j4dc1TiHPfkviKUHNi4aAsA6',
+ 'tool_choice': 'auto',
+ 'tools': [],
+ 'truncation_strategy': {'type': 'auto', 'last_messages': None},
+ 'usage': None,
+ 'temperature': 1.0,
+ 'top_p': 1.0,
+ 'tool_resources': {}}
+</code></pre>
+
+<p>与在 Chat Completions API 中创建完成不同，<strong>创建 Run 是一个异步操作</strong>。它会立即返回 Run 的元数据，其中包含一个 <code>status</code>，最初设置为 <code>queued</code>。当 Assistant 执行操作（如使用工具和添加消息）时，<code>status</code> 会更新。</p>
+<p>为了知道 Assistant 何时完成处理，我们可以通过循环轮询 Run。（流式支持即将推出！）虽然我们这里只检查 <code>queued</code> 或 <code>in_progress</code> 状态，但实际上 Run 可能会经历<a href="https://platform.openai.com/docs/api-reference/runs/object#runs/object-status">各种状态更改</a>，您可以选择向用户显示这些状态。（这些称为 Steps，稍后将进行介绍。）</p>
+<pre class="codehilite"><code class="language-python">import time
+
+def wait_on_run(run, thread):
+    while run.status == &quot;queued&quot; or run.status == &quot;in_progress&quot;:
+        run = client.beta.threads.runs.retrieve(
+            thread_id=thread.id,
+            run_id=run.id,
+        )
+        time.sleep(0.5)
+    return run
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">run = wait_on_run(run, thread)
+show_json(run)
+</code></pre>
+
+<pre class="codehilite"><code>{'id': 'run_qVYsWok6OCjHxkajpIrdHuVP',
+ 'assistant_id': 'asst_qvXmYlZV8zhABI2RtPzDfV6z',
+ 'cancelled_at': None,
+ 'completed_at': 1736340406,
+ 'created_at': 1736340403,
+ 'expires_at': None,
+ 'failed_at': None,
+ 'incomplete_details': None,
+ 'incomplete_details': None,
+ 'instructions': 'You are a personal math tutor. Answer questions briefly, in a sentence or less.',
+ 'last_error': None,
+ 'max_completion_tokens': None,
+ 'max_prompt_tokens': None,
+ 'max_completion_tokens': None,
+ 'max_prompt_tokens': None,
+ 'metadata': {},
+ 'model': 'gpt-4o',
+ 'object': 'thread.run',
+ 'parallel_tool_calls': True,
+ 'parallel_tool_calls': True,
+ 'required_action': None,
+ 'response_format': 'auto',
+ 'started_at': 1736340405,
+ 'status': 'completed',
+ 'thread_id': 'thread_j4dc1TiHPfkviKUHNi4aAsA6',
+ 'tool_choice': 'auto',
+ 'tools': [],
+ 'truncation_strategy': {'type': 'auto', 'last_messages': None},
+ 'usage': {'completion_tokens': 35,
+  'prompt_tokens': 66,
+  'total_tokens': 101,
+  'prompt_token_details': {'cached_tokens': 0},
+  'completion_tokens_details': {'reasoning_tokens': 0}},
+ 'temperature': 1.0,
+ 'top_p': 1.0,
+ 'tool_resources': {}}
+</code></pre>
+
+<h3 id="messages">Messages</h3>
+<p>现在 Run 已完成，我们可以列出 Thread 中的 Messages 来查看 Assistant 添加了什么。</p>
+<pre class="codehilite"><code class="language-python">messages = client.beta.threads.messages.list(thread_id=thread.id)
+show_json(messages)
+</code></pre>
+
+<pre class="codehilite"><code>{'data': [{'id': 'msg_A5eAN6ZAJDmFBOYutEm5DFCy',
+   'assistant_id': 'asst_qvXmYlZV8zhABI2RtPzDfV6z',
+   'attachments': [],
+   'completed_at': None,
+   'content': [{'text': {'annotations': [],
+      'value': 'Sure! Subtract 11 from both sides to get \\(3x = 3\\), then divide by 3 to find \\(x = 1\\).'},
+     'type': 'text'}],
+   'created_at': 1736340405,
+   'incomplete_at': None,
+   'incomplete_details': None,
+   'metadata': {},
+   'object': 'thread.message',
+   'role': 'assistant',
+   'run_id': 'run_qVYsWok6OCjHxkajpIrdHuVP',
+   'status': None,
+   'thread_id': 'thread_j4dc1TiHPfkviKUHNi4aAsA6'},
+  {'id': 'msg_1q4Y7ZZ9gIcPoAKSx9UtrrKJ',
+   'assistant_id': None,
+   'attachments': [],
+   'completed_at': None,
+   'attachments': [],
+   'completed_at': None,
+   'content': [{'text': {'annotations': [],
+      'value': 'I need to solve the equation `3x + 11 = 14`. Can you help me?'},
+     'type': 'text'}],
+   'created_at': 1736340400,
+   'incomplete_at': None,
+   'incomplete_details': None,
+   'metadata': {},
+   'object': 'thread.message',
+   'role': 'user',
+   'run_id': None,
+   'status': None,
+   'thread_id': 'thread_j4dc1TiHPfkviKUHNi4aAsA6'}],
+ 'object': 'list',
+ 'first_id': 'msg_A5eAN6ZAJDmFBOYutEm5DFCy',
+ 'last_id': 'msg_1q4Y7ZZ9gIcPoAKSx9UtrrKJ',
+ 'has_more': False}
+</code></pre>
+
+<p>您可以看到，Messages 是按时间倒序排列的——这是为了确保最新的结果始终在第一个 <code>page</code> 上（因为结果可以分页）。请注意这一点，因为这与 Chat Completions API 中的消息顺序相反。</p>
+<p>让我们让 Assistant 更详细地解释一下结果！</p>
+<pre class="codehilite"><code class="language-python"># Create a message to append to our thread
+message = client.beta.threads.messages.create(
+    thread_id=thread.id, role=&quot;user&quot;, content=&quot;Could you explain this to me?&quot;
+)
+
+# Execute our run
+run = client.beta.threads.runs.create(
+    thread_id=thread.id,
+    assistant_id=assistant.id,
+)
+
+# Wait for completion
+wait_on_run(run, thread)
+
+# Retrieve all the messages added after our last user message
+messages = client.beta.threads.messages.list(
+    thread_id=thread.id, order=&quot;asc&quot;, after=message.id
+)
+show_json(messages)
+</code></pre>
+
+<pre class="codehilite"><code>{'data': [{'id': 'msg_wSHHvaMnaWktZWsKs6gyoPUB',
+   'assistant_id': 'asst_qvXmYlZV8zhABI2RtPzDfV6z',
+   'attachments': [],
+   'completed_at': None,
+   'content': [{'text': {'annotations': [],
+      'value': 'Certainly! To isolate \\(x\\), first subtract 11 from both sides of the equation \\(3x + 11 = 14\\), resulting in \\(3x = 3\\). Then, divide both sides by 3 to solve for \\(x\\), giving you \\(x = 1\\).'},
+     'type': 'text'}],
+   'created_at': 1736340414,
+   'incomplete_at': None,
+   'incomplete_details': None,
+   'metadata': {},
+   'object': 'thread.message',
+   'role': 'assistant',
+   'run_id': 'run_lJsumsDtPTmdG3Enx2CfYrrq',
+   'status': None,
+   'thread_id': 'thread_j4dc1TiHPfkviKUHNi4aAsA6'}],
+ 'object': 'list',
+ 'first_id': 'msg_wSHHvaMnaWktZWsKs6gyoPUB',
+ 'last_id': 'msg_wSHHvaMnaWktZWsKs6gyoPUB',
+ 'has_more': False}
+</code></pre>
+
+<p>这可能感觉需要很多步骤才能获得响应，尤其是对于这个简单的示例。但是，您很快就会发现，只需更改很少的代码，我们就可以为我们的 Assistant 添加非常强大的功能！</p>
+<h3 id="_3">示例</h3>
+<p>让我们看看如何将所有这些整合在一起。以下是使用您创建的 Assistant 所需的所有代码。</p>
+<p>由于我们已经创建了数学助手，我已经将其 ID 保存在 <code>MATH_ASSISTANT_ID</code> 中。然后我定义了两个函数：</p>
+<ul>
+<li><code>submit_message</code>：在 Thread 上创建一个 Message，然后启动（并返回）一个新的 Run。</li>
+<li><code>get_response</code>：返回 Thread 中的 Messages 列表。</li>
+</ul>
+<pre class="codehilite"><code class="language-python">from openai import OpenAI
+
+MATH_ASSISTANT_ID = assistant.id  # 或者一个硬编码的 ID，如 &quot;asst-...&quot;
+
+client = OpenAI(api_key=os.environ.get(&quot;OPENAI_API_KEY&quot;, &quot;&lt;your OpenAI API key if not set as env var&gt;&quot;))
+
+def submit_message(assistant_id, thread, user_message):
+    client.beta.threads.messages.create(
+        thread_id=thread.id, role=&quot;user&quot;, content=user_message
+    )
+    return client.beta.threads.runs.create(
+        thread_id=thread.id,
+        assistant_id=assistant_id,
+    )
+
+
+def get_response(thread):
+    return client.beta.threads.messages.list(thread_id=thread.id, order=&quot;asc&quot;)
+</code></pre>
+
+<p>我还定义了一个可以重用的 <code>create_thread_and_run</code> 函数（实际上它与我们 API 中的 <a href="https://platform.openai.com/docs/api-reference/runs/createThreadAndRun"><code>client.beta.threads.create_and_run</code></a> 复合函数几乎相同；）。最后，我们可以将我们的模拟用户请求提交到每个新的 Thread 中。</p>
+<p>请注意，所有这些 API 调用都是异步操作；这意味着我们实际上可以在不使用异步库（例如 <code>asyncio</code>）的情况下获得异步行为！</p>
+<pre class="codehilite"><code class="language-python">def create_thread_and_run(user_input):
+    thread = client.beta.threads.create()
+    run = submit_message(MATH_ASSISTANT_ID, thread, user_input)
+    return thread, run
+
+
+# Emulating concurrent user requests
+thread1, run1 = create_thread_and_run(
+    &quot;I need to solve the equation `3x + 11 = 14`. Can you help me?&quot;
+)
+thread2, run2 = create_thread_and_run(&quot;Could you explain linear algebra to me?&quot;)
+thread3, run3 = create_thread_and_run(&quot;I don't like math. What can I do?&quot;)
+
+# Now all Runs are executing...
+</code></pre>
+
+<p>一旦所有 Runs 都在进行中，我们就可以等待每个 Run 并获取响应。</p>
+<pre class="codehilite"><code class="language-python">import time
+
+# Pretty printing helper
+def pretty_print(messages):
+    print(&quot;# Messages&quot;)
+    for m in messages:
+        print(f&quot;{m.role}: {m.content[0].text.value}&quot;)
+    print()
+
+
+# Waiting in a loop
+def wait_on_run(run, thread):
+    while run.status == &quot;queued&quot; or run.status == &quot;in_progress&quot;:
+        run = client.beta.threads.runs.retrieve(
+            thread_id=thread.id,
+            run_id=run.id,
+        )
+        time.sleep(0.5)
+    return run
+
+
+# Wait for Run 1
+run1 = wait_on_run(run1, thread1)
+pretty_print(get_response(thread1))
+
+# Wait for Run 2
+run2 = wait_on_run(run2, thread2)
+pretty_print(get_response(thread2))
+
+# Wait for Run 3
+run3 = wait_on_run(run3, thread3)
+pretty_print(get_response(thread3))
+
+# Thank our assistant on Thread 3 :)
+run4 = submit_message(MATH_ASSISTANT_ID, thread3, &quot;Thank you!&quot;)
+run4 = wait_on_run(run4, thread3)
+pretty_print(get_response(thread3))
+</code></pre>
+
+<pre class="codehilite"><code># Messages
+user: I need to solve the equation `3x + 11 = 14`. Can you help me?
+assistant: Sure! Subtract 11 from both sides to get \(3x = 3\), then divide by 3 to find \(x = 1\).
+
+# Messages
+user: Could you explain linear algebra to me?
+assistant: Linear algebra is the branch of mathematics concerning vector spaces, linear transformations, and systems of linear equations, often represented with matrices.
+
+# Messages
+user: I don't like math. What can I do?
+assistant: Try relating math to real-life interests or hobbies, practice with fun games or apps, and gradually build confidence with easier problems.
+
+# Messages
+user: I don't like math. What can I do?
+assistant: Try relating math to real-life interests or hobbies, practice with fun games or apps, and gradually build confidence with easier problems.
+user: Thank you!
+assistant: You're welcome! If you have any more questions, feel free to ask!
+</code></pre>
+
+<p>就是这样！</p>
+<p>您可能会注意到，这段代码实际上与我们的数学助手无关……只需更改 Assistant ID，这段代码就可以用于您创建的任何新助手！这就是 Assistants API 的强大之处。</p>
+<h2 id="tools">Tools</h2>
+<p>Assistants API 的一个关键特性是能够为我们的 Assistants 装备工具，如 Code Interpreter、File Search 和自定义 Functions。让我们逐一了解。</p>
+<h3 id="code-interpreter">Code Interpreter</h3>
+<p>让我们为我们的数学导师装备 <a href="https://platform.openai.com/docs/assistants/tools/code-interpreter">Code Interpreter</a> 工具，我们可以通过仪表板进行操作……</p>
+<p><img alt="Enabling code interpreter" src="../images/assistants_overview_enable_code_interpreter.png" /></p>
+<p>……或者通过 API，使用 Assistant ID。</p>
+<pre class="codehilite"><code class="language-python">assistant = client.beta.assistants.update(
+    MATH_ASSISTANT_ID,
+    tools=[{&quot;type&quot;: &quot;code_interpreter&quot;}],
+)
+show_json(assistant)
+</code></pre>
+
+<pre class="codehilite"><code>{'id': 'asst_qvXmYlZV8zhABI2RtPzDfV6z',
+ 'created_at': 1736340398,
+ 'description': None,
+ 'instructions': 'You are a personal math tutor. Answer questions briefly, in a sentence or less.',
+ 'metadata': {},
+ 'model': 'gpt-4o',
+ 'name': 'Math Tutor',
+ 'object': 'assistant',
+ 'tools': [{'type': 'code_interpreter'}],
+ 'response_format': 'auto',
+ 'temperature': 1.0,
+ 'tool_resources': {'code_interpreter': {'file_ids': []}, 'file_search': None},
+ 'top_p': 1.0} 'tools': [{'type': 'code_interpreter'}],
+ 'response_format': 'auto',
+ 'temperature': 1.0,
+ 'tool_resources': {'code_interpreter': {'file_ids': []}, 'file_search': None},
+ 'top_p': 1.0}
+</code></pre>
+
+<p>现在，让我们让 Assistant 使用其新工具。</p>
+<pre class="codehilite"><code class="language-python">thread, run = create_thread_and_run(
+    &quot;Generate the first 20 fibbonaci numbers with code.&quot;
+)
+run = wait_on_run(run, thread)
+pretty_print(get_response(thread))
+</code></pre>
+
+<pre class="codehilite"><code># Messages
+user: Generate the first 20 fibbonaci numbers with code.
+assistant: The first 20 Fibonacci numbers are: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181.
+</code></pre>
+
+<p>就这样！Assistant 在后台使用了 Code Interpreter，并给了我们最终的响应。</p>
+<p>对于某些用例，这可能就足够了——但是，如果我们想要有关 Assistant 具体操作的更多详细信息，我们可以查看 Run 的 Steps。</p>
+<h3 id="steps">Steps</h3>
+<p>一个 Run 由一个或多个 Steps 组成。与 Run 一样，每个 Step 都有一个您可以查询的 <code>status</code>。这对于向用户显示 Step 的进度很有用（例如，当 Assistant 正在编写代码或执行检索时）。</p>
+<pre class="codehilite"><code class="language-python">run_steps = client.beta.threads.runs.steps.list(
+    thread_id=thread.id, run_id=run.id, order=&quot;asc&quot;
+)
+</code></pre>
+
+<p>让我们看一下每个 Step 的 <code>step_details</code>。</p>
+<pre class="codehilite"><code class="language-python">for step in run_steps.data:
+    step_details = step.step_details
+    print(json.dumps(show_json(step_details), indent=4))
+</code></pre>
+
+<pre class="codehilite"><code>{'tool_calls': [{'id': 'call_E1EE1loDmcWoc7FpkOMKYj6n',
+   'code_interpreter': {'input': 'def generate_fibonacci(n):\n    fib_sequence = [0, 1]\n    while len(fib_sequence) &lt; n:\n        next_value = fib_sequence[-1] + fib_sequence[-2]\n        fib_sequence.append(next_value)\n    return fib_sequence\n\n# Generate the first 20 Fibonacci numbers\nfirst_20_fibonacci = generate_fibonacci(20)\nfirst_20_fibonacci',
+    'outputs': []},
+   'type': 'code_interpreter'}],
+ 'type': 'tool_calls'}
+
+
+null
+
+
+
+{'message_creation': {'message_id': 'msg_RzTnbBMmzDYHk79a0x9qM5uU'},
+ 'type': 'message_creation'}
+
+
+null
+</code></pre>
+
+<p>我们可以看到两个 Steps 的 <code>step_details</code>：</p>
+<ol>
+<li><code>tool_calls</code>（复数，因为一个 Step 中可能不止一个）</li>
+<li><code>message_creation</code></li>
+</ol>
+<p>第一个 Step 是 <code>tool_calls</code>，特别是使用 <code>code_interpreter</code>，其中包含：</p>
+<ul>
+<li><code>input</code>：这是工具调用之前生成的 Python 代码。</li>
+<li><code>output</code>：这是运行 Code Interpreter 的结果。</li>
+</ul>
+<p>第二个 Step 是 <code>message_creation</code>，其中包含添加到 Thread 以将结果传达给用户的 <code>message</code>。</p>
+<h3 id="file-search">File search</h3>
+<p>Assistants API 中的另一个强大工具是 <a href="https://platform.openai.com/docs/assistants/tools/file-search">File search</a>。这允许将文件上传到 Assistant，作为回答问题的知识库。</p>
+<p><img alt="Enabling retrieval" src="../images/assistants_overview_enable_retrieval.png" /></p>
+<pre class="codehilite"><code class="language-python"># Upload the file
+file = client.files.create(
+    file=open(
+        &quot;data/language_models_are_unsupervised_multitask_learners.pdf&quot;,
+        &quot;rb&quot;,
+    ),
+    purpose=&quot;assistants&quot;,
+)
+
+# Create a vector store
+vector_store = client.beta.vector_stores.create(
+    name=&quot;language_models_are_unsupervised_multitask_learners&quot;,
+)
+
+# Add the file to the vector store
+vector_store_file = client.beta.vector_stores.files.create_and_poll(
+    vector_store_id=vector_store.id,
+    file_id=file.id,
+)
+
+# Confirm the file was added
+while vector_store_file.status == &quot;in_progress&quot;:
+    time.sleep(1)
+if vector_store_file.status == &quot;completed&quot;:
+    print(&quot;File added to vector store&quot;)
+elif vector_store_file.status == &quot;failed&quot;:
+    raise Exception(&quot;Failed to add file to vector store&quot;)
+
+# Update Assistant
+assistant = client.beta.assistants.update(
+    MATH_ASSISTANT_ID,
+    tools=[{&quot;type&quot;: &quot;code_interpreter&quot;}, {&quot;type&quot;: &quot;file_search&quot;}],
+    tool_resources={
+        &quot;file_search&quot;:{
+            &quot;vector_store_ids&quot;: [vector_store.id]
+        },
+        &quot;code_interpreter&quot;: {
+            &quot;file_ids&quot;: [file.id]
+        }
+    },
+)
+show_json(assistant)
+</code></pre>
+
+<pre class="codehilite"><code>File added to vector store
+
+{'id': 'asst_qvXmYlZV8zhABI2RtPzDfV6z',
+ 'created_at': 1736340398,
+ 'description': None,
+ 'instructions': 'You are a personal math tutor. Answer questions briefly, in a sentence or less.',
+ 'metadata': {},
+ 'model': 'gpt-4o',
+ 'name': 'Math Tutor',
+ 'object': 'assistant',
+ 'tools': [{'type': 'code_interpreter'},
+  {'type': 'file_search',
+   'file_search': {'max_num_results': None,
+    'ranking_options': {'score_threshold': 0.0,
+     'ranker': 'default_2024_08_21'}}}],
+ 'response_format': 'auto',
+ 'temperature': 1.0,
+ 'tool_resources': {'code_interpreter': {'file_ids': ['file-GQFm2i7N8LrAQatefWKEsE']},
+  'file_search': {'vector_store_ids': ['vs_dEArILZSJh7J799QACi3QhuU']}},
+ 'top_p': 1.0}
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">thread, run = create_thread_and_run(
+    &quot;What are some cool math concepts behind this ML paper pdf? Explain in two sentences.&quot;
+)
+run = wait_on_run(run, thread)
+pretty_print(get_response(thread))
+</code></pre>
+
+<pre class="codehilite"><code># Messages
+user: What are some cool math concepts behind this ML paper pdf? Explain in two sentences.
+assistant: The paper explores the concept of multitask learning where a single model is used to perform various tasks, modeling the conditional distribution \( p(\text{output} | \text{input, task}) \), inspired by probabilistic approaches【6:10†source】. It also discusses the use of Transformer-based architectures and parallel corpus substitution in language models, enhancing their ability to generalize across domain tasks without explicit task-specific supervision【6:2†source】【6:5†source】.
+</code></pre>
+
+<blockquote>
+<p><strong>注意</strong>
+File Search 还有更多细节，例如 <a href="https://platform.openai.com/docs/assistants/how-it-works/managing-threads-and-messages">Annotations</a>，这可能会在另一个 cookbook 中介绍。</p>
+</blockquote>
+<pre class="codehilite"><code class="language-python"># Delete the vector store
+client.beta.vector_stores.delete(vector_store.id)
+</code></pre>
+
+<pre class="codehilite"><code>VectorStoreDeleted(id='vs_dEArILZSJh7J799QACi3QhuU', deleted=True, object='vector_store.deleted')
+</code></pre>
+
+<h3 id="functions">Functions</h3>
+<p>作为您 Assistant 的最后一个强大工具，您可以指定自定义 <a href="https://platform.openai.com/docs/assistants/tools/function-calling">Functions</a>（类似于 Chat Completions API 中的 <a href="https://platform.openai.com/docs/guides/function-calling">Function Calling</a>）。在 Run 期间，Assistant 可以指示它想要调用您指定的一个或多个函数。然后，您负责调用该函数，并将输出提供给 Assistant。</p>
+<p>让我们通过为我们的数学导师定义一个 <code>display_quiz()</code> 函数来了解一下。</p>
+<p>此函数将接受 <code>title</code> 和 <code>question</code> 数组，显示测验，并为每个问题获取用户输入：</p>
+<ul>
+<li><code>title</code></li>
+<li><code>questions</code></li>
+<li><code>question_text</code></li>
+<li><code>question_type</code>: [<code>MULTIPLE_CHOICE</code>, <code>FREE_RESPONSE</code>]</li>
+<li><code>choices</code>: ["choice 1", "choice 2", ...]</li>
+</ul>
+<p>我将使用 <code>get_mock_response...</code> 来模拟响应。这就是您获取用户实际输入的地方。</p>
+<pre class="codehilite"><code class="language-python">def get_mock_response_from_user_multiple_choice():
+    return &quot;a&quot;
+
+
+def get_mock_response_from_user_free_response():
+    return &quot;I don't know.&quot;
+
+
+def display_quiz(title, questions):
+    print(&quot;Quiz:&quot;, title)
+    print()
+    responses = []
+
+    for q in questions:
+        print(q[&quot;question_text&quot;])
+        response = &quot;&quot;
+
+        # If multiple choice, print options
+        if q[&quot;question_type&quot;] == &quot;MULTIPLE_CHOICE&quot;:
+            for i, choice in enumerate(q[&quot;choices&quot;]):
+                print(f&quot;{i}. {choice}&quot;)
+            response = get_mock_response_from_user_multiple_choice()
+
+        # Otherwise, just get response
+        elif q[&quot;question_type&quot;] == &quot;FREE_RESPONSE&quot;:
+            response = get_mock_response_from_user_free_response()
+
+        responses.append(response)
+        print()
+
+    return responses
+</code></pre>
+
+<p>下面是示例测验的外观：</p>
+<pre class="codehilite"><code class="language-python">responses = display_quiz(
+    &quot;Sample Quiz&quot;,
+    [
+        {&quot;question_text&quot;: &quot;What is your name?&quot;, &quot;question_type&quot;: &quot;FREE_RESPONSE&quot;},
+        {
+            &quot;question_text&quot;: &quot;What is your favorite color?&quot;,
+            &quot;question_type&quot;: &quot;MULTIPLE_CHOICE&quot;,
+            &quot;choices&quot;: [&quot;Red&quot;, &quot;Blue&quot;, &quot;Green&quot;, &quot;Yellow&quot;],
+        },
+    ],
+)
+print(&quot;Responses:&quot;, responses)
+</code></pre>
+
+<pre class="codehilite"><code>Quiz: Sample Quiz
+
+What is your name?
+
+What is your favorite color?
+
+0. Red
+1. Blue
+2. Green
+3. Yellow
+
+Responses: [&quot;I don't know.&quot;, 'a']
+</code></pre>
+
+<p>现在，让我们以 JSON 格式定义此函数的接口，以便我们的 Assistant 可以调用它：</p>
+<pre class="codehilite"><code class="language-python">function_json = {
+    &quot;name&quot;: &quot;display_quiz&quot;,
+    &quot;description&quot;: &quot;Displays a quiz to the student, and returns the student's response. A single quiz can have multiple questions.&quot;,
+    &quot;parameters&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+            &quot;title&quot;: {&quot;type&quot;: &quot;string&quot;},
+            &quot;questions&quot;: {
+                &quot;type&quot;: &quot;array&quot;,
+                &quot;description&quot;: &quot;An array of questions, each with a title and potentially options (if multiple choice).&quot;,
+                &quot;items&quot;: {
+                    &quot;type&quot;: &quot;object&quot;,
+                    &quot;properties&quot;: {
+                        &quot;question_text&quot;: {&quot;type&quot;: &quot;string&quot;},
+                        &quot;question_type&quot;: {
+                            &quot;type&quot;: &quot;string&quot;,
+                            &quot;enum&quot;: [&quot;MULTIPLE_CHOICE&quot;, &quot;FREE_RESPONSE&quot;]
+                        },
+                        &quot;choices&quot;: {&quot;type&quot;: &quot;array&quot;, &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}}
+                    },
+                    &quot;required&quot;: [&quot;question_text&quot;]
+                }
+            }
+        },
+        &quot;required&quot;: [&quot;title&quot;, &quot;questions&quot;]
+    }
+}
+</code></pre>
+
+<p>再次，让我们通过仪表板或 API 更新我们的 Assistant。</p>
+<p><img alt="Enabling custom function" src="../images/assistants_overview_enable_function.png" /></p>
+<blockquote>
+<p><strong>注意</strong>
+由于缩进等原因，将函数 JSON 粘贴到仪表板中有点棘手。我只是让 ChatGPT 将我的函数格式化为与仪表板上的示例之一相同 :)。</p>
+</blockquote>
+<pre class="codehilite"><code class="language-python">assistant = client.beta.assistants.update(
+    MATH_ASSISTANT_ID,
+    tools=[
+        {&quot;type&quot;: &quot;code_interpreter&quot;},
+        {&quot;type&quot;: &quot;file_search&quot;},
+        {&quot;type&quot;: &quot;function&quot;, &quot;function&quot;: function_json},
+    ],
+)
+show_json(assistant)
+</code></pre>
+
+<pre class="codehilite"><code>{'id': 'asst_qvXmYlZV8zhABI2RtPzDfV6z',
+ 'created_at': 1736340398,
+ 'description': None,
+ 'instructions': 'You are a personal math tutor. Answer questions briefly, in a sentence or less.',
+ 'metadata': {},
+ 'model': 'gpt-4o',
+ 'name': 'Math Tutor',
+ 'object': 'assistant',
+ 'tools': [{'type': 'code_interpreter'},
+  {'type': 'file_search',
+   'file_search': {'max_num_results': None,
+    'ranking_options': {'score_threshold': 0.0,
+     'ranker': 'default_2024_08_21'}}},
+  {'function': {'name': 'display_quiz',
+    'description': &quot;Displays a quiz to the student, and returns the student's response. A single quiz can have multiple questions.&quot;,
+    'description': &quot;Displays a quiz to the student, and returns the student's response. A single quiz can have multiple questions.&quot;,
+    'parameters': {'type': 'object',
+     'properties': {'title': {'type': 'string'},
+      'questions': {'type': 'array',
+       'description': 'An array of questions, each with a title and potentially options (if multiple choice).',
+       'items': {'type': 'object',
+        'properties': {'question_text': {'type': 'string'},
+         'question_type': {'type': 'string',
+          'enum': ['MULTIPLE_CHOICE', 'FREE_RESPONSE']},
+         'choices': {'type': 'array', 'items': {'type': 'string'}}},
+        'required': ['question_text']}}},
+     'required': ['title', 'questions']},
+    'strict': False},
+   'type': 'function'}],
+ 'response_format': 'auto',
+ 'temperature': 1.0,
+ 'tool_resources': {'code_interpreter': {'file_ids': ['file-GQFm2i7N8LrAQatefWKEsE']},
+  'file_search': {'vector_store_ids': []}},
+ 'top_p': 1.0}
+</code></pre>
+
+<p>现在，我们要求进行测验。</p>
+<pre class="codehilite"><code class="language-python">thread, run = create_thread_and_run(
+    &quot;Make a quiz with 2 questions: One open ended, one multiple choice. Then, give me feedback for the responses.&quot;
+)
+run = wait_on_run(run, thread)
+run.status
+</code></pre>
+
+<pre class="codehilite"><code>'requires_action'
+</code></pre>
+
+<p>但是现在，当我们检查 Run 的 <code>status</code> 时，我们看到 <code>requires_action</code>！让我们仔细看看。</p>
+<pre class="codehilite"><code class="language-python">show_json(run)
+</code></pre>
+
+<pre class="codehilite"><code>{'id': 'run_ekMRSI2h35asEzKirRf4BTwZ',
+ 'assistant_id': 'asst_qvXmYlZV8zhABI2RtPzDfV6z',
+ 'cancelled_at': None,
+ 'completed_at': None,
+ 'created_at': 1736341020,
+ 'expires_at': 1736341620,
+ 'failed_at': None,
+ 'incomplete_details': None,
+ 'incomplete_details': None,
+ 'instructions': 'You are a personal math tutor. Answer questions briefly, in a sentence or less.',
+ 'last_error': None,
+ 'max_completion_tokens': None,
+ 'max_prompt_tokens': None,
+ 'max_completion_tokens': None,
+ 'max_prompt_tokens': None,
+ 'metadata': {},
+ 'model': 'gpt-4o',
+ 'object': 'thread.run',
+ 'parallel_tool_calls': True,
+ 'required_action': {'submit_tool_outputs': {'tool_calls': [{'id': 'call_uvJEn0fxM4sgmzek8wahBGLi',
+     'function': {'arguments': '{&quot;title&quot;:&quot;Math Quiz&quot;,&quot;questions&quot;:[{&quot;question_text&quot;:&quot;What is the derivative of the function f(x) = 3x^2 + 2x - 5?&quot;,&quot;question_type&quot;:&quot;FREE_RESPONSE&quot;},{&quot;question_text&quot;:&quot;What is the value of \\\\( \\\\int_{0}^{1} 2x \\\\, dx \\\\)?&quot;,&quot;question_type&quot;:&quot;MULTIPLE_CHOICE&quot;,&quot;choices&quot;:[&quot;0&quot;,&quot;1&quot;,&quot;2&quot;,&quot;3&quot;]}]}',
+      'name': 'display_quiz'},
+     'type': 'function'}]},
+  'type': 'submit_tool_outputs'},
+ 'response_format': 'auto',
+ 'started_at': 1736341022,
+ 'status': 'requires_action',
+ 'thread_id': 'thread_8bK2PXfoeijEHBVEzYuJXt17',
+ 'tool_choice': 'auto',
+ 'tools': [{'type': 'code_interpreter'},
+  {'type': 'file_search',
+   'file_search': {'max_num_results': None,
+    'ranking_options': {'score_threshold': 0.0,
+     'ranker': 'default_2024_08_21'}}},
+  {'function': {'name': 'display_quiz',
+    'description': &quot;Displays a quiz to the student, and returns the student's response. A single quiz can have multiple questions.&quot;,
+    'description': &quot;Displays a quiz to the student, and returns the student's response. A single quiz can have multiple questions.&quot;,
+    'parameters': {'type': 'object',
+     'properties': {'title': {'type': 'string'},
+      'questions': {'type': 'array',
+       'description': 'An array of questions, each with a title and potentially options (if multiple choice).',
+       'items': {'type': 'object',
+        'properties': {'question_text': {'type': 'string'},
+         'question_type': {'type': 'string',
+          'enum': ['MULTIPLE_CHOICE', 'FREE_RESPONSE']},
+         'choices': {'type': 'array', 'items': {'type': 'string'}}},
+        'required': ['question_text']}}},
+     'required': ['title', 'questions']},
+    'strict': False},
+   'type': 'function'}],
+ 'truncation_strategy': {'type': 'auto', 'last_messages': None},
+ 'usage': None,
+ 'temperature': 1.0,
+ 'top_p': 1.0,
+ 'tool_resources': {}}    'strict': False},
+   'type': 'function'}],
+ 'truncation_strategy': {'type': 'auto', 'last_messages': None},
+ 'usage': None,
+ 'temperature': 1.0,
+ 'top_p': 1.0,
+ 'tool_resources': {}}
+</code></pre>
+
+<p><code>required_action</code> 字段指示一个工具正在等待我们运行它并将输出提交回 Assistant。具体来说，是 <code>display_quiz</code> 函数！让我们首先解析 <code>name</code> 和 <code>arguments</code>。</p>
+<blockquote>
+<p><strong>注意</strong>
+虽然在这种情况下我们知道只有一个 Tool 调用，但实际上 Assistant 可能会调用多个工具。</p>
+</blockquote>
+<pre class="codehilite"><code class="language-python"># Extract single tool call
+tool_call = run.required_action.submit_tool_outputs.tool_calls[0]
+name = tool_call.function.name
+arguments = json.loads(tool_call.function.arguments)
+
+print(&quot;Function Name:&quot;, name)
+print(&quot;Function Arguments:&quot;)
+arguments
+</code></pre>
+
+<pre class="codehilite"><code>Function Name: display_quiz
+Function Arguments:
+
+{'title': 'Math Quiz',
+ 'questions': [{'question_text': 'What is the derivative of the function f(x) = 3x^2 + 2x - 5?',
+   'question_type': 'FREE_RESPONSE'},
+  {'question_text': 'What is the value of \( \int_{0}^{1} 2x \, dx \)?',
+   'question_type': 'MULTIPLE_CHOICE',
+   'choices': ['0', '1', '2', '3']}]}
+</code></pre>
+
+<p>现在让我们使用 Assistant 提供的参数实际调用 <code>display_quiz</code> 函数：</p>
+<pre class="codehilite"><code class="language-python">responses = display_quiz(arguments[&quot;title&quot;], arguments[&quot;questions&quot;])
+print(&quot;Responses:&quot;, responses)
+</code></pre>
+
+<pre class="codehilite"><code>Quiz: Math Quiz
+Quiz: Math Quiz
+
+What is the derivative of the function f(x) = 3x^2 + 2x - 5?
+
+What is the value of \( \int_{0}^{1} 2x \, dx \)?
+
+0. 0
+1. 1
+2. 2
+3. 3
+
+Responses: [&quot;I don't know.&quot;, 'a']
+</code></pre>
+
+<p>很好！（请记住，这些响应是我们之前模拟的。实际上，我们将从这个函数调用中获取用户的实际输入。）</p>
+<p>现在我们有了响应，让我们将它们提交回 Assistant。我们需要 <code>tool_call</code> ID，它在之前解析的 <code>tool_call</code> 中找到。我们还需要将响应列表编码为 <code>str</code>。</p>
+<pre class="codehilite"><code class="language-python">run = client.beta.threads.runs.submit_tool_outputs(
+    thread_id=thread.id,
+    run_id=run.id,
+    tool_outputs=tool_outputs
+)
+show_json(run)
+</code></pre>
+
+<pre class="codehilite"><code>{'id': 'run_ekMRSI2h35asEzKirRf4BTwZ',
+ 'assistant_id': 'asst_qvXmYlZV8zhABI2RtPzDfV6z',
+ 'cancelled_at': None,
+ 'completed_at': None,
+ 'created_at': 1736341020,
+ 'expires_at': 1736341620,
+ 'failed_at': None,
+ 'incomplete_details': None,
+ 'incomplete_details': None,
+ 'instructions': 'You are a personal math tutor. Answer questions briefly, in a sentence or less.',
+ 'last_error': None,
+ 'max_completion_tokens': None,
+ 'max_prompt_tokens': None,
+ 'max_completion_tokens': None,
+ 'max_prompt_tokens': None,
+ 'metadata': {},
+ 'model': 'gpt-4o',
+ 'object': 'thread.run',
+ 'parallel_tool_calls': True,
+ 'parallel_tool_calls': True,
+ 'required_action': None,
+ 'response_format': 'auto',
+ 'started_at': 1736341022,
+ 'status': 'queued',
+ 'thread_id': 'thread_8bK2PXfoeijEHBVEzYuJXt17',
+ 'tool_choice': 'auto',
+ 'tools': [{'type': 'code_interpreter'},
+  {'type': 'file_search',
+   'file_search': {'max_num_results': None,
+    'ranking_options': {'score_threshold': 0.0,
+     'ranker': 'default_2024_08_21'}}},
+  {'function': {'name': 'display_quiz',
+    'description': &quot;Displays a quiz to the student, and returns the student's response. A single quiz can have multiple questions.&quot;,
+    'description': &quot;Displays a quiz to the student, and returns the student's response. A single quiz can have multiple questions.&quot;,
+    'parameters': {'type': 'object',
+     'properties': {'title': {'type': 'string'},
+      'questions': {'type': 'array',
+       'description': 'An array of questions, each with a title and potentially options (if multiple choice).',
+       'items': {'type': 'object',
+        'properties': {'question_text': {'type': 'string'},
+         'question_type': {'type': 'string',
+          'enum': ['MULTIPLE_CHOICE', 'FREE_RESPONSE']},
+         'choices': {'type': 'array', 'items': {'type': 'string'}}},
+        'required': ['question_text']}}},
+     'required': ['title', 'questions']},
+    'strict': False},
+   'type': 'function'}],
+ 'truncation_strategy': {'type': 'auto', 'last_messages': None},
+ 'usage': None,
+ 'temperature': 1.0,
+ 'top_p': 1.0,
+ 'tool_resources': {}}    'strict': False},
+   'type': 'function'}],
+ 'truncation_strategy': {'type': 'auto', 'last_messages': None},
+ 'usage': None,
+ 'temperature': 1.0,
+ 'top_p': 1.0,
+ 'tool_resources': {}}
+</code></pre>
+
+<p>我们现在可以再次等待 Run 完成，并检查我们的 Thread！</p>
+<pre class="codehilite"><code class="language-python">run = wait_on_run(run, thread)
+pretty_print(get_response(thread))
+</code></pre>
+
+<pre class="codehilite"><code># Messages
+user: Make a quiz with 2 questions: One open ended, one multiple choice. Then, give me feedback for the responses.
+assistant: Since no specific information was found in the uploaded file, I'll create a general math quiz for you:
+
+1. **Open-ended Question**: What is the derivative of the function \( f(x) = 3x^2 + 2x - 5 \)?
+
+2. **Multiple Choice Question**: What is the value of \( \int_{0}^{1} 2x \, dx \)?
+    - A) 0
+    - B) 1
+    - C) 2
+    - D) 3
+
+I will now present the quiz to you for response.
+assistant: Here is the feedback for your responses:
+
+1. **Derivative Question**: 
+   - Your Response: &quot;I don't know.&quot;
+   - Feedback: The derivative of \( f(x) = 3x^2 + 2x - 5 \) is \( f'(x) = 6x + 2 \).
+
+2. **Integration Question**: 
+   - Your Response: A) 0
+   - Feedback: The correct answer is B) 1. The integration \(\int_{0}^{1} 2x \, dx \) evaluates to 1.
+</code></pre>
+
+<p>Woohoo 🎉</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>我们在本次 notebook 中涵盖了很多内容，给自己一个击掌吧！希望您现在已经具备了使用 Code Interpreter、Retrieval 和 Functions 等工具构建强大、有状态体验的坚实基础！</p>
+<p>为了简洁起见，我们没有涵盖一些部分，因此这里有一些资源供您进一步探索：</p>
+<ul>
+<li><a href="https://platform.openai.com/docs/assistants/how-it-works/managing-threads-and-messages">Annotations</a>：解析文件引用。</li>
+<li><a href="https://platform.openai.com/docs/api-reference/assistants/file-object">Files</a>：Thread 范围 vs Assistant 范围。</li>
+<li><a href="https://platform.openai.com/docs/guides/function-calling/parallel-function-calling">Parallel Function Calls</a>：在单个 Step 中调用多个工具。</li>
+<li>Multi-Assistant Thread Runs：单个 Thread 包含来自多个 Assistant 的消息。</li>
+<li>Streaming：即将推出！</li>
+</ul>
+<p>现在，去创造一些令人惊叹的东西吧！<a href="https://www.youtube.com/watch?v=xvFZjo5PgG0&amp;pp=ygUQcmljayByb2xsIG5vIGFkcw%3D%3D">amazing</a>！</p>
+            </article>
+            
+            <nav class="page-nav"><a href="examples/chatgpt/gpt_actions_library/.gpt_action_getting_started_zh.html" class="nav-link prev">← GPT Action 库：入门指南 (Weather.gov)</a><a href="examples/chatgpt/rag-quickstart/azure/Azure_AI_Search_with_Azure_Functions_and_GPT_Actions_in_ChatGPT_zh.html" class="nav-link next">架构 →</a></nav>
+        </main>
+    </div>
+</body>
+</html>
