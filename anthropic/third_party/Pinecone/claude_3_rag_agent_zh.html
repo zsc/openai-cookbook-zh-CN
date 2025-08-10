@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../../">
+    <title>检查 Python 版本</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">extended_thinking</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="extended_thinking/extended_thinking_with_tool_use_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">扩展思考与工具使用</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="extended_thinking/extended_thinking_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">扩展思考</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">finetuning</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="finetuning/finetuning_on_bedrock_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">在 Bedrock 上微调 Claude 3 Haiku</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">misc</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/batch_processing_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">批量处理消息批次API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/building_evals_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">建立评估</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/building_moderation_filter_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">建立一个带有 Claude 的审核过滤器</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/generate_test_cases_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">首先，我们有 `extract_variables` 函数，</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/how_to_enable_json_mode_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">提示 Claude 获取“JSON 模式”</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/how_to_make_sql_queries_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 进行 SQL 查询</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/illustrated_responses_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 的图示化响应</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/mc_qa_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">实验性测试 Claude 的长上下文问答能力</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/metaprompt_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Metaprompt</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/pdf_upload_summarization_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">“上传”PDF 到 Claude API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/prompt_caching_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">缓存提示（Prompt caching）通过 Anthropic API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/read_web_pages_with_haiku_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Claude 3 Haiku 总结网页内容</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/sampling_past_max_tokens_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 从 Claude 之外的采样响应，超出最大令牌限制</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/speculative_prompt_caching_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">投机性提示缓存</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/using_citations_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">引言</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">multimodal</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/best_practices_for_vision_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/getting_started_with_vision_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">开始上手 - 如何将图像传递给 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/how_to_transcribe_text_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 转录文档</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/reading_charts_graphs_powerpoints_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用图表和幻灯片放映</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/using_sub_agents_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Haiku 作为子代理</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">patterns</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">agents</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/basic_workflows_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">首先使用具有思维链的LLM确定适当的路由</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/evaluator_optimizer_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/orchestrator_workers_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">步骤1：获取协调器响应</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">构建高效代理的食谱</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">prompts</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/citations_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/research_lead_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/research_subagent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </div></div></div></div></div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">skills</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="skills/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 技能</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">classification</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/classification/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">设置我们的环境</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/classification/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 分类指南</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/classification/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Promptfoo 进行评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">contextual-embeddings</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/contextual-embeddings/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">增强检索的RAG与上下文检索</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/contextual-embeddings/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">结合上下文嵌入的检索增强生成</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">retrieval_augmented_generation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/retrieval_augmented_generation/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Retrieval Augmented Generation (RAG)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/retrieval_augmented_generation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/retrieval_augmented_generation/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Promptfoo 进行评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">summarization</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/summarization/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">摘要与 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/summarization/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 摘要</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/summarization/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Promptfoo 评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">text_to_sql</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/text_to_sql/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Set your Anthropic API key</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/text_to_sql/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 的文本到 SQL</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/text_to_sql/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Promptfoo 评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div></div></div>
+                    <div class="tree-folder expanded" data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">third_party</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Deepgram</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Deepgram/prerecorded_audio_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">转录深蓝音频文件并使用 Anthropic 准备面试问题！</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Deepgram/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Deepgram <> Anthropic Cookbooks</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">LlamaIndex</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Basic_RAG_With_LlamaIndex_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">RAG 管道与 LlamaIndex</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Multi_Document_Agents_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">多文档代理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Multi_Modal_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">多模态</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/ReAct_Agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">ReAct Agent</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">LlamaIndex <> Anthropic Cookbooks</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Router_Query_Engine_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">注意：这仅在 jupyter notebook 中是必需的。</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/SubQuestion_Query_Engine_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">SubQuestionQueryEngine</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">MongoDB</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/MongoDB/rag_using_mongodb_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 3 和 MongoDB 构建 RAG 系统</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder expanded" data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Pinecone</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item active" style="padding-left: 40px;">
+                        <a href="third_party/Pinecone/claude_3_rag_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">检查 Python 版本</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Pinecone/rag_using_pinecone_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Pinecone 进行检索增强生成</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">VoyageAI</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/VoyageAI/how_to_create_embeddings_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">这将自动使用环境变量VOYAGE_API_KEY。</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Wikipedia</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Wikipedia/wikipedia-search-cookbook_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">迭代搜索维基百科与 Claude</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">WolframAlpha</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/WolframAlpha/using_llm_api_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Wolfram Alpha LLM API 作为 Claude 的工具</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">tool_use</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/calculator_tool_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用计算器工具与 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/customer_service_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用客户端工具创建客服代理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/extracting_structured_json_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Claude 和工具使用功能提取结构化 JSON</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/memory_cookbook_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">安装依赖</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/parallel_tools_claude_3_7_sonnet_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">在 Claude 3.7 Sonnet 上并行调用工具</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/tool_choice_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">选择工具</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/tool_use_with_pydantic_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">记事工具，支持 Pydantic 和 Anthropic 工具使用</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/vision_with_tools_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Vision 与工具</span>
+                        </a>
+                    </div>
+                </div></div></nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <p>以下是您提供的 Python 代码的中文翻译：</p>
+<pre class="codehilite"><code class="language-python"># 检查 Python 版本
+!python --version
+</code></pre>
+
+<pre class="codehilite"><code>Python 3.10.12
+</code></pre>
+
+<h1 id="claude-3-rag-langchain-v1">Claude 3 RAG 代理与 LangChain v1</h1>
+<p>LangChain v1 带来了许多变化，在比较 LangChain 的 <code>0.0.3xx</code> 版本和 <code>0.1.x</code> 版本时，你会发现许多推荐的做法都发生了改变。代理（agents）的情况尤其如此。</p>
+<p>我们初始化和使用代理的方式比以前更清晰了——尽管仍有许多抽象层，但我们可以（并且被鼓励）更接近代理本身的逻辑。这初看可能会有些令人困惑，但一旦理解了，新逻辑会比以前的版本清晰得多。</p>
+<p>在本例中，我们将使用 LangChain v1 构建一个 RAG 代理。我们将使用 Claude 3 作为我们的 LLM，Voyage AI 作为知识嵌入，并使用 Pinecone 来支持我们的知识检索。</p>
+<p>首先，让我们安装所需的依赖项：</p>
+<pre class="codehilite"><code class="language-python"># 安装必要的库
+!pip install -qU \
+    langchain==0.1.11 \
+    langchain-core==0.1.30 \
+    langchain-community==0.0.27 \
+    langchain-anthropic==0.1.4 \
+    langchainhub==0.1.15 \
+    anthropic==0.19.1 \
+    voyageai==0.2.1 \
+    pinecone-client==3.1.0 \
+    datasets==2.16.1
+</code></pre>
+
+<pre class="codehilite"><code> [2K      [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ [0m  [32m848.6/848.6 kB [0m  [31m4.6 MB/s [0m eta  [36m0:00:00 [0m
+ [2K      [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ [0m  [32m211.0/211.0 kB [0m  [31m18.5 MB/s [0m eta  [36m0:00:00 [0m
+ [2K      [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ [0m  [32m507.1/507.1 kB [0m  [31m30.3 MB/s [0m eta  [36m0:00:00 [0m
+ [2K      [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ [0m  [32m75.6/75.6 kB [0m  [31m8.7 MB/s [0m eta  [36m0:00:00 [0m
+ [2K      [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ [0m  [32m115.3/115.3 kB [0m  [31m13.4 MB/s [0m eta  [36m0:00:00 [0m
+ [2K      [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ [0m  [32m134.8/134.8 kB [0m  [31m15.0 MB/s [0m eta  [36m0:00:00 [0m
+ [2K      [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ [0m  [32m77.8/77.8 kB [0m  [31m9.2 MB/s [0m eta  [36m0:00:00 [0m
+ [2K      [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ [0m  [32m58.3/58.3 kB [0m  [31m6.8 MB/s [0m eta  [36m0:00:00 [0m
+ [2K      [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ [0m  [32m134.8/134.8 kB [0m  [31m13.5 MB/s [0m eta  [36m0:00:00 [0m
+ [?25h
+</code></pre>
+
+<p>然后获取所需的 API 密钥。我们将需要 <a href="https://docs.anthropic.com/claude/reference/getting-started-with-the-api">Claude</a>、<a href="https://docs.voyageai.com/install/">Voyage AI</a> 和 <a href="https://docs.pinecone.io/docs/quickstart">Pinecone</a> 的 API 密钥。</p>
+<pre class="codehilite"><code class="language-python"># 在此处插入您的 API 密钥
+ANTHROPIC_API_KEY=&quot;&lt;YOUR_ANTHROPIC_API_KEY&gt;&quot;
+PINECONE_API_KEY=&quot;&lt;YOUR_PINECONE_API_KEY&gt;&quot;
+VOYAGE_API_KEY=&quot;&lt;YOUR_VOYAGE_API_KEY&gt;&quot;
+</code></pre>
+
+<h2 id="_1">查找知识</h2>
+<p>对于使用 RAG 的代理，我们需要的第一件事是获取知识的来源。我们将使用 AI ArXiv 数据集的 v2 版本，该版本在 Hugging Face Datasets 上可于 <a href="https://huggingface.co/datasets/jamescalam/ai-arxiv2-chunks"><code>jamescalam/ai-arxiv2-chunks</code></a> 找到。</p>
+<p><em>注意：我们使用的是预分块的数据集。原始版本请参见 <a href="https://huggingface.co/datasets/jamescalam/ai-arxiv2"><code>jamescalam/ai-arxiv2</code></a>。</em></p>
+<pre class="codehilite"><code class="language-python">from datasets import load_dataset
+
+# 加载数据集
+dataset = load_dataset(&quot;jamescalam/ai-arxiv2-chunks&quot;, split=&quot;train[:20000]&quot;)
+dataset
+</code></pre>
+
+<pre class="codehilite"><code>/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_token.py:88: UserWarning: 
+The secret `HF_TOKEN` does not exist in your Colab secrets.
+To authenticate with the Hugging Face Hub, create a token in your settings tab (https://huggingface.co/settings/tokens), set it as secret in your Google Colab and restart your session.
+You will be able to reuse this secret in all of your notebooks.
+Please note that authentication is recommended but still optional to access public models or datasets.
+  warnings.warn(
+
+
+
+Downloading data:   0%|          | 0.00.00.00, ?B/s)
+
+
+
+Generating train split: 0 examples [00:00, ? examples/s]
+
+
+
+
+
+Dataset({
+    features: ['doi', 'chunk-id', 'chunk', 'id', 'title', 'summary', 'source', 'authors', 'categories', 'comment', 'journal_ref', 'primary_category', 'published', 'updated', 'references'],
+    num_rows: 20000
+})
+</code></pre>
+
+<pre class="codehilite"><code class="language-python"># 显示数据集中的第二个条目
+dataset[1]
+</code></pre>
+
+<pre class="codehilite"><code>{'doi': '2401.09350',
+ 'chunk-id': 1,
+ 'chunk': 'These neural networks and their training algorithms may be complex, and the scope of their impact broad and wide, but nonetheless they are simply functions in a high-dimensional space. A trained neural network takes a vector as input, crunches and transforms it in various ways, and produces another vector, often in some other space. An image may thereby be turned into a vector, a song into a sequence of vectors, and a social network as a structured collection of vectors. It seems as though much of human knowledge, or at least what is expressed as text, audio, image, and video, has a vector representation in one form or another.\nIt should be noted that representing data as vectors is not unique to neural networks and deep learning. In fact, long before learnt vector representations of pieces of dataâ\x80\x94what is commonly known as â\x80\x9cembeddingsâ\x80\x9dâ\x80\x94came along, data was often encoded as hand-crafted feature vectors. Each feature quanti- fied into continuous or discrete values some facet of the data that was deemed relevant to a particular task (such as classification or regression). Vectors of that form, too, reflect our understanding of a real-world object or concept.',
+ 'id': '2401.09350#1',
+ 'title': 'Foundations of Vector Retrieval',
+ 'summary': 'Vectors are universal mathematical objects that can represent text, images,\nspeech, or a mix of these data modalities. That happens regardless of whether\ndata is represented by hand-crafted features or learnt embeddings. Collect a\nlarge enough quantity of such vectors and the question of retrieval becomes\nurgently relevant: Finding vectors that are more similar to a query vector.\nThis monograph is concerned with the question above and covers fundamental\nconcepts along with advanced data structures and algorithms for vector\nretrieval. In doing so, it recaps this fascinating topic and lowers barriers of\nentry into this rich area of research.',
+ 'source': 'http://arxiv.org/pdf/2401.09350',
+ 'authors': 'Sebastian Bruch',
+ 'categories': 'cs.DS, cs.IR',
+ 'comment': None,
+ 'journal_ref': None,
+ 'primary_category': 'cs.DS',
+ 'published': '20240117',
+ 'updated': '20240117',
+ 'references': []}
+</code></pre>
+
+<h2 id="_2">构建知识库</h2>
+<p>要构建我们的知识库，我们需要 <em>两样东西</em>：</p>
+<ol>
+<li><strong>嵌入（Embeddings）</strong>：为此，我们将使用 <code>VoyageEmbeddings</code>，它需要 <a href="https://dash.voyageai.com/api-keys">API 密钥</a>。</li>
+<li><strong>向量数据库（Vector Database）</strong>：用于存储和查询我们的嵌入。我们使用 Pinecone，它同样需要一个 <a href="https://app.pinecone.io">免费 API 密钥</a>。</li>
+</ol>
+<p>首先，我们初始化与 Voyage AI 的连接并定义一个用于嵌入的 <code>embed</code> 对象：</p>
+<pre class="codehilite"><code class="language-python">from langchain_community.embeddings import VoyageEmbeddings
+
+# 初始化 VoyageEmbeddings
+embed = VoyageEmbeddings(
+    voyage_api_key=VOYAGE_API_KEY, model=&quot;voyage-2&quot;
+)
+</code></pre>
+
+<p>然后，我们初始化与 Pinecone 的连接：</p>
+<pre class="codehilite"><code class="language-python">from pinecone import Pinecone
+
+# 配置客户端
+pc = Pinecone(api_key=PINECONE_API_KEY)
+</code></pre>
+
+<p>现在我们设置索引规范，这允许我们定义要在其中部署索引的云提供商和区域。您可以在此处找到所有 <a href="https://docs.pinecone.io/docs/projects">可用提供商和区域的列表</a>。</p>
+<pre class="codehilite"><code class="language-python">from pinecone import ServerlessSpec
+
+# 定义服务器less规范
+spec = ServerlessSpec(
+    cloud=&quot;aws&quot;, region=&quot;us-west-2&quot;
+)
+</code></pre>
+
+<p>在创建索引之前，我们需要知道 Voyage AI 嵌入模型的维度，这可以通过创建一个嵌入并检查其长度轻松找到：</p>
+<pre class="codehilite"><code class="language-python"># 获取嵌入维度
+vec = embed.embed_documents([&quot;ello&quot;])
+len(vec[0])
+</code></pre>
+
+<pre class="codehilite"><code>1024
+</code></pre>
+
+<p>现在，我们使用嵌入维度和与模型兼容的度量（可以是余弦相似度或点积）来创建索引。我们还将 <code>spec</code> 传递给索引初始化。</p>
+<pre class="codehilite"><code class="language-python">import time
+
+index_name = &quot;claude-3-rag&quot;
+
+# 检查索引是否已存在（如果是第一次运行，应该不存在）
+if index_name not in pc.list_indexes().names():
+    # 如果不存在，则创建索引
+    pc.create_index(
+        index_name,
+        dimension=len(vec[0]),  # voyage 模型的维度
+        metric='dotproduct',
+        spec=spec
+    )
+    # 等待索引初始化
+    while not pc.describe_index(index_name).status['ready']:
+        time.sleep(1)
+
+# 连接到索引
+index = pc.Index(index_name)
+time.sleep(1)
+# 查看索引统计信息
+index.describe_index_stats()
+</code></pre>
+
+<pre class="codehilite"><code>{'dimension': 1024,
+ 'index_fullness': 0.0,
+ 'namespaces': {'': {'vector_count': 20000}},
+ 'total_vector_count': 20000}
+</code></pre>
+
+<h3 id="_3">填充我们的索引</h3>
+<p>现在我们的知识库已准备好填充数据。我们将使用 <code>embed</code> 辅助函数来嵌入我们的文档，然后将它们添加到索引中。</p>
+<p>我们还将包含每个记录的元数据。</p>
+<pre class="codehilite"><code class="language-python">from tqdm.auto import tqdm
+
+# 将数据集转换为 pandas DataFrame 以便更容易处理
+data = dataset.to_pandas()
+
+batch_size = 100
+
+# 遍历数据批次
+for i in tqdm(range(0, len(data), batch_size)):
+    i_end = min(len(data), i+batch_size)
+    # 获取数据批次
+    batch = data.iloc[i:i_end]
+    # 为每个块生成唯一 ID
+    ids = [f&quot;{x['doi']}-{x['chunk-id']}&quot; for i, x in batch.iterrows()]
+    # 获取要嵌入的文本
+    texts = [x['chunk'] for _, x in batch.iterrows()]
+    # 嵌入文本
+    embeds = embed.embed_documents(texts)
+    # 获取要在 Pinecone 中存储的元数据
+    metadata = [
+        {'text': x['chunk'],
+         'source': x['source'],
+         'title': x['title']} for i, x in batch.iterrows()
+    ]
+    # 添加到 Pinecone
+    index.upsert(vectors=zip(ids, embeds, metadata))
+</code></pre>
+
+<pre class="codehilite"><code>  0%|          | 0/200 [00:00&lt;?, ?it/s]
+</code></pre>
+
+<p>为代理创建一个用于搜索 ArXiv 论文的工具：</p>
+<pre class="codehilite"><code class="language-python">from langchain.agents import tool
+
+@tool
+def arxiv_search(query: str) -&gt; str:
+    &quot;&quot;&quot;当回答关于 AI、机器学习、数据科学或可能通过 arXiv 论文回答的其他技术问题时，请使用此工具。
+    &quot;&quot;&quot;
+    # 创建查询向量
+    xq = embed.embed_query(query)
+    # 执行搜索
+    out = index.query(vector=xq, top_k=5, include_metadata=True)
+    # 将结果重新格式化为字符串
+    results_str = &quot;\n\n&quot;.join(
+        [x[&quot;metadata&quot;][&quot;text&quot;] for x in out[&quot;matches&quot;]]
+    )
+    return results_str
+
+tools = [arxiv_search]
+</code></pre>
+
+<p>当我们的代理使用此工具时，它将如下执行：</p>
+<pre class="codehilite"><code class="language-python"># 打印 arxiv_search 工具的运行结果
+print(
+    arxiv_search.run(tool_input={&quot;query&quot;: &quot;can you tell me about llama 2?&quot;})
+)
+</code></pre>
+
+<pre class="codehilite"><code>Model Llama 2 Code Llama Code Llama - Python Size FIM LCFT Python CPP Java PHP TypeScript C# Bash Average 7B âœ— 13B âœ— 34B âœ— 70B âœ— 7B âœ— 7B âœ“ 7B âœ— 7B âœ“ 13B âœ— 13B âœ“ 13B âœ— 13B âœ“ 34B âœ— 34B âœ— 7B âœ— 7B âœ— 13B âœ— 13B âœ— 34B âœ— 34B âœ— âœ— âœ— âœ— âœ— 14.3% 6.8% 10.8% 9.9% 19.9% 13.7% 15.8% 13.0% 24.2% 23.6% 22.2% 19.9% 27.3% 30.4% 31.6% 34.2% 12.6% 13.2% 21.4% 15.1% 6.3% 3.2% 8.3% 9.5% 3.2% 12.6% 17.1% 3.8% 18.9% 25.9% 8.9% 24.8% âœ— âœ— âœ“ âœ“ âœ— âœ— âœ“ âœ“ âœ— âœ“ 37.3% 31.1% 36.1% 30.4% 29.2% 29.8% 38.0%
+
+Ethical Considerations and Limitations (Section 5.2) Llama 2 is a new technology that carries risks with use. Testing conducted to date has been in English, and has not covered, nor could it cover all scenarios. For these reasons, as with all LLMs, Llama 2â€™s potential outputs cannot be predicted in advance, and the model may in some instances produce inaccurate or objectionable responses to user prompts. Therefore, before deploying any applications of Llama 2, developers should perform safety testing and tuning tailored to their speciï¬ c applications of the model. Please see the Responsible Use Guide available available at https://ai.meta.com/llama/responsible-user-guide
+Table 52: Model card for Llama 2.
+77
+
+2
+Cove Liama Long context (7B =, 13B =, 34B) + fine-tuning ; Lrama 2 Code training 20B oes Cope Liama - Instruct Foundation models â€”&gt; nfilling code training = eee.â€  (7B =, 13B =, 34B) â€” 5B (7B, 13B, 348) 5008 Python code Long context Cove Liama - PyrHon (7B, 13B, 34B) &gt; training Â» Fine-tuning &gt; 1008 208
+Figure 2: The Code Llama specialization pipeline. The different stages of fine-tuning annotated with the number of tokens seen during training. Infilling-capable models are marked with the â‡„ symbol.
+# 2 Code Llama: Specializing Llama 2 for code
+# 2.1 The Code Llama models family
+
+# 2 Code Llama: Specializing Llama 2 for code
+# 2.1 The Code Llama models family
+Code Llama. The Code Llama models constitute foundation models for code generation. They come in four model sizes: 7B, 13B, 34B and 70B parameters. The 7B, 13B and 70B models are trained using an infilling objective (Section 2.3), and are appropriate to be used in an IDE to complete code in the middle of a file, for example. The 34B model was trained without the infilling objective. All Code Llama models are initialized with Llama 2 model weights and trained on 500B tokens from a code-heavy dataset (see Section 2.2 for more details), except Code Llama 70B which was trained on 1T tokens. They are all fine-tuned to handle long contexts as detailed in Section 2.4.
+
+0.52 0.57 0.19 0.30 Llama 1 7B 13B 33B 65B 0.27 0.24 0.23 0.25 0.26 0.24 0.26 0.26 0.34 0.31 0.34 0.34 0.54 0.52 0.50 0.46 0.36 0.37 0.36 0.36 0.39 0.37 0.35 0.40 0.26 0.23 0.24 0.25 0.28 0.28 0.33 0.32 0.33 0.31 0.34 0.32 0.45 0.50 0.49 0.48 0.33 0.27 0.31 0.31 0.17 0.10 0.12 0.11 0.24 0.24 0.23 0.25 0.31 0.27 0.30 0.30 0.44 0.41 0.41 0.43 0.57 0.55 0.60 0.60 0.39 0.34 0.28 0.39 Llama 2 7B 13B 34B 70B 0.28 0.24 0.27 0.31 0.25 0.25 0.24 0.29 0.29 0.35 0.33 0.35 0.50 0.50 0.56 0.51 0.36 0.41 0.41
+
+Ethical Considerations and Limitations (Section 5.2) Llama 2 is a new technology that carries risks with use. Testing conducted to date has been in English, and has not covered, nor could it cover all scenarios. For these reasons, as with all LLMs, Llama 2â€™s potential outputs cannot be predicted in advance, and the model may in some instances produce inaccurate or objectionable responses to user prompts. Therefore, before deploying any applications of Llama 2, developers should perform safety testing and tuning tailored to their speciï¬ c applications of the model. Please see the Responsible Use Guide available available at https://ai.meta.com/llama/responsible-user-guide
+Table 52: Model card for Llama 2.
+77
+
+2
+Cove Liama Long context (7B =, 13B =, 34B) + fine-tuning ; Lrama 2 Code training 20B oes Cope Liama - Instruct Foundation models â€”&gt; nfilling code training = eee.â€  (7B =, 13B =, 34B) â€” 5B (7B, 13B, 348) 5008 Python code Long context Cove Liama - PyrHon (7B, 13B, 34B) &gt; training Â» Fine-tuning &gt; 1008 208
+Figure 2: The Code Llama specialization pipeline. The different stages of fine-tuning annotated with the number of tokens seen during training. Infilling-capable models are marked with the â‡„ symbol.
+# 2 Code Llama: Specializing Llama 2 for code
+# 2.1 The Code Llama models family
+
+0.52 0.57 0.19 0.30 Llama 1 7B 13B 33B 65B 0.27 0.24 0.23 0.25 0.26 0.24 0.26 0.26 0.34 0.31 0.34 0.34 0.54 0.52 0.50 0.46 0.36 0.37 0.36 0.36 0.39 0.37 0.35 0.40 0.26 0.23 0.24 0.25 0.28 0.28 0.33 0.32 0.33 0.31 0.34 0.32 0.45 0.50 0.49 0.48 0.33 0.27 0.31 0.31 0.17 0.10 0.12 0.11 0.24 0.24 0.23 0.25 0.31 0.27 0.30 0.30 0.44 0.41 0.41 0.43 0.57 0.55 0.60 0.60 0.39 0.34 0.28 0.39 Llama 2 7B 13B 34B 70B 0.28 0.24 0.27 0.31 0.25 0.25 0.24 0.29 0.29 0.35 0.33 0.35 0.50 0.50 0.56 0.51 0.36 0.41 0.41
+
+Ethical Considerations and Limitations (Section 5.2) Llama 2 is a new technology that carries risks with use. Testing conducted to date has been in English, and has not covered, nor could it cover all scenarios. For these reasons, as with all LLMs, Llama 2â€™s potential outputs cannot be predicted in advance, and the model may in some instances produce inaccurate or objectionable responses to user prompts. Therefore, before deploying any applications of Llama 2, developers should perform safety testing and tuning tailored to their speciï¬ c applications of the model. Please see the Responsible Use Guide available available at https://ai.meta.com/llama/responsible-user-guide
+Table 52: Model card for Llama 2.
+77
+
+Model Size FIM LCFT HumanEval MBPP pass@1 pass@10 pass@100 pass@1 pass@10 pass@100 Llama 2 Code Llama Code Llama - Python 7B âœ— 13B âœ— 34B âœ— 70B âœ— 7B âœ— 7B âœ“ 7B âœ— 7B âœ“ 13B âœ— 13B âœ“ 13B âœ— 13B âœ“ 34B âœ— 34B âœ— 7B âœ— 7B âœ— 13B âœ— 13B âœ— 34B âœ— 34B âœ— âœ— âœ— âœ— âœ— âœ— âœ— âœ“ âœ“ âœ— âœ— âœ“ âœ“ âœ— âœ“ âœ— âœ“ âœ— âœ“ âœ— âœ“ 12.2% 25.2% 20.1% 34.8% 22.6% 47.0% 30.5% 59.4% 32.3% 63.9% 34.1% 62.6% 34.1% 62.5% 33.5% 59.6% 36.6% 72.9% 36.6% 71.9% 37.8% 70.6% 36.0% 69.4% 48.2% 77.7% 48.8% 76.8% 40.2% 70.0% 38.4% 70.3% 45.7% 80.0% [0m
+
+&lt;final_answer&gt;
+
+- Llama 2 是由 Meta AI 开发的大型语言模型，有 7B 到 70B 参数的不同尺寸。
+
+- Code Llama 是 Llama 2 的一个版本，通过在代码数据集上进行微调，专门用于代码生成。Code Llama 模型有 Python、C++、Java、PHP、TypeScript、C# 和 Bash 版本。
+
+- Code Llama 的专门化流程包括基础模型预训练、长上下文训练、代码填充训练以及针对特定编程语言的微调。
+
+- 在代码生成基准测试（如 HumanEval 和 MBPP）上，Code Llama 的表现明显优于基础 Llama 2 模型。例如，34B 参数的 Code Llama - Python 在 HumanEval 上的 pass@1 准确率为 48.8%，而 34B 的 Llama 2 为 34.1%。
+
+- 与所有大型语言模型一样，Llama 2 也有局限性和潜在风险，在部署到应用程序之前需要考虑这些。Meta 提供了一份负责任的使用指南，其中包含安全测试和调整的建议。
+
+&lt;/final_answer&gt;
+</code></pre>
+
+<p>看起来效果不错，但目前我们的代理是_无状态_的，这使得进行对话变得困难。我们可以通过多种方式为其添加记忆，但最简单的方法之一是使用 <code>ConversationBufferWindowMemory</code>。</p>
+<pre class="codehilite"><code class="language-python">from langchain.chains.conversation.memory import ConversationBufferWindowMemory
+
+# 对话记忆
+conversational_memory = ConversationBufferWindowMemory(
+    memory_key='chat_history',
+    k=5,
+    return_messages=True
+)
+</code></pre>
+
+<p>我们还没有将对话记忆附加到我们的代理上——因此 <code>conversational_memory</code> 对象将保持为空：</p>
+<pre class="codehilite"><code class="language-python">conversational_memory.chat_memory.messages
+</code></pre>
+
+<pre class="codehilite"><code>[]
+</code></pre>
+
+<p>我们必须手动将我们与代理的交互添加到我们的记忆中。</p>
+<pre class="codehilite"><code class="language-python"># 添加用户消息和 AI 响应到记忆中
+user_msg = &quot;can you tell me about llama 2?&quot;
+out = agent_executor.invoke({
+    &quot;input&quot;: user_msg,
+    &quot;chat_history&quot;: &quot;&quot;
+})
+conversational_memory.chat_memory.add_user_message(user_msg)
+conversational_memory.chat_memory.add_ai_message(out[&quot;output&quot;])
+
+# 显示记忆中的消息
+conversational_memory.chat_memory.messages
+</code></pre>
+
+<pre class="codehilite"><code>[HumanMessage(content='can you tell me about llama 2?'),
+ AIMessage(content='\n- Llama 2 是由 Meta AI 开发的大型语言模型，有 7B 到 70B 参数的不同尺寸。\n\n- Code Llama 是 Llama 2 的一个版本，通过在代码数据集上进行微调，专门用于代码生成。Code Llama 模型有 Python、C++、Java、PHP、TypeScript、C# 和 Bash 版本。\n\n- Code Llama 的专门化流程包括基础模型预训练、长上下文训练、代码填充训练以及针对特定编程语言的微调。\n\n- 在代码生成基准测试（如 HumanEval 和 MBPP）上，Code Llama 的表现明显优于基础 Llama 2 模型。例如，34B 参数的 Code Llama - Python 在 HumanEval 上的 pass@1 准确率为 48.8%，而 34B 的 Llama 2 为 34.1%。\n\n- 与所有大型语言模型一样，Llama 2 也有局限性和潜在风险，在部署到应用程序之前需要考虑这些。Meta 提供了一份负责任的使用指南，其中包含安全测试和调整的建议。\n     \n    ')]
+</code></pre>
+
+<p>现在我们可以看到添加了_两条_消息，我们的 <code>HumanMessage</code> 和代理的 <code>AIMessage</code> 响应。不幸的是，我们不能直接将这些消息发送给我们的 XML 代理。相反，我们需要传递一个格式为：</p>
+<pre class="codehilite"><code>Human: {human message}
+AI: {AI message}
+</code></pre>
+
+<p>的字符串。让我们编写一个简单的 <code>memory2str</code> 辅助函数来为我们处理这个问题：</p>
+<pre class="codehilite"><code class="language-python">from langchain_core.messages.human import HumanMessage
+
+def memory2str(memory: ConversationBufferWindowMemory):
+    # 将记忆中的消息转换为字符串格式
+    messages = memory.chat_memory.messages
+    memory_list = [
+        f&quot;Human: {mem.content}&quot; if isinstance(mem, HumanMessage) \
+        else f&quot;AI: {mem.content}&quot; for mem in messages
+    ]
+    memory_str = &quot;\n&quot;.join(memory_list)
+    return memory_str
+</code></pre>
+
+<pre class="codehilite"><code class="language-python"># 打印记忆内容
+print(memory2str(conversational_memory))
+</code></pre>
+
+<pre class="codehilite"><code>Human: can you tell me about llama 2?
+AI:
+
+- Llama 2 是由 Meta AI 开发的大型语言模型，有 7B 到 70B 参数的不同尺寸。
+
+- Code Llama 是 Llama 2 的一个版本，通过在代码数据集上进行微调，专门用于代码生成。Code Llama 模型有 Python、C++、Java、PHP、TypeScript、C# 和 Bash 版本。
+
+- Code Llama 的专门化流程包括基础模型预训练、长上下文训练、代码填充训练以及针对特定编程语言的微调。
+
+- Code Llama 的表现明显优于基础 Llama 2 模型。例如，34B 参数的 Code Llama - Python 在 HumanEval 上的 pass@1 准确率为 48.8%，而 34B 的 Llama 2 为 34.1%。
+
+- 与所有大型语言模型一样，Llama 2 也有局限性和潜在风险，在部署到应用程序之前需要考虑这些。Meta 提供了一份负责任的使用指南，其中包含安全测试和调整的建议。
+</code></pre>
+
+<p>现在让我们组合另一个名为 <code>chat</code> 的辅助函数，以帮助我们处理代理的_状态_部分。</p>
+<pre class="codehilite"><code class="language-python">def chat(text: str):
+    # 调用代理执行器，传入用户输入和对话历史
+    out = agent_executor.invoke({
+        &quot;input&quot;: text,
+        &quot;chat_history&quot;: memory2str(conversational_memory)
+    })
+    # 将用户消息和代理响应添加到记忆中
+    conversational_memory.chat_memory.add_user_message(text)
+    conversational_memory.chat_memory.add_ai_message(out[&quot;output&quot;])
+    return out[&quot;output&quot;]
+</code></pre>
+
+<p>现在我们只需通过 <code>chat</code> 函数与代理进行聊天，它就会记住先前交互的上下文。</p>
+<pre class="codehilite"><code class="language-python"># 打印 chat 函数的输出
+print(chat(&quot;was any red teaming done with the model?&quot;))
+</code></pre>
+
+<pre class="codehilite"><code> [1m&gt; Entering new AgentExecutor chain... [0m
+ [32;1m [1;3m&lt;tool&gt;arxiv_search&lt;/tool&gt;
+&lt;tool_input&gt;llama 2 red teaming [0m [36;1m [1;3mAfter conducting red team exercises, we asked participants (who had also participated in Llama 2 Chat exercises) to also provide qualitative assessment of safety capabilities of the model. Some participants who had expertise in offensive security and malware development questioned the ultimate risk posed by â€œmalicious code generationâ€  through LLMs with current capabilities.
+One red teamer remarked, â€œWhile LLMs being able to iteratively improve on produced source code is a risk, producing source code isnâ€™t the actual gap. That said, LLMs may be risky because they can inform low-skill adversaries in production of scripts through iteration that perform some malicious behavior.â€ 
+According to another red teamer, â€œ[v]arious scripts, program code, and compiled binaries are readily available on mainstream public websites, hacking forums or on â€˜the dark web.â€™ Advanced malware development is beyond the current capabilities of available LLMs, and even an advanced LLM paired with an expert malware developer is not particularly useful- as the barrier is not typically writing the malware code itself. That said, these LLMs may produce code which will get easily caught if used directly.â€
+
+Model Llama 2 Code Llama Code Llama - Python Size FIM LCFT Python CPP Java PHP TypeScript C# Bash Average 7B âœ— 13B âœ— 34B âœ— 70B âœ— 7B âœ— 7B âœ“ 7B âœ— 7B âœ“ 13B âœ— 13B âœ“ 13B âœ— 13B âœ“ 34B âœ— 34B âœ— 7B âœ— 7B âœ— 13B âœ— 13B âœ— 34B âœ— 34B âœ— âœ— âœ— âœ— âœ— 14.3% 6.8% 10.8% 9.9% 19.9% 13.7% 15.8% 13.0% 24.2% 23.6% 22.2% 19.9% 27.3% 30.4% 31.6% 34.2% 12.6% 13.2% 21.4% 15.1% 6.3% 3.2% 8.3% 9.5% 3.2% 12.6% 17.1% 3.8% 18.9% 25.9% 8.9% 24.8% âœ— âœ— âœ“ âœ“ âœ— âœ— âœ“ âœ“ âœ— âœ“ 37.3% 31.1% 36.1% 30.4% 29.2% 29.8% 38.0%
+
+In addition to red teaming sessions, we ran a quantitative evaluation on risk from generating malicious code by scoring Code Llamaâ€™s responses to ChatGPTâ€™s (GPT3.5 Turbo) with LLAMAv2 70Bâ€™s safety reward model. For this second quantitative evaluation, we selected prompts that the red teamers generated specifically attempting to solicit malicious code (even though the red teaming included consideration of a broad set of safety risks). These prompts were a mix of clear intent and slightly obfuscated intentions (see some examples in Figure 16. We show a KDE plot of the distribution of the safety score for all models in Figure 7). We observe that Code Llama tends to answer with safer responses; the distribution of safety scores for Code Llama has more weight in the safer part of the range.
+False refusals. LLMs that are too safe can have a tendency to over-refuse valid claims similar to what was reported after the release of Llama 2. We specifically asked red teamers to test for this behavior. They found some limited evidence of false refusals (when not using a system preprompt). False refusals could also
+16
+
+15
+pafety Reward Model Scores Distribution on Red Teaming Prompts
+Responding Model GPT 3.5 Turbo Code Llama 138 Instruct Code Llama 34B Instruct Code Llama 7B Instruct 0.0-+ -0.2 0.0 0.2 0.4 0.6 0.8 1.0 12 Llama 2 70B Safety Reward Model Score
+Figure 7: KDE plot of the risk score output by the Llama 2 safety reward model on prompts with clear intent specific to code risk created by red teamers with background in cybersecurity and malware generation.
+Red teaming. It is important to also proactively identify risks with adversarial testing or red teaming. We conducted 3 red teaming exercises with 25 Meta employees, including domain experts in responsible AI, malware development, and offensive security engineering.
+The red teamers provided a nuanced evaluation specifically on the risk from so called â€œdual intent prompts.â€  Dual intent prompts are requests for help with writing code that could be used maliciously but the prompt does not directly address the topic (example â€œMosaic Promptsâ€  Glukhov et al. (2023)). For example, the model rightfully refuses to provide support with writing ransomware code but it complies when asked to provide a script to encrypt all files in the userâ€™s home directory since such a script could be used for benign purposes.
+
+. . . . . . . . . . . . . . . 3.4 RLHF Results . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Safety in Pretraining . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4.2 Safety Fine-Tuning . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4.3 Red Teaming . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4.4 Safety Evaluation of Llama 2-Chat . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5.1 Learnings and Observations . . . . . . . . . . . . . . . . . . . . . . . . [0m
+
+&lt;final_answer&gt;
+根据来自 arxiv 的搜索信息，在 Llama 2 模型开发过程中进行了一些红队演练，以识别潜在的安全风险：
+
+- Meta 进行了 3 次红队演练，共有 25 名员工参与，其中包括负责任的 AI、恶意软件开发和进攻性安全工程领域的领域专家。
+
+- 红队成员将成功攻击分为四种主要类型：1) 让模型提供一些有害信息，同时拒绝其他内容；2) 让模型扮演特定场景；3) 强迫模型强调有害内容的积极方面；4) 将有害指令嵌入复杂命令中。
+
+- 一些红队成员质疑当前 LLM 通过“恶意代码生成”带来的最终风险。他们指出，虽然 LLM 能够迭代改进代码是一个风险，但编写源代码本身并不是主要障碍。高级恶意软件开发目前超出了 LLM 的能力范围。
+
+- 还通过使用 Llama 2 的安全奖励模型对恶意代码提示的 Code Llama 响应进行评分来进行定量评估。与 GPT-3.5 相比，Code Llama 倾向于提供更安全的回应。
+
+- 然而，根据现有信息，红队演练的全部范围和细节是有限的。Llama 2 论文提到了通过红队演练扩展具有安全风险的提示，但没有深入介绍过程或结果。需要更多信息才能全面描述所进行的红队演练。
+
+&lt;/final_answer&gt;
+
+ [1m&gt; Finished chain. [0m
+
+- Meta 进行了 3 次红队演练，共有 25 名员工参与，其中包括负责任的 AI、恶意软件开发和进攻性安全工程领域的领域专家。
+
+- 红队成员将成功攻击分为四种主要类型：1) 让模型提供一些有害信息，同时拒绝其他内容；2) 让模型扮演特定场景；3) 强迫模型强调有害内容的积极方面；4) 将有害指令嵌入复杂命令中。
+
+- 一些红队成员质疑当前 LLM 通过“恶意代码生成”带来的最终风险。他们指出，虽然 LLM 能够迭代改进代码是一个风险，但编写源代码本身并不是主要障碍。高级恶意软件开发目前超出了 LLM 的能力范围。
+
+- 还通过使用 Llama 2 的安全奖励模型对恶意代码提示的 Code Llama 响应进行评分来进行定量评估。与 GPT-3.5 相比，Code Llama 倾向于提供更安全的回应。
+
+- 然而，根据现有信息，红队演练的全部范围和细节是有限的。Llama 2 论文提到了通过红队演练扩展具有安全风险的提示，但没有深入介绍过程或结果。需要更多信息才能全面描述所进行的红队演练。
+</code></pre>
+
+<p>我们可以提出遗漏关键信息的后续问题，但由于对话历史的存在，LLM 会理解上下文并据此调整搜索查询。例如，我们询问了 <code>red teaming</code> 但没有提及 <code>llama 2</code>——Claude 3 根据聊天历史将此上下文添加到了搜索查询 <code>"llama 2 red teaming"</code> 中。</p>
+            </article>
+            
+            <nav class="page-nav"><a href="patterns/agents/prompts/citations_agent_zh.html" class="nav-link prev">← Untitled</a><a href="tool_use/customer_service_agent_zh.html" class="nav-link next">使用客户端工具创建客服代理 →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

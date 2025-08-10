@@ -1,0 +1,2454 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../../">
+    <title>Set your Anthropic API key</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">extended_thinking</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="extended_thinking/extended_thinking_with_tool_use_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">扩展思考与工具使用</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="extended_thinking/extended_thinking_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">扩展思考</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">finetuning</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="finetuning/finetuning_on_bedrock_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">在 Bedrock 上微调 Claude 3 Haiku</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">misc</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/batch_processing_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">批量处理消息批次API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/building_evals_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">建立评估</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/building_moderation_filter_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">建立一个带有 Claude 的审核过滤器</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/generate_test_cases_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">首先，我们有 `extract_variables` 函数，</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/how_to_enable_json_mode_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">提示 Claude 获取“JSON 模式”</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/how_to_make_sql_queries_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 进行 SQL 查询</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/illustrated_responses_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 的图示化响应</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/mc_qa_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">实验性测试 Claude 的长上下文问答能力</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/metaprompt_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Metaprompt</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/pdf_upload_summarization_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">“上传”PDF 到 Claude API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/prompt_caching_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">缓存提示（Prompt caching）通过 Anthropic API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/read_web_pages_with_haiku_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Claude 3 Haiku 总结网页内容</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/sampling_past_max_tokens_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 从 Claude 之外的采样响应，超出最大令牌限制</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/speculative_prompt_caching_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">投机性提示缓存</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/using_citations_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">引言</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">multimodal</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/best_practices_for_vision_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/getting_started_with_vision_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">开始上手 - 如何将图像传递给 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/how_to_transcribe_text_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 转录文档</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/reading_charts_graphs_powerpoints_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用图表和幻灯片放映</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/using_sub_agents_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Haiku 作为子代理</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">patterns</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">agents</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/basic_workflows_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">首先使用具有思维链的LLM确定适当的路由</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/evaluator_optimizer_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/orchestrator_workers_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">步骤1：获取协调器响应</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">构建高效代理的食谱</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">prompts</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/citations_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/research_lead_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/research_subagent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </div></div></div></div></div></div>
+                    <div class="tree-folder expanded" data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">skills</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="skills/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 技能</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">classification</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/classification/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">设置我们的环境</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/classification/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 分类指南</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/classification/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Promptfoo 进行评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">contextual-embeddings</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/contextual-embeddings/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">增强检索的RAG与上下文检索</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/contextual-embeddings/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">结合上下文嵌入的检索增强生成</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">retrieval_augmented_generation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/retrieval_augmented_generation/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Retrieval Augmented Generation (RAG)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/retrieval_augmented_generation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/retrieval_augmented_generation/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Promptfoo 进行评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">summarization</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/summarization/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">摘要与 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/summarization/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 摘要</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/summarization/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Promptfoo 评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder expanded" data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">text_to_sql</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item active" style="padding-left: 40px;">
+                        <a href="skills/text_to_sql/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Set your Anthropic API key</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/text_to_sql/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 的文本到 SQL</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/text_to_sql/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Promptfoo 评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div></div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">third_party</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Deepgram</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Deepgram/prerecorded_audio_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">转录深蓝音频文件并使用 Anthropic 准备面试问题！</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Deepgram/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Deepgram <> Anthropic Cookbooks</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">LlamaIndex</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Basic_RAG_With_LlamaIndex_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">RAG 管道与 LlamaIndex</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Multi_Document_Agents_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">多文档代理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Multi_Modal_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">多模态</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/ReAct_Agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">ReAct Agent</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">LlamaIndex <> Anthropic Cookbooks</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Router_Query_Engine_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">注意：这仅在 jupyter notebook 中是必需的。</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/SubQuestion_Query_Engine_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">SubQuestionQueryEngine</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">MongoDB</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/MongoDB/rag_using_mongodb_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 3 和 MongoDB 构建 RAG 系统</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Pinecone</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Pinecone/claude_3_rag_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">检查 Python 版本</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Pinecone/rag_using_pinecone_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Pinecone 进行检索增强生成</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">VoyageAI</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/VoyageAI/how_to_create_embeddings_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">这将自动使用环境变量VOYAGE_API_KEY。</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Wikipedia</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Wikipedia/wikipedia-search-cookbook_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">迭代搜索维基百科与 Claude</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">WolframAlpha</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/WolframAlpha/using_llm_api_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Wolfram Alpha LLM API 作为 Claude 的工具</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">tool_use</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/calculator_tool_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用计算器工具与 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/customer_service_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用客户端工具创建客服代理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/extracting_structured_json_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Claude 和工具使用功能提取结构化 JSON</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/memory_cookbook_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">安装依赖</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/parallel_tools_claude_3_7_sonnet_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">在 Claude 3.7 Sonnet 上并行调用工具</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/tool_choice_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">选择工具</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/tool_use_with_pydantic_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">记事工具，支持 Pydantic 和 Anthropic 工具使用</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/vision_with_tools_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Vision 与工具</span>
+                        </a>
+                    </div>
+                </div></div></nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <p>全文逐字翻译（只输出翻译后结果）： # Text to SQL with Claude</p>
+<h2 id="introduction">Introduction</h2>
+<p>Text to SQL is a natural language processing task that converts human-readable text queries into structured SQL queries. This lets users interact with databases using natural language. </p>
+<p>Claude can understand context, interpret complex queries, and generate accurate SQL statements. This guide focuses on using Claude to build a robust Text to SQL system.</p>
+<h2 id="why-is-text-to-sql-useful">Why is Text to SQL Useful?</h2>
+<p>Text to SQL is valuable for several reasons:</p>
+<ol>
+<li>
+<p><strong>Accessibility</strong>: Non-technical users can query databases without knowing SQL syntax, making data access easier within organizations.</p>
+</li>
+<li>
+<p><strong>Efficiency</strong>: Data analysts and scientists can quickly prototype queries using natural language.</p>
+</li>
+<li>
+<p><strong>Integration</strong>: It enables more intuitive interfaces for database interactions in applications and chatbots.</p>
+</li>
+<li>
+<p><strong>Complex Query Generation</strong>: LLMs can generate complex SQL queries involving multiple joins, subqueries, and aggregations, which can be time-consuming for humans to write.</p>
+</li>
+</ol>
+<h2 id="what-this-guide-covers">What This Guide Covers</h2>
+<p>This guide will walk you through building a Text to SQL system using LLMs. We'll cover:</p>
+<ol>
+<li>Setting up a test SQLite database</li>
+<li>Effective prompting for Text to SQL conversion</li>
+<li>RAG (Retrieval Augmented Generation) to handle more complex database systems</li>
+<li>Self-improvement and iteration of Claude's outputs</li>
+<li>Evaluations</li>
+</ol>
+<p>By the end of this guide, you'll understand how to implement and refine Text to SQL tasks using Claude, and have a framework for applying these techniques to your own projects.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#setup">Setup</a></li>
+<li><a href="#creating-a-basic-text-to-sql-prompt">Creating a Basic Text to SQL Prompt</a></li>
+<li><a href="#improving-the-prompt-with-examples">Improving the Prompt with Examples</a></li>
+<li><a href="#using-chain-of-thought-prompting">Using Chain-of-Thought Prompting</a></li>
+<li><a href="#implementing-rag-for-complex-database-schemas">Implementing RAG for Complex Database Schemas</a></li>
+<li><a href="#implementing-query-self-improvement">Implementing Query Self-Improvement</a></li>
+<li><a href="#evaluations">Evaluations</a></li>
+<li><a href="#further-exploration--next-steps">Further Exploration &amp; Next Steps</a></li>
+</ol>
+<h2 id="setup">Setup</h2>
+<p>Let's set up our environment and create a test SQLite database with two tables: <code>employees</code> and <code>departments</code>. We'll use this database throughout our guide.</p>
+<pre class="codehilite"><code class="language-python">%pip install -q anthropic pandas voyageai matplotlib seaborn
+</code></pre>
+
+<pre class="codehilite"><code>Note: you may need to restart the kernel to use updated packages.
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">import os
+from anthropic import Anthropic
+import sqlite3
+import pandas as pd
+from IPython.display import display
+
+# Set your Anthropic API key
+os.environ[&quot;ANTHROPIC_API_KEY&quot;] = &quot;YOUR_ANTHROPIC_API_KEY&quot;
+os.environ[&quot;VOYAGE_API_KEY&quot;] = &quot;YOUR_VOYAGE_API_KEY&quot;
+
+# Initialize the Anthropic client
+client = Anthropic()
+MODEL_NAME = &quot;claude-3-5-sonnet-20241022&quot;
+
+# Filepath to the SQLite database
+DATABASE_PATH = &quot;data/data.db&quot;
+</code></pre>
+
+<h3 id="create-a-test-database">Create a Test Database</h3>
+<pre class="codehilite"><code class="language-python">import random
+from datetime import datetime, timedelta
+
+if not os.path.exists(DATABASE_PATH):
+    print(&quot;Database does not exist. Creating and populating...&quot;)
+    # Create a new SQLite database and tables
+    with sqlite3.connect(DATABASE_PATH) as conn:
+        cursor = conn.cursor()
+
+        cursor.executescript('''
+        CREATE TABLE IF NOT EXISTS departments (
+            id INTEGER PRIMARY KEY,
+            name TEXT NOT NULL,
+            location TEXT
+        );
+        CREATE TABLE IF NOT EXISTS employees (
+            id INTEGER PRIMARY KEY,
+            name TEXT NOT NULL,
+            age INTEGER,
+            department_id INTEGER,
+            salary REAL,
+            hire_date DATE,
+            FOREIGN KEY (department_id) REFERENCES departments (id)
+        );
+        ''')
+
+        # Insert sample data
+        cursor.executemany('INSERT INTO departments VALUES (?,?,?)',
+            [
+                (1, 'HR', 'New York'), 
+                (2, 'Engineering', 'San Francisco'), 
+                (3, 'Marketing', 'Chicago'),
+                (4, 'Sales', 'Los Angeles'),
+                (5, 'Finance', 'Boston'),
+                (6, 'Customer Support', 'Dallas'),
+                (7, 'Research', 'Seattle'),
+                (8, 'Legal', 'Washington D.C.'),
+                (9, 'Product', 'Austin'),
+                (10, 'Operations', 'Denver')
+            ])
+
+        first_names = ['John', 'Jane', 'Bob', 'Alice', 'Charlie', 'Diana', 'Edward', 'Fiona', 'George', 'Hannah', 'Ian', 'Julia', 'Kevin', 'Laura', 'Michael', 'Nora', 'Oliver', 'Patricia', 'Quentin', 'Rachel', 'Steve', 'Tina', 'Ulysses', 'Victoria', 'William', 'Xena', 'Yannick', 'Zoe']
+        last_names = ['Smith', 'Johnson', 'Williams', 'Jones', 'Brown', 'Davis', 'Miller', 'Wilson', 'Moore', 'Taylor', 'Anderson', 'Thomas', 'Jackson', 'White', 'Harris', 'Martin', 'Thompson', 'Garcia', 'Martinez', 'Robinson', 'Clark', 'Rodriguez', 'Lewis', 'Lee', 'Walker', 'Hall', 'Allen', 'Young', 'King']
+
+        employees_data = []
+        for i in range(1, 201):  # Generate 200 employees
+            name = f&quot;{random.choice(first_names)} {random.choice(last_names)}&quot;
+            age = random.randint(22, 65)
+            department_id = random.randint(1, 10)
+            salary = round(random.uniform(40000, 200000), 2)
+            hire_date = (datetime.now() - timedelta(days=random.randint(0, 3650))).strftime('%Y-%m-%d')
+            employees_data.append((i, name, age, department_id, salary, hire_date))
+
+        cursor.executemany('INSERT INTO employees VALUES (?,?,?,?,?,?)', employees_data)
+
+    print(&quot;Database created and populated successfully.&quot;)
+else:
+    print(&quot;Database already exists. Skipping creation and population.&quot;)
+
+# Display table contents
+with sqlite3.connect(DATABASE_PATH) as conn:
+    for table in ['departments', 'employees']:
+        df = pd.read_sql_query(f&quot;SELECT * FROM {table}&quot;, conn)
+        print(f&quot;\n{table.capitalize()} table:&quot;)
+        display(df)
+</code></pre>
+
+<pre class="codehilite"><code>Database already exists. Skipping creation and population.
+
+Departments table:
+</code></pre>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>HR</td>
+      <td>New York</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Engineering</td>
+      <td>San Francisco</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Marketing</td>
+      <td>Chicago</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Sales</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Finance</td>
+      <td>Boston</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>Customer Support</td>
+      <td>Dallas</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>Research</td>
+      <td>Seattle</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>Legal</td>
+      <td>Washington D.C.</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>Product</td>
+      <td>Austin</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10</td>
+      <td>Operations</td>
+      <td>Denver</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<pre class="codehilite"><code>Employees table:
+</code></pre>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>age</th>
+      <th>department_id</th>
+      <th>salary</th>
+      <th>hire_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Michael Allen</td>
+      <td>57</td>
+      <td>9</td>
+      <td>151012.98</td>
+      <td>2016-02-04</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Nora Hall</td>
+      <td>23</td>
+      <td>8</td>
+      <td>186548.83</td>
+      <td>2018-01-27</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Patricia Miller</td>
+      <td>49</td>
+      <td>5</td>
+      <td>43540.04</td>
+      <td>2020-06-07</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Alice Martinez</td>
+      <td>48</td>
+      <td>7</td>
+      <td>131993.17</td>
+      <td>2021-01-21</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Patricia Walker</td>
+      <td>59</td>
+      <td>5</td>
+      <td>167151.15</td>
+      <td>2020-05-24</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>195</th>
+      <td>196</td>
+      <td>Hannah Clark</td>
+      <td>31</td>
+      <td>10</td>
+      <td>195944.00</td>
+      <td>2017-11-08</td>
+    </tr>
+    <tr>
+      <th>196</th>
+      <td>197</td>
+      <td>Alice Davis</td>
+      <td>46</td>
+      <td>5</td>
+      <td>145584.16</td>
+      <td>2022-02-13</td>
+    </tr>
+    <tr>
+      <th>197</th>
+      <td>198</td>
+      <td>Charlie Hall</td>
+      <td>37</td>
+      <td>1</td>
+      <td>53690.40</td>
+      <td>2024-06-18</td>
+    </tr>
+    <tr>
+      <th>198</th>
+      <td>199</td>
+      <td>Alice Garcia</td>
+      <td>50</td>
+      <td>5</td>
+      <td>92372.26</td>
+      <td>2024-02-01</td>
+    </tr>
+    <tr>
+      <th>199</th>
+      <td>200</td>
+      <td>Laura Young</td>
+      <td>25</td>
+      <td>9</td>
+      <td>64738.56</td>
+      <td>2015-08-02</td>
+    </tr>
+  </tbody>
+</table>
+<p>200 rows × 6 columns</p>
+</div>
+
+<h2 id="creating-a-basic-text-to-sql-prompt">Creating a Basic Text to SQL Prompt</h2>
+<p>Now that we have our database set up, let's create a basic prompt for Text to SQL conversion. A good prompt should include:</p>
+<ol>
+<li>Clear instructions for what we want the model to do</li>
+<li>The user's query</li>
+<li>The database's schema, so Claude knows how to translate the user's query</li>
+</ol>
+<pre class="codehilite"><code class="language-python">def get_schema_info(db_path):
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+
+    schema_info = []
+
+    # Get all tables
+    cursor.execute(&quot;SELECT name FROM sqlite_master WHERE type='table';&quot;)
+    tables = cursor.fetchall()
+
+    for (table_name,) in tables:
+        # Get columns for this table
+        cursor.execute(f&quot;PRAGMA table_info({table_name})&quot;)
+        columns = cursor.fetchall()
+
+        table_info = f&quot;Table: {table_name}\n&quot;
+        table_info += &quot;\n&quot;.join(f&quot;  - {col[1]} ({col[2]})&quot; for col in columns)
+        schema_info.append(table_info)
+
+    conn.close()
+    return &quot;\n\n&quot;.join(schema_info)
+
+# Get the schema info
+schema = get_schema_info(DATABASE_PATH)
+print(schema)
+</code></pre>
+
+<pre class="codehilite"><code>Table: departments
+
+  - id (INTEGER)
+  - name (TEXT)
+  - location (TEXT)
+
+Table: employees
+
+  - id (INTEGER)
+  - name (TEXT)
+  - age (INTEGER)
+  - department_id (INTEGER)
+  - salary (REAL)
+  - hire_date (DATE)
+</code></pre>
+
+<p>Now that we have our schema information, let's create a basic prompt:</p>
+<pre class="codehilite"><code class="language-python">def generate_prompt(schema, query):
+    return f&quot;&quot;&quot;
+        You are an AI assistant that converts natural language queries into SQL.
+        Given the following SQL database schema:
+
+        &lt;schema&gt;
+        {schema}
+        &lt;/schema&gt;
+
+        Convert the following natural language query into SQL:
+        &lt;query&gt;
+        {query}
+        &lt;/query&gt;
+
+        Provide only the SQL query in your response, enclosed within &lt;sql&gt; tags.
+    &quot;&quot;&quot;
+
+# Test the prompt
+user_query = &quot;What are the names of all employees in the Engineering department?&quot;
+prompt = generate_prompt(schema, user_query)
+print(prompt)
+</code></pre>
+
+<pre class="codehilite"><code>        You are an AI assistant that converts natural language queries into SQL.
+        Given the following SQL database schema:
+
+        &lt;schema&gt;
+        Table: departments
+
+  - id (INTEGER)
+  - name (TEXT)
+  - location (TEXT)
+
+Table: employees
+
+  - id (INTEGER)
+  - name (TEXT)
+  - age (INTEGER)
+  - department_id (INTEGER)
+  - salary (REAL)
+  - hire_date (DATE)
+        &lt;/schema&gt;
+
+        Convert the following natural language query into SQL:
+        &lt;query&gt;
+        What are the names of all employees in the Engineering department?
+        &lt;/query&gt;
+
+        Provide only the SQL query in your response, enclosed within &lt;sql&gt; tags.
+</code></pre>
+
+<p>Now let's use this prompt with the Anthropic API to generate SQL:</p>
+<pre class="codehilite"><code class="language-python">def generate_sql(prompt):
+    response = client.messages.create(
+        model=MODEL_NAME,
+        max_tokens=1000,
+        temperature=0,
+        messages=[
+            {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: prompt}
+        ]
+    )
+    return response.content[0].text.strip()
+
+# Generate SQL
+result = generate_sql(prompt)
+sql = result.split('&lt;sql&gt;')[1].split('&lt;/sql&gt;')[0].strip()
+print(&quot;Generated SQL:&quot;)
+print(sql)
+</code></pre>
+
+<pre class="codehilite"><code>Generated SQL:
+SELECT e.name 
+FROM employees e
+JOIN departments d ON e.department_id = d.id
+WHERE d.name = 'Engineering';
+</code></pre>
+
+<p>Let's test our generated SQL by running it against our database:</p>
+<pre class="codehilite"><code class="language-python">def run_sql(sql):
+    conn = sqlite3.connect(DATABASE_PATH)
+    result = pd.read_sql_query(sql, conn)
+    conn.close()
+    return result
+
+result = run_sql(sql)
+print(&quot;Query result:&quot;)
+display(result)
+</code></pre>
+
+<pre class="codehilite"><code>Query result:
+</code></pre>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Nora Lewis</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Oliver White</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>William Clark</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Tina Rodriguez</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Diana Taylor</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Nora Taylor</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Steve Taylor</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Oliver Martin</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Tina Rodriguez</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Quentin Anderson</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Julia Miller</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Jane Thompson</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Julia Clark</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Diana White</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Xena Garcia</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Ulysses Hall</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Diana Brown</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Charlie Johnson</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Michael Clark</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Yannick Harris</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="improving-the-prompt-with-examples">Improving the Prompt with Examples</h2>
+<p>Our basic prompt works, but we can make it more effective by including examples. This technique, called few-shot learning, helps the model understand the task better by providing concrete examples of input-output pairs.</p>
+<p>Let's modify our <code>generate_prompt</code> function to include some examples:</p>
+<pre class="codehilite"><code class="language-python">def generate_prompt_with_examples(schema, query):
+    examples = &quot;&quot;&quot;
+        Example 1:
+        &lt;query&gt;List all employees in the HR department.&lt;/&lt;query&gt;
+        &lt;output&gt;SELECT e.name FROM employees e JOIN departments d ON e.department_id = d.id WHERE d.name = 'HR';&lt;/output&gt;
+
+        Example 2:
+        User: What is the average salary of employees in the Engineering department?
+        SQL: SELECT AVG(e.salary) FROM employees e JOIN departments d ON e.department_id = d.id WHERE d.name = 'Engineering';
+
+        Example 3:
+        User: Who is the oldest employee?
+        SQL: SELECT name, age FROM employees ORDER BY age DESC LIMIT 1;
+    &quot;&quot;&quot;
+
+    return f&quot;&quot;&quot;
+        You are an AI assistant that converts natural language queries into SQL.
+        Given the following SQL database schema:
+
+        &lt;schema&gt;
+        {schema}
+        &lt;/schema&gt;
+
+        Here are some examples of natural language queries and their corresponding SQL:
+
+        &lt;examples&gt;
+        {examples}
+        &lt;/examples&gt;
+
+        Now, convert the following natural language query into SQL:
+        &lt;query&gt;
+        {query}
+        &lt;/query&gt;
+
+        Provide only the SQL query in your response, enclosed within &lt;sql&gt; tags.
+    &quot;&quot;&quot;
+
+# Test the new prompt
+user_query = &quot;What are the names and salaries of employees in the Marketing department?&quot;
+prompt = generate_prompt_with_examples(schema, user_query)
+print(prompt)
+</code></pre>
+
+<pre class="codehilite"><code>        You are an AI assistant that converts natural language queries into SQL.
+        Given the following SQL database schema:
+
+        &lt;schema&gt;
+        Table: departments
+
+  - id (INTEGER)
+  - name (TEXT)
+  - location (TEXT)
+
+Table: employees
+
+  - id (INTEGER)
+  - name (TEXT)
+  - age (INTEGER)
+  - department_id (INTEGER)
+  - salary (REAL)
+  - hire_date (DATE)
+        &lt;/schema&gt;
+
+        Here are some examples of natural language queries and their corresponding SQL:
+
+        &lt;examples&gt;
+
+        Example 1:
+        &lt;query&gt;List all employees in the HR department.&lt;/query&gt;
+        &lt;output&gt;SELECT e.name FROM employees e JOIN departments d ON e.department_id = d.id WHERE d.name = 'HR';&lt;/output&gt;
+
+        Example 2:
+        User: What is the average salary of employees in the Engineering department?
+        SQL: SELECT AVG(e.salary) FROM employees e JOIN departments d ON e.department_id = d.id WHERE d.name = 'Engineering';
+
+        Example 3:
+        User: Who is the oldest employee?
+        SQL: SELECT name, age FROM employees ORDER BY age DESC LIMIT 1;
+
+        &lt;/examples&gt;
+
+        Now, convert the following natural language query into SQL:
+        &lt;query&gt;
+        What are the names and salaries of employees in the Marketing department?
+        &lt;/query&gt;
+
+        Provide only the SQL query in your response, enclosed within &lt;sql&gt; tags.
+</code></pre>
+
+<p>Now let's use this improved prompt to generate SQL:</p>
+<pre class="codehilite"><code class="language-python"># Generate SQL using the improved prompt
+result = generate_sql(prompt)
+sql = result.split('&lt;sql&gt;')[1].split('&lt;/sql&gt;')[0].strip()
+print(&quot;Generated SQL:&quot;)
+print(sql)
+
+# Run the generated SQL
+result = run_sql(sql)
+print(&quot;\nQuery result:&quot;)
+display(result)
+</code></pre>
+
+<pre class="codehilite"><code>Generated SQL:
+SELECT e.name, e.salary 
+FROM employees e 
+JOIN departments d ON e.department_id = d.id 
+WHERE d.name = 'Marketing';
+
+Query result:
+</code></pre>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>salary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Zoe Jones</td>
+      <td>123511.58</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Jane Smith</td>
+      <td>120291.41</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>John Young</td>
+      <td>179126.29</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Charlie King</td>
+      <td>43323.02</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Jane White</td>
+      <td>65134.81</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Bob Harris</td>
+      <td>44083.34</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Tina Robinson</td>
+      <td>131015.71</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Steve Thomas</td>
+      <td>191563.64</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Laura Hall</td>
+      <td>118691.73</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Fiona Young</td>
+      <td>167114.79</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Bob Rodriguez</td>
+      <td>64961.43</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Diana Young</td>
+      <td>123255.78</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>John Harris</td>
+      <td>118778.51</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Edward Taylor</td>
+      <td>112959.56</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Michael Thompson</td>
+      <td>136840.04</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>William Taylor</td>
+      <td>49565.18</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Diana King</td>
+      <td>154917.02</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>John Davis</td>
+      <td>46914.45</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Julia Garcia</td>
+      <td>46486.44</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Nora Wilson</td>
+      <td>153063.56</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>By including examples in our prompt, we've given the model a better understanding of how to structure its responses. This can lead to more accurate and consistent SQL generation, especially for more complex queries.</p>
+<p><strong>Note</strong>: Another prompting technique that may be worth exploring is to include a few rows of real data within the prompt itself, in addition to the database's schema. This may give Claude more context about the data structure and content.</p>
+<p>In the next section, we'll explore how to handle more complex queries and improve the model's reasoning process using chain-of-thought prompting.</p>
+<h2 id="using-chain-of-thought-prompting">Using Chain-of-Thought Prompting</h2>
+<p>Chain-of-thought prompting encourages the model to break down complex problems into steps. For Text to SQL tasks, this can help with more complex queries that require multiple operations or careful consideration of the database schema.</p>
+<p>Let's modify our prompt to incorporate chain-of-thought reasoning using XML tags:</p>
+<pre class="codehilite"><code class="language-python">def generate_prompt_with_cot(schema, query):
+    examples = &quot;&quot;&quot;
+    &lt;example&gt;
+    &lt;query&gt;List all employees in the HR department.&lt;/query&gt;
+    &lt;thought_process&gt;
+
+    1. We need to join the employees and departments tables.
+    2. We'll match employees.department_id with departments.id.
+    3. We'll filter for the HR department.
+    4. We only need to return the employee names.
+    &lt;/thought_process&gt;
+    &lt;sql&gt;SELECT e.name FROM employees e JOIN departments d ON e.department_id = d.id WHERE d.name = 'HR';&lt;/sql&gt;
+    &lt;/example&gt;
+
+    &lt;example&gt;
+    &lt;query&gt;What is the average salary of employees hired in 2022?&lt;/query&gt;
+    &lt;thought_process&gt;
+
+    1. We need to work with the employees table.
+    2. We need to filter for employees hired in 2022.
+    3. We'll use the YEAR function to extract the year from the hire_date.
+    4. We'll calculate the average of the salary column for the filtered rows.
+    &lt;/thought_process&gt;
+    &lt;sql&gt;SELECT AVG(salary) FROM employees WHERE YEAR(hire_date) = 2022;&lt;/sql&gt;
+    &lt;/example&gt;
+    &quot;&quot;&quot;
+
+    return f&quot;&quot;&quot;You are an AI assistant that converts natural language queries into SQL.
+    Given the following SQL database schema:
+
+    &lt;schema&gt;
+    {schema}
+    &lt;/schema&gt;
+
+    Here are some examples of natural language queries, thought processes, and their corresponding SQL:
+
+    &lt;examples&gt;
+    {examples}
+    &lt;/examples&gt;
+
+    Now, convert the following natural language query into SQL:
+    &lt;query&gt;
+    {query}
+    &lt;/query&gt;
+
+    Within &lt;thought_process&gt; tags, explain your thought process for creating the SQL query.
+    Then, within &lt;sql&gt; tags, provide your output SQL query.
+    &quot;&quot;&quot;
+
+# Test the new prompt
+user_query = &quot;What are the names and hire dates of employees in the Engineering department, ordered by their salary?&quot;
+prompt = generate_prompt_with_cot(schema, user_query)
+print(prompt)
+</code></pre>
+
+<pre class="codehilite"><code>You are an AI assistant that converts natural language queries into SQL.
+    Given the following SQL database schema:
+
+    &lt;schema&gt;
+    Table: departments
+
+  - id (INTEGER)
+  - name (TEXT)
+  - location (TEXT)
+
+Table: employees
+
+  - id (INTEGER)
+  - name (TEXT)
+  - age (INTEGER)
+  - department_id (INTEGER)
+  - salary (REAL)
+  - hire_date (DATE)
+    &lt;/schema&gt;
+
+    Here are some examples of natural language queries, thought processes, and their corresponding SQL:
+
+    &lt;examples&gt;
+
+    &lt;example&gt;
+    &lt;query&gt;List all employees in the HR department.&lt;/query&gt;
+    &lt;thought_process&gt;
+
+    1. We need to join the employees and departments tables.
+    2. We'll match employees.department_id with departments.id.
+    3. We'll filter for the HR department.
+    4. We only need to return the employee names.
+    &lt;/thought_process&gt;
+    &lt;sql&gt;SELECT e.name FROM employees e JOIN departments d ON e.department_id = d.id WHERE d.name = 'HR';&lt;/sql&gt;
+    &lt;/example&gt;
+
+    &lt;example&gt;
+    &lt;query&gt;What is the average salary of employees hired in 2022?&lt;/query&gt;
+    &lt;thought_process&gt;
+
+    1. We need to work with the employees table.
+    2. We need to filter for employees hired in 2022.
+    3. We'll use the YEAR function to extract the year from the hire_date.
+    4. We'll calculate the average of the salary column for the filtered rows.
+    &lt;/thought_process&gt;
+    &lt;sql&gt;SELECT AVG(salary) FROM employees WHERE YEAR(hire_date) = 2022;&lt;/sql&gt;
+    &lt;/example&gt;
+
+    &lt;/examples&gt;
+
+    Now, convert the following natural language query into SQL:
+    &lt;query&gt;
+    What are the names and hire dates of employees in the Engineering department, ordered by their salary?
+    &lt;/query&gt;
+
+    Within &lt;thought_process&gt; tags, explain your thought process for creating the SQL query.
+    Then, within &lt;sql&gt; tags, provide your output SQL query.
+</code></pre>
+
+<p>Now let's use this chain-of-thought prompt with XML tags to generate SQL:</p>
+<pre class="codehilite"><code class="language-python"># Generate SQL using the chain-of-thought prompt
+result = generate_sql(prompt)
+print(&quot;Raw response from Claude:&quot;)
+print(result)
+
+# Extract thought process and SQL query
+thought_process = result.split('&lt;thought_process&gt;')[1].split('&lt;/thought_process&gt;')[0].strip()
+sql = result.split('&lt;sql&gt;')[1].split('&lt;/sql&gt;')[0].strip()
+
+print(&quot;\nThought Process:&quot;)
+print(thought_process)
+
+print(&quot;\nGenerated SQL:&quot;)
+print(sql)
+
+# Run the generated SQL
+query_result = run_sql(sql)
+print(&quot;\nQuery result:&quot;)
+display(query_result)
+</code></pre>
+
+<pre class="codehilite"><code>Raw response from Claude:
+&lt;thought_process&gt;
+
+1. We need to get information about employees in the Engineering department, so we'll need to join employees and departments tables
+2. We'll match employees.department_id with departments.id
+3. We'll filter for the Engineering department using departments.name
+4. We need to select:
+   - employee names (from employees table)
+   - hire dates (from employees table)
+5. The results should be ordered by salary
+6. We'll use ORDER BY for the salary sorting
+&lt;/thought_process&gt;
+
+&lt;sql&gt;
+SELECT e.name, e.hire_date 
+FROM employees e 
+JOIN departments d ON e.department_id = d.id 
+WHERE d.name = 'Engineering' 
+ORDER BY e.salary;
+&lt;/sql&gt;
+
+Thought Process:
+
+1. We need to get information about employees in the Engineering department, so we'll need to join employees and departments tables
+2. We'll match employees.department_id with departments.id
+3. We'll filter for the Engineering department using departments.name
+4. We need to select:
+   - employee names (from employees table)
+   - hire dates (from employees table)
+5. The results should be ordered by salary
+6. We'll use ORDER BY for the salary sorting
+
+Generated SQL:
+SELECT e.name, e.hire_date 
+FROM employees e 
+JOIN departments d ON e.department_id = d.id 
+WHERE d.name = 'Engineering' 
+ORDER BY e.salary;
+
+Query result:
+</code></pre>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>hire_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Tina Rodriguez</td>
+      <td>2019-09-16</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Yannick Harris</td>
+      <td>2020-12-17</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Nora Taylor</td>
+      <td>2016-08-24</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Quentin Anderson</td>
+      <td>2024-02-12</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Charlie Johnson</td>
+      <td>2019-01-16</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Oliver Martin</td>
+      <td>2016-07-14</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Julia Clark</td>
+      <td>2015-09-24</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Diana Taylor</td>
+      <td>2023-07-16</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Xena Garcia</td>
+      <td>2016-08-03</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Jane Thompson</td>
+      <td>2016-06-27</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Tina Rodriguez</td>
+      <td>2020-05-04</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>William Clark</td>
+      <td>2016-07-01</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Diana White</td>
+      <td>2018-03-24</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Oliver White</td>
+      <td>2017-03-27</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Nora Lewis</td>
+      <td>2016-03-01</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Julia Miller</td>
+      <td>2019-03-09</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Diana Brown</td>
+      <td>2022-09-12</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Ulysses Hall</td>
+      <td>2015-05-22</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Michael Clark</td>
+      <td>2022-05-11</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Steve Taylor</td>
+      <td>2020-01-26</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="implementing-rag-for-complex-database-schemas">Implementing RAG for Complex Database Schemas</h2>
+<p>As databases grow larger and more complex, providing the entire schema in each prompt becomes impractical. Retrieval Augmented Generation (RAG) can helps manage this complexity by dynamically retrieving the most relevant schema information based on the user's query. </p>
+<p>First, lets build a simple VectorDB class that leverages the embedding models created by VoyageAI:</p>
+<pre class="codehilite"><code class="language-python">import os
+import numpy as np
+import voyageai
+import pickle
+import json
+import sqlite3
+
+class VectorDB:
+    def __init__(self, db_path='./data/vector_db.pkl'):
+        self.client = voyageai.Client(api_key=os.getenv(&quot;VOYAGE_API_KEY&quot;))
+        self.db_path = db_path
+        self.load_db()
+
+    def load_db(self):
+        if os.path.exists(self.db_path):
+            with open(self.db_path, &quot;rb&quot;) as file:
+                data = pickle.load(file)
+            self.embeddings, self.metadata, self.query_cache = data['embeddings'], data['metadata'], json.loads(data['query_cache'])
+        else:
+            self.embeddings, self.metadata, self.query_cache = [], [], {}
+
+    def load_data(self, data):
+        if not self.embeddings:
+                texts = [item[&quot;text&quot;] for item in data]
+                self.embeddings = [emb for batch in range(0, len(texts), 128) 
+                                    for emb in self.client.embed(texts[batch:batch+128], model=&quot;voyage-2&quot;).embeddings]
+                self.metadata = [item[&quot;metadata&quot;] for item in data]  # Store only the inner metadata
+                self.save_db()
+
+    def search(self, query, k=5, similarity_threshold=0.3):
+        if query not in self.query_cache:
+            self.query_cache[query] = self.client.embed([query], model=&quot;voyage-2&quot;).embeddings[0]
+            self.save_db()
+
+        similarities = np.dot(self.embeddings, self.query_cache[query])
+        top_indices = np.argsort(similarities)[::-1]
+
+        return [{&quot;metadata&quot;: self.metadata[i], &quot;similarity&quot;: similarities[i]} 
+                for i in top_indices if similarities[i] &gt;= similarity_threshold][:k]
+
+    def save_db(self):
+        with open(self.db_path, &quot;wb&quot;) as file:
+            pickle.dump({&quot;embeddings&quot;: self.embeddings, &quot;metadata&quot;: self.metadata, 
+                         &quot;query_cache&quot;: json.dumps(self.query_cache)}, file)
+
+# Initialize and load schema data
+vectordb = VectorDB()
+if not vectordb.embeddings:
+    with sqlite3.connect(DATABASE_PATH) as conn:
+        cursor = conn.cursor()
+        cursor.execute(&quot;SELECT name FROM sqlite_master WHERE type='table';&quot;)
+        schema_data = [
+            {&quot;text&quot;: f&quot;Table: {table[0]}, Column: {col[1]}, Type: {col[2]}&quot;, 
+             &quot;metadata&quot;: {&quot;table&quot;: table[0], &quot;column&quot;: col[1], &quot;type&quot;: col[2]}}
+            for table in cursor.fetchall()
+            for col in cursor.execute(f&quot;PRAGMA table_info({table[0]})&quot;).fetchall()
+        ]
+    vectordb.load_data(schema_data)
+
+# Test the search functionality
+test_query = &quot;What is the average salary of employees in each department?&quot;
+results = vectordb.search(test_query)
+print(&quot;Search results:&quot;)
+for result in results:
+    print(f&quot;Similarity: {result['similarity']}, Metadata: {result['metadata']}&quot;)
+</code></pre>
+
+<pre class="codehilite"><code>Search results:
+Similarity: 0.7318002364429477, Metadata: {'table': 'employees', 'column': 'salary', 'type': 'REAL'}
+Similarity: 0.7284569547956667, Metadata: {'table': 'employees', 'column': 'department_id', 'type': 'INTEGER'}
+Similarity: 0.6810496067975434, Metadata: {'table': 'departments', 'column': 'name', 'type': 'TEXT'}
+Similarity: 0.6697669330753087, Metadata: {'table': 'employees', 'column': 'name', 'type': 'TEXT'}
+Similarity: 0.6666317064533499, Metadata: {'table': 'departments', 'column': 'location', 'type': 'TEXT'}
+</code></pre>
+
+<p>Now, let's update our prompt generation function to use RAG:</p>
+<pre class="codehilite"><code class="language-python">def generate_prompt_with_rag(query):
+    relevant_schema = vectordb.search(query, k=10, similarity_threshold=0.3)
+    schema_info = &quot;\n&quot;.join([f&quot;Table: {item['metadata']['table']}, Column: {item['metadata']['column']}, Type: {item['metadata']['type']}&quot; 
+                             for item in relevant_schema])
+
+    return generate_prompt_with_cot(schema_info, query)
+
+# Test the RAG-based prompt
+user_query = &quot;What is the average salary of employees in each department?&quot;
+prompt = generate_prompt_with_rag(user_query)
+print(&quot;Generated prompt:&quot;)
+print(prompt)
+
+# Generate and execute SQL
+result = generate_sql(prompt)
+print(&quot;\nGenerated result:&quot;)
+print(result)
+
+# Extract and run the SQL query
+sql = result.split('&lt;sql&gt;')[1].split('&lt;/sql&gt;')[0].strip()
+print(&quot;\nExtracted SQL:&quot;)
+print(sql)
+
+query_result = run_sql(sql)
+print(&quot;\nQuery result:&quot;)
+display(query_result)
+</code></pre>
+
+<pre class="codehilite"><code>Generated prompt:
+You are an AI assistant that converts natural language queries into SQL.
+    Given the following SQL database schema:
+
+    &lt;schema&gt;
+    Table: employees, Column: salary, Type: REAL
+Table: employees, Column: department_id, Type: INTEGER
+Table: departments, Column: name, Type: TEXT
+Table: employees, Column: name, Type: TEXT
+Table: departments, Column: location, Type: TEXT
+Table: employees, Column: id, Type: INTEGER
+Table: departments, Column: id, Type: INTEGER
+Table: employees, Column: age, Type: INTEGER
+Table: employees, Column: hire_date, Type: DATE
+    &lt;/schema&gt;
+
+    Here are some examples of natural language queries, thought processes, and their corresponding SQL:
+
+    &lt;examples&gt;
+
+    &lt;example&gt;
+    &lt;query&gt;List all employees in the HR department.&lt;/query&gt;
+    &lt;thought_process&gt;
+
+    1. We need to join the employees and departments tables.
+    2. We'll match employees.department_id with departments.id.
+    3. We'll filter for the HR department.
+    4. We only need to return the employee names.
+    &lt;/thought_process&gt;
+    &lt;sql&gt;SELECT e.name FROM employees e JOIN departments d ON e.department_id = d.id WHERE d.name = 'HR';&lt;/sql&gt;
+    &lt;/example&gt;
+
+    &lt;example&gt;
+    &lt;query&gt;What is the average salary of employees hired in 2022?&lt;/query&gt;
+    &lt;thought_process&gt;
+
+    1. We need to work with the employees table.
+    2. We need to filter for employees hired in 2022.
+    3. We'll use the YEAR function to extract the year from the hire_date.
+    4. We'll calculate the average of the salary column for the filtered rows.
+    &lt;/thought_process&gt;
+    &lt;sql&gt;SELECT AVG(salary) FROM employees WHERE YEAR(hire_date) = 2022;&lt;/sql&gt;
+    &lt;/example&gt;
+
+    &lt;/examples&gt;
+
+    Now, convert the following natural language query into SQL:
+    &lt;query&gt;
+    What is the average salary of employees in each department?
+    &lt;/query&gt;
+
+    Within &lt;thought_process&gt; tags, explain your thought process for creating the SQL query.
+    Then, within &lt;sql&gt; tags, provide your output SQL query.
+
+
+Generated result:
+&lt;thought_process&gt;
+
+1. We need to get salary information from the employees table and department names from the departments table
+2. We'll need to JOIN these tables using department_id and id
+3. We want to group the results by department since we need averages per department
+4. We need to show both the department name and the average salary
+5. We'll use AVG() function to calculate the average salary
+6. GROUP BY will be used on the department name to get per-department averages
+&lt;/thought_process&gt;
+
+&lt;sql&gt;
+SELECT d.name, AVG(e.salary) as average_salary
+FROM employees e
+JOIN departments d ON e.department_id = d.id
+GROUP BY d.name;
+&lt;/sql&gt;
+
+Extracted SQL:
+SELECT d.name, AVG(e.salary) as average_salary
+FROM employees e
+JOIN departments d ON e.department_id = d.id
+GROUP BY d.name;
+
+Query result:
+</code></pre>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>average_salary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Customer Support</td>
+      <td>140937.064615</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Engineering</td>
+      <td>131710.790500</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Finance</td>
+      <td>134658.368800</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>HR</td>
+      <td>106710.123750</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Legal</td>
+      <td>127712.166667</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Marketing</td>
+      <td>109579.914500</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Operations</td>
+      <td>141913.497619</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Product</td>
+      <td>99374.619167</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Research</td>
+      <td>115082.171667</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Sales</td>
+      <td>136531.167826</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="implementing-query-self-improvement">Implementing Query Self-Improvement</h2>
+<p>Here, we'll build a self-improvement loop with Claude. This lets Claude execute the SQL it generates, analyze the results or errors, and improve the query if necessary.</p>
+<p>This technique helps with:</p>
+<ol>
+<li>Error Handling: It can catch and respond to SQL syntax errors or other execution issues.</li>
+<li>Iterative Refinement: The model can learn from its mistakes and thought processes, and improve its output.</li>
+<li>Performance: It increases the likelihood of generating a valid and executable SQL query.</li>
+</ol>
+<p>In practice, you might want to adjust the <code>max_attempts</code> value based on your specific use case and performance requirements.</p>
+<p>Let's start by creating a function that tries to execute the SQL and provides feedback:</p>
+<pre class="codehilite"><code class="language-python">def execute_sql_with_feedback(sql):
+    try:
+        result = run_sql(sql)
+        return True, result, &quot;Query executed successfully.&quot;
+    except Exception as e:
+        return False, None, str(e)
+
+def generate_prompt_with_self_improvement(query, max_attempts=3):
+    feedback = None
+    sql = None
+
+    for attempt in range(max_attempts):
+        if attempt == 0:
+            prompt = generate_prompt_with_rag(query)
+        else:
+            prompt = f&quot;&quot;&quot;
+            The previous SQL query resulted in this error: {feedback}
+            Analyze the error and provide an improved SQL query.
+            Original query: {sql}
+            Explain your changes in &lt;thought_process&gt; tags and provide the corrected SQL in &lt;sql&gt; tags.
+            &quot;&quot;&quot;
+
+        response = generate_sql(prompt)
+        sql = response.split('&lt;sql&gt;')[1].split('&lt;/sql&gt;')[0].strip()
+
+        print(f&quot;\nAttempt {attempt + 1}:&quot;)
+
+        success, result, feedback = execute_sql_with_feedback(sql)
+        if success:
+            print(&quot;SQL executed successfully!&quot;)
+            return sql, result
+        else:
+            print(&quot;SQL failed to execute&quot;)
+
+    print(&quot;Maximum attempts reached. Could not generate a valid SQL query.&quot;)
+    return None, None
+
+# Test the self-improving SQL generation
+user_query = &quot;For each department, show the ratio of the highest paid employee's salary to the lowest paid employee's salary, but only for departments where this ratio is greater than 3&quot;
+final_sql, result = generate_prompt_with_self_improvement(user_query)
+
+if final_sql:
+    print(&quot;\nFinal SQL query:&quot;)
+    print(final_sql)
+    print(&quot;\nQuery result:&quot;)
+    display(result)
+else:
+    print(&quot;Failed to generate a valid SQL query.&quot;)
+</code></pre>
+
+<pre class="codehilite"><code>Attempt 1:
+SQL executed successfully!
+
+Final SQL query:
+SELECT 
+    d.name,
+    MAX(e.salary) / MIN(e.salary) as salary_ratio
+FROM 
+    departments d
+    JOIN employees e ON d.id = e.department_id
+GROUP BY 
+    d.id, d.name
+HAVING 
+    MAX(e.salary) / MIN(e.salary) &gt; 3;
+
+Query result:
+</code></pre>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>salary_ratio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>HR</td>
+      <td>4.542060</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Engineering</td>
+      <td>3.106824</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Marketing</td>
+      <td>4.421752</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Sales</td>
+      <td>4.750024</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Finance</td>
+      <td>4.474439</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Customer Support</td>
+      <td>4.520068</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Research</td>
+      <td>3.420039</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Legal</td>
+      <td>4.888909</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Product</td>
+      <td>3.687899</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Operations</td>
+      <td>4.357528</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>This self-improvement loop makes our Text to SQL system far more reliable for real-world applications.</p>
+<h2 id="evaluations">Evaluations</h2>
+<p>Evaluating Text to SQL systems isn't always straightforward. A SQL query might be written correctly but not give the right answer, or it might work but not be the best way to get the result. Some queries are simple and easy to generate, while others are very complex.</p>
+<p>Here, we'll explore building an evaluation framework using <a href="https://promptfoo.dev">Promptfoo</a>, an open source LLM evaluation toolkit. To get started,check out <code>./evaluation/README.md</code>.</p>
+<p>The tests in our framework vary in difficulty and evaluate the system across several dimensions:</p>
+<ol>
+<li><strong>Model Type</strong>: We evaluate both Claude 3 Haiku and Claude 3.5 Sonnet.</li>
+<li><strong>Syntax</strong>: We check if the generated SQL is syntactically valid and can be executed without errors. This is a basic requirement for any Text-to-SQL system.</li>
+<li><strong>Query Semantics</strong>: We verify if the generated SQL correctly captures the intent of the natural language query -- for example, correct table selections, proper joins, and appropriate use of aggregations and groupings.</li>
+<li><strong>Result Correctness</strong>: We execute the generated SQL against a test database and compare the results with expected outcomes. This ensures that the query not only looks correct but also produces the right data.</li>
+<li><strong>Handling Complex Queries</strong>: We test the system's ability to handle increasingly complex queries, including multi-table joins, subqueries, window functions, and complex aggregations.</li>
+</ol>
+<h3 id="results">Results</h3>
+<p>We'll use the code below to visualize our results. You can see that Claude 3.5 Sonnet more consistently passes our assertions using the techniques we covered, but it may incur slightly higher latency, cost, or token usage than Claude 3 Haiku.</p>
+<p>You can create and use evaluations like this one to make the appropriate tradeoffs based on your use case.</p>
+<pre class="codehilite"><code class="language-python">import matplotlib.pyplot as plt
+import numpy as np
+
+# Data
+models = ['3H Basic', '3H Few-Shot', '3H CoT+Few-Shot', '3H RAG+Few-Shot+CoT',
+          '3.5S Basic', '3.5S Few-Shot', '3.5S CoT+Few-Shot', '3.5S RAG+Few-Shot+CoT']
+pass_rates = [83.3, 77.8, 88.9, 88.9, 88.9, 94.4, 100, 100]
+avg_latencies = [1561, 1758, 2187, 2564, 1887, 2297, 3900, 4614]
+avg_tokens = [383, 572, 765, 1001, 309, 496, 765, 984]
+costs = [0.0023, 0.0027, 0.0034, 0.0044, 0.020, 0.024, 0.041, 0.050]
+
+# Normalize the data
+max_latency = max(avg_latencies)
+max_tokens = max(avg_tokens)
+max_cost = max(costs)
+norm_latencies = [l/max_latency*100 for l in avg_latencies]
+norm_tokens = [t/max_tokens*100 for t in avg_tokens]
+norm_costs = [c/max_cost*100 for c in costs]
+
+# Set up the plot
+x = np.arange(len(models))
+width = 0.2
+
+fig, ax = plt.subplots(figsize=(15, 8))
+
+# Create the bars
+ax.bar(x - 1.5*width, pass_rates, width, label='Pass Rate (%)', color='green')
+ax.bar(x - 0.5*width, norm_latencies, width, label='Avg. Latency (normalized)', color='blue')
+ax.bar(x + 0.5*width, norm_tokens, width, label='Avg. Tokens (normalized)', color='orange')
+ax.bar(x + 1.5*width, norm_costs, width, label='Cost (normalized)', color='red')
+
+# Customize the plot
+ax.set_ylabel('Percentage / Normalized Value')
+ax.set_title('Comparison of Model Performance')
+ax.set_xticks(x)
+ax.set_xticklabels(models, rotation=45, ha='right')
+ax.legend()
+
+# Add value labels on the bars
+def add_labels(rects):
+    for rect in rects:
+        height = rect.get_height()
+        ax.annotate(f'{height:.1f}',
+                    xy=(rect.get_x() + rect.get_width() / 2, height),
+                    xytext=(0, 3),  # 3 points vertical offset
+                    textcoords=&quot;offset points&quot;,
+                    ha='center', va='bottom', rotation=90)
+
+add_labels(ax.containers[0])  # Only add labels for pass rates
+
+plt.tight_layout()
+plt.show()
+</code></pre>
+
+<p><img alt="png" src="guide_files/guide_32_0.png" /></p>
+<h3 id="running-promptfoo">Running Promptfoo</h3>
+<p>You can run an evaluation with the command <code>promptfoo eval</code>. You can render the eval results via the command <code>promptfoo view</code>. Here's a preview of what the results look like:</p>
+<p><img alt="image-2.png" src="guide_files/image-2.png" />
+<img alt="image-5.png" src="guide_files/image-5.png" />
+<img alt="image.png" src="guide_files/image.png" /></p>
+<h2 id="further-exploration-next-steps">Further Exploration &amp; Next Steps</h2>
+<p>This guide covers the basics of building a Text to SQL system with Claude. Here are some directions to explore that can help improve your solution:</p>
+<h3 id="refining-retrieval-performance">Refining Retrieval Performance</h3>
+<p>As databases grow, it's important to make sure your RAG system finds the most relevant and current information:</p>
+<ol>
+<li>
+<p><strong>Recent usage filter</strong>: Focus on actively-maintained and fresh data by only including tables in the RAG lookup that have been queried a certain number of times in a set timeframe.</p>
+</li>
+<li>
+<p><strong>Query frequency ranking</strong>: Prioritize more commonly-used data by ranking RAG results based on how often tables are queried in production.</p>
+</li>
+<li>
+<p><strong>Regular updates</strong>: Set up a system to update your vector database when schemas change, keeping it current with your database.</p>
+</li>
+<li>
+<p><strong>Context-aware embeddings</strong>: Try embedding table relationships and usage patterns, along with their names, to improve search relevance.</p>
+</li>
+</ol>
+<h3 id="adding-more-context-to-prompts">Adding More Context to Prompts</h3>
+<p>Giving Claude more information about your data structure and content in prompts, in addition to database schemas, can help it generate better queries:</p>
+<ol>
+<li><strong>Data samples</strong>: Include a few rows of actual data for each relevant table in your prompts. For example:</li>
+</ol>
+<pre class="codehilite"><code>&lt;data_sample&gt;
+Sample data for employees table:
+id | name         | age | department_id | salary  | hire_date
+1  | John Doe     | 35  | 2             | 75000.0 | 2020-01-15
+2  | Jane Smith   | 28  | 3             | 65000.0 | 2021-03-01
+&lt;/data_sample&gt;
+</code></pre>
+
+<ol start="2">
+<li>
+<p><strong>Column statistics</strong>: Add useful facts about each column, such as:
+   - Percentage of empty values
+   - Lowest and highest values for number columns
+   - Most common values for category columns</p>
+</li>
+<li>
+<p><strong>Data quality notes</strong>: Mention any known issues or special cases with specific columns or tables.</p>
+</li>
+<li>
+<p><strong>Data catalog information</strong>: If you use tools like dbt to manage your data, include relevant details from your data catalog:
+   - Table overviews from dbt .yml files
+   - Column explanations, including calculations or business rules
+   - Table relationships and data lineage
+   - Data quality checks and expectations
+   - Update frequency for time-sensitive queries</p>
+</li>
+<li>
+<p><strong>Business context</strong>: Add information about how the data is used in your organization, common types of analyses performed, or important business metrics derived from the data.</p>
+</li>
+</ol>
+            </article>
+            
+            <nav class="page-nav"><a href="skills/retrieval_augmented_generation/guide_zh.html" class="nav-link prev">← Retrieval Augmented Generation (RAG)</a><a href="skills/contextual-embeddings/guide_zh.html" class="nav-link next">增强检索的RAG与上下文检索 →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

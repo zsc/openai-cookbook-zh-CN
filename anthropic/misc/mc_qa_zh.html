@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../">
+    <title>实验性测试 Claude 的长上下文问答能力</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">extended_thinking</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="extended_thinking/extended_thinking_with_tool_use_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">扩展思考与工具使用</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="extended_thinking/extended_thinking_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">扩展思考</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">finetuning</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="finetuning/finetuning_on_bedrock_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">在 Bedrock 上微调 Claude 3 Haiku</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder expanded" data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">misc</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/batch_processing_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">批量处理消息批次API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/building_evals_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">建立评估</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/building_moderation_filter_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">建立一个带有 Claude 的审核过滤器</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/generate_test_cases_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">首先，我们有 `extract_variables` 函数，</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/how_to_enable_json_mode_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">提示 Claude 获取“JSON 模式”</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/how_to_make_sql_queries_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 进行 SQL 查询</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/illustrated_responses_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 的图示化响应</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" style="padding-left: 20px;">
+                        <a href="misc/mc_qa_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">实验性测试 Claude 的长上下文问答能力</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/metaprompt_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Metaprompt</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/pdf_upload_summarization_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">“上传”PDF 到 Claude API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/prompt_caching_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">缓存提示（Prompt caching）通过 Anthropic API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/read_web_pages_with_haiku_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Claude 3 Haiku 总结网页内容</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/sampling_past_max_tokens_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 从 Claude 之外的采样响应，超出最大令牌限制</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/speculative_prompt_caching_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">投机性提示缓存</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/using_citations_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">引言</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">multimodal</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/best_practices_for_vision_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/getting_started_with_vision_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">开始上手 - 如何将图像传递给 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/how_to_transcribe_text_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 转录文档</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/reading_charts_graphs_powerpoints_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用图表和幻灯片放映</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/using_sub_agents_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Haiku 作为子代理</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">patterns</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">agents</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/basic_workflows_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">首先使用具有思维链的LLM确定适当的路由</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/evaluator_optimizer_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/orchestrator_workers_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">步骤1：获取协调器响应</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">构建高效代理的食谱</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">prompts</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/citations_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/research_lead_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/research_subagent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </div></div></div></div></div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">skills</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="skills/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 技能</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">classification</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/classification/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">设置我们的环境</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/classification/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 分类指南</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/classification/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Promptfoo 进行评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">contextual-embeddings</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/contextual-embeddings/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">增强检索的RAG与上下文检索</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/contextual-embeddings/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">结合上下文嵌入的检索增强生成</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">retrieval_augmented_generation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/retrieval_augmented_generation/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Retrieval Augmented Generation (RAG)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/retrieval_augmented_generation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/retrieval_augmented_generation/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Promptfoo 进行评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">summarization</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/summarization/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">摘要与 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/summarization/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 摘要</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/summarization/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Promptfoo 评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">text_to_sql</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/text_to_sql/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Set your Anthropic API key</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/text_to_sql/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 的文本到 SQL</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/text_to_sql/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Promptfoo 评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div></div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">third_party</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Deepgram</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Deepgram/prerecorded_audio_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">转录深蓝音频文件并使用 Anthropic 准备面试问题！</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Deepgram/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Deepgram <> Anthropic Cookbooks</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">LlamaIndex</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Basic_RAG_With_LlamaIndex_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">RAG 管道与 LlamaIndex</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Multi_Document_Agents_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">多文档代理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Multi_Modal_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">多模态</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/ReAct_Agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">ReAct Agent</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">LlamaIndex <> Anthropic Cookbooks</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Router_Query_Engine_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">注意：这仅在 jupyter notebook 中是必需的。</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/SubQuestion_Query_Engine_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">SubQuestionQueryEngine</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">MongoDB</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/MongoDB/rag_using_mongodb_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 3 和 MongoDB 构建 RAG 系统</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Pinecone</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Pinecone/claude_3_rag_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">检查 Python 版本</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Pinecone/rag_using_pinecone_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Pinecone 进行检索增强生成</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">VoyageAI</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/VoyageAI/how_to_create_embeddings_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">这将自动使用环境变量VOYAGE_API_KEY。</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Wikipedia</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Wikipedia/wikipedia-search-cookbook_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">迭代搜索维基百科与 Claude</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">WolframAlpha</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/WolframAlpha/using_llm_api_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Wolfram Alpha LLM API 作为 Claude 的工具</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">tool_use</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/calculator_tool_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用计算器工具与 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/customer_service_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用客户端工具创建客服代理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/extracting_structured_json_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Claude 和工具使用功能提取结构化 JSON</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/memory_cookbook_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">安装依赖</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/parallel_tools_claude_3_7_sonnet_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">在 Claude 3.7 Sonnet 上并行调用工具</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/tool_choice_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">选择工具</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/tool_use_with_pydantic_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">记事工具，支持 Pydantic 和 Anthropic 工具使用</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/vision_with_tools_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Vision 与工具</span>
+                        </a>
+                    </div>
+                </div></div></nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="claude">实验性测试 Claude 的长上下文问答能力</h1>
+<p>[免责声明：本笔记本使用 Claude 2 模型创建，现已视为旧版。]</p>
+<p>在本笔记本中，我们将探讨 Claude 根据长篇政府文件中的会议记录回答问题的能力，以及这种能力如何随相关信息的位置而变化。政府文件被分成许多小的子部分。每个问题都将围绕其中一个子部分包含的信息。所有问题和答案都将由 Claude 编写！</p>
+<p>未来内容摘要：</p>
+<ol>
+<li>下载和预处理数据</li>
+<li>使用 Claude 针对数据特定部分编写 400 个多项选择题</li>
+<li>验证 Claude 在仅给定该部分的情况下能否回答这些问题</li>
+<li>验证 Claude 在给定随机其他块的情况下无法回答这些问题</li>
+<li>测试 Claude 在上下文长度非常长的情况下回答问题的能力。</li>
+</ol>
+<h3 id="_1">数据准备</h3>
+<p>首先：下载文件并将其分割成块。每个块对应一个部门的会议记录，例如交通部。</p>
+<pre class="codehilite"><code class="language-python">import anthropic, os, re, requests, trio, pandas as pd
+import numpy as np
+from bs4 import BeautifulSoup
+API_KEY = os.environ['ANTHROPIC_API_KEY']
+CLIENT = anthropic.Anthropic(api_key=API_KEY)
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">url = 'https://www.govinfo.gov/content/pkg/FR-2023-07-13/xml/FR-2023-07-13.xml'
+
+response = requests.get(url)
+soup = BeautifulSoup(response.text, 'xml')
+
+text = soup.get_text()
+chunks = text.split('BILLING CODE')
+chunks[0] = chunks[0][chunks[0].index('DEPARTMENT OF TRANSPORTATION'):]  # First chunk has some extra material at the beginning.
+
+# We'll throw out the chunks that are extra-long or extra-short.
+tokenizer = CLIENT.get_tokenizer()
+chunks = [c for c in chunks if len(tokenizer.encode(c)) &lt;= 5000 and len(tokenizer.encode(c)) &gt; 200]
+print(len(chunks))
+print(chunks[2])
+</code></pre>
+
+<pre class="codehilite"><code>88
+ 4910–13–P
+
+
+
+NATIONAL AERONAUTICS AND SPACE ADMINISTRATION
+14 CFR Part 1204
+[NASA Document No: NASA–23–054; NASA Docket No: NASA–2023–0003]
+RIN 2700–AE70
+Delegations and Designations; Correction
+
+AGENCY:
+National Aeronautics and Space Administration.
+
+
+ACTION:
+Direct final rule; correction.
+
+
+SUMMARY:
+
+                        NASA published a document in the 
+                        Federal Register
+                         on July 5, 2023, concerning Delegations and Designations. The document contained an error in amendatory instruction 2.a.
+
+
+
+DATES:
+
+                        This correction is effective September 5, 2023. If adverse comments are received on the direct final rule published at 88 FR 42870, NASA will publish a timely withdrawal of the rule and this correction to the rule in the 
+                        Federal Register
+                        .
+
+
+
+FOR FURTHER INFORMATION CONTACT:
+Daniela Cruzado, 202–295–7589.
+
+
+
+SUPPLEMENTARY INFORMATION:
+Correction
+
+                    In the 
+                    Federal Register
+                     of July 5, 2023, in FR Doc. 2023–14042, published at 88 FR 42870, the following correction is made:
+
+
+§ 1204.501
+[Amended]
+
+
+1. On page 42871, in the first column, correct amendatory instruction 2.a. for § 1204.501 to read: “a. In paragraph (a) introductory text, add the words “the Office of” before the word “Strategic” and remove the words “Integrated Asset Management” and add in their place the words “Facilities and Real Estate.”
+
+
+Nanette Smith,
+Team Lead, NASA Directives and Regulations.
+
+
+[FR Doc. 2023–14794 Filed 7–12–23; 8:45 am]
+</code></pre>
+
+<h3 id="claude_1">使用 Claude 生成问题和答案</h3>
+<p>现在，是时候使用 Claude 来生成问题和答案了！我们将使用一个两样本提示模板，其中包含两个示例（块、问题、答案）组以及说明。我们将要求为每个块提供五个问题，其中包含 3 个错误答案和 1 个正确答案。</p>
+<pre class="codehilite"><code class="language-python">example_passage1 = &quot;&quot;&quot;DEPARTMENT OF HOUSING AND URBAN DEVELOPMENT
+[Docket No. FR–6381–N–01]
+Improving Access to Public Benefit Programs; Request for Comment
+AGENCY:
+Office of Policy Development and Research, Department of Housing and Urban Development, HUD.
+ACTION:
+Request for comments.
+SUMMARY:
+The Department of Housing and Urban Development is seeking comments from the public regarding the burden faced when applying for or maintaining eligibility for HUD's housing programs. HUD recognizes that these administrative hurdles and paperwork burdens disproportionately fall on the most vulnerable populations and prevent individuals and entities from accessing benefits for which they are legally eligible. Public comment submitted in response to this request for comment will assist HUD in better understanding, identifying, and reducing HUD's public program administrative burden and ultimately further its mission to pursue transformative housing and community-building policies and programs.
+DATES:
+Comment Due Date: August 14, 2023.
+ADDRESSES:
+Interested persons are invited to submit comments responsive to this request for comment. There are three methods for submitting public comments. All submissions must refer to the above docket number and title.
+
+1. Electronic Submission of Comments. Comments may be submitted electronically through the Federal eRulemaking Portal at www.regulations.gov. HUD strongly encourages commenters to submit comments electronically through www.regulations.gov. Electronic submission of comments allows the commenter maximum time to prepare and submit a comment, ensures timely receipt by HUD, and enables HUD to make comments immediately available to the public. Comments submitted electronically through www.regulations.gov can be viewed by other commenters and interested members of the public. Commenters should follow the instructions provided on that website to submit comments electronically.
+2. Submission of Comments by Mail. Comments may be submitted by mail to the Regulations Division, Office of General Counsel, Department of Housing and Urban Development, 451 7th Street SW, Room 10276, Washington, DC 20410–0500.
+3. Submission of Comments by Electronic Mail. Comments may be submitted by electronic mail to the Regulations Division, Office of General Counsel, Department of Housing and Urban Development at improvingaccesstopublicbenefitprograms@hud.gov.
+Note: To receive consideration as a public comment, comments must be submitted through one of the three methods specified above.
+Public Inspection of Public Comments. Copies of all comments submitted will be available for inspection and downloading at www.regulations.gov. HUD will also make all properly submitted comments and communications available for public inspection and copying during regular business hours at the above address. Due to security measures at the HUD Headquarters building, you must schedule an appointment in advance to review the public comments by calling the Regulations Division at 202–708–3055 (this is not a toll-free number). HUD welcomes and is prepared to receive calls from individuals who are deaf or hard of hearing, as well as individuals with speech or communication disabilities. To learn more about how to make an accessible telephone call, please visit https://www.fcc.gov/consumers/guides/telecommunications-relay-service-trs. Copies of all comments submitted are available for inspection and downloading at www.regulations.gov.
+FOR FURTHER INFORMATION CONTACT:
+Todd Richardson, General Deputy Assistant Secretary, Office of Policy Development and Research, Department of Housing and Urban Development, 451 7th Street SW, Room 8100, Washington, DC 20410, telephone 202–402–5706 (this is not a toll-free number). HUD welcomes and is prepared to receive calls from individuals who are deaf or hard of hearing, as well as individuals with speech or communication disabilities. To learn more about how to make an accessible telephone call, please visit https://www.fcc.gov/consumers/guides/telecommunications-relay-service-trs.
+SUPPLEMENTARY INFORMATION:
+I. Background
+Applying for and maintaining eligibility for public benefits and services, including housing programs, often requires completing and submitting a variety of forms. HUD and its housing partners that administer its programs (including Public Housing Authorities, State and local governments, non-profit recipients of CDBG programs, Multifamily Housing owners, and FHA lenders) use the information collected by these forms to determine whether applicants are eligible or if current recipients continue to be eligible. These forms and other methods of information collections may create burdens that disproportionately fall on the most vulnerable populations and prevent individuals and entities from accessing services for which they are legally eligible. These burdens include the expenditure of time, effort, or financial resources to generate, maintain, or provide information to HUD or its housing partners. For example, individuals may be required to provide a list of family members, the family's total annual family income, the assets available to each family member in the household, and the value of such assets in order to access public housing. Individuals applying for or maintaining eligibility for public benefits or services may also face burdens such as time spent gathering records and documentation needed to prove eligibility, travel time associated with developing and submitting the collection, or even time waiting to speak with agency personnel.
+Consistent with the Paperwork Reduction Act of 1995 (PRA), 1 agencies must ensure that both the quantitative burden estimates and the narrative description supporting its information collection requests reflect the beginning-to-end experience of completing the information collection activity. Specifically, the burden faced by individuals applying for and maintaining eligibility for public benefits should also include:
+1  Public Law 104–13 (1995) (codified at 44 U.S.C. 3501–3520).
+—Information and learning costs, which refer to the time, effort, money, and other resources that individuals need to expend to learn about the existence of a public service or benefit, rules governing their eligibility and application, certification, benefits maintenance, and post-award reporting or recertification processes.
+—Compliance costs, which refer to the time, effort, money, and other resources that individuals need to expend to follow through with program application, certification, or recertification, including filling out necessary paperwork, waiting for correspondence from program agencies, planning for in-person meetings, and producing documentation to confirm their eligibility (for instance, records of household composition, income, or assets).&quot;&quot;&quot;
+questions1 = &quot;&quot;&quot;&lt;Question 1&gt;
+What is the Department of Housing and Urban Development seeking comments from the public about?
+&lt;/Question 1&gt;
+&lt;Answers 1&gt;
+
+1. Difficulties in obtaining access to HUD's housing program.
+2. Potential changes in national zoning regulations for mixed-use housing.
+3. Minimum notice for evictions of long-time tenants.
+4. Insurance requirements for HUD-sponsored new construction in disaster-prone areas.
+&lt;/Answers 1&gt;
+&lt;Question 2&gt;
+When is the due date for public comment on the burdens placed on individuals applying for HUD's housing programs?
+&lt;/Question 2&gt;
+&lt;Answers 2&gt;
+
+1. August 14, 2023
+2. September 9, 2023
+3. January 2, 2024
+4. July 31, 2023
+&lt;/Answers 2&gt;
+&lt;Question 3&gt;
+What do &quot;compliance costs&quot; refer to in the context of access to HUD's public benefit programs?
+&lt;/Question 3&gt;
+&lt;Answers 3&gt;
+
+1. Time, effort, money, and resources needed to behave in accordance with paperwork requirements.
+2. Information and self-education required to familiarize oneself with the public services available.
+3. Disclosure requirements for proving your organization has not shared information unduly with others.
+4. Cognitive load, distress, anxiety, distrust, or loss of autonomy and dignity.
+&lt;/Answers 3&gt;
+&quot;&quot;&quot;
+questions2 = &quot;&quot;&quot;&lt;Question 1&gt;
+What agency published the document on July 5 concerning Delegations and Designations?
+&lt;/Question 1&gt;
+&lt;Answers 1&gt;
+
+1. National Aeronautics and Space Administration 
+2. Federal Aviation Administration
+3. Department of Defense
+4. National Oceanic and Atmospheric Administration
+&lt;/Answers 1&gt;
+&lt;Question 2&gt; 
+What is the purpose of the document published in the Federal Register by NASA?
+&lt;/Question 2&gt;
+&lt;Answers 2&gt;
+
+1. To correct an error in a previous document regarding Delegations and Designations
+2. To announce a new policy regarding procurement of launch services 
+3. To solicit public comments on proposed changes to  Rule 210.12(b)(2) regarding astronaut training requirements
+4. To provide guidance on sharing satellite data with foreign partners
+&lt;/Answers 2&gt;
+&lt;Question 3&gt;
+What will NASA do if it receives adverse comments on the direct final rule published on July 5, 2023?
+&lt;/Question 3&gt;
+&lt;Answers 3&gt;
+
+1. Publish a timely withdrawal of the rule and this correction to the rule
+2. Extend the comment period by 30 days
+3. Schedule public hearings to discuss the comments and reaactions to the comments
+4. Proceed with implementing the rule as planned
+&lt;/Answers 3&gt;
+&lt;Question 4&gt;  
+What specifically needs to be corrected in the original NASA Federal Register document?
+&lt;/Question 4&gt;
+&lt;Answers 4&gt;
+
+1. The amendatory instruction for section 1204.501 paragraph (a)
+2. The chapter heading for section 1107.323 paragraph (b) describing responsible disclosure of satellite data
+3. The effective date of the delegations and designations, July 29, 2023
+4. The point of contact for further information, Todd Richardson
+&lt;/Answers 4&gt;&quot;&quot;&quot;
+example_passage2 = &quot;&quot;&quot;NATIONAL AERONAUTICS AND SPACE ADMINISTRATION
+14 CFR Part 1204
+[NASA Document No: NASA–23–054; NASA Docket No: NASA–2023–0003]
+RIN 2700–AE70
+Delegations and Designations; Correction
+AGENCY:
+National Aeronautics and Space Administration.
+ACTION:
+Direct final rule; correction.
+SUMMARY:
+NASA published a document in the Federal Register on July 5, 2023, concerning Delegations and Designations. The document contained an error in amendatory instruction 2.a.
+DATES:
+This correction is effective September 5, 2023. If adverse comments are received on the direct final rule published at 88 FR 42870, NASA will publish a timely withdrawal of the rule and this correction to the rule in the Federal Register .
+FOR FURTHER INFORMATION CONTACT:
+Daniela Cruzado, 202–295–7589.
+SUPPLEMENTARY INFORMATION:
+Correction
+In the Federal Register of July 5, 2023, in FR Doc. 2023–14042, published at 88 FR 42870, the following correction is made:
+§ 1204.501
+[Amended]
+
+1. On page 42871, in the first column, correct amendatory instruction 2.a. for § 1204.501 to read: “a. In paragraph (a) introductory text, add the words “the Office of” before the word “Strategic” and remove the words “Integrated Asset Management” and add in their place the words “Facilities and Real Estate.”
+Nanette Smith,
+Team Lead, NASA Directives and Regulations.
+[FR Doc. 2023–14794 Filed 7–12–23; 8:45 am]&quot;&quot;&quot;
+mc_qa3 = &quot;&quot;&quot;\n\nHuman: Hello Claude. Here is a section from the minutes of a government meeting. Please read it carefully and devise five factual questions about it, along with three wrong answers and the right answer for each. Put questions in &lt;Question&gt;&lt;/Question&gt; tags and answers in &lt;Answer&gt;&lt;/Answer&gt; tags, as in the examples.
+
+Here are two examples.
+
+&lt;Example&gt;
+&lt;Passage&gt;
+{example_passage1}
+&lt;/Passage&gt;
+{questions1}
+&lt;/Example&gt;
+&lt;Example&gt;
+&lt;Passage&gt;
+{example_passage2}
+&lt;/Passage&gt;
+{questions2}
+&lt;/Example&gt;
+
+Now here is the passage I would like you to write questions for.
+
+&lt;Passage&gt;
+{test_passage}
+&lt;/Passage&gt;
+
+Please write five factual questions about this document that can be answered with reference to it and without any outside knowledge. For each question, give three wrong answers and the right answer. Always put the correct answer first. Write 4 non-numerical questions and one numerical one. Make sure the wrong answers are highly detailed. Put the question inside &lt;Question N&gt;&lt;/Question N&gt; tags, and the answers inside &lt;Answers N&gt;&lt;/Answers N&gt; tags, where N is the index of the question, as in the examples. 
+
+Guidelines:
+Make sure that each question clearly and independently identifies the section/minutes/government meeting from which it derives; avoid terms like &quot;this document&quot;, &quot;this passage&quot;, &quot;this notice&quot; in favor of more specific descriptions. The goal is to future-proof the questions and answers in the event that they became divorced from their subject in the filing system.
+Make the questions specific to their source text. Eschew generic questions about date of publication or name of agency. Instead, prefer questions that could not apply to notes produced by any other department/agency.
+
+Assistant:
+&quot;&quot;&quot;
+</code></pre>
+
+<p>一个关键细节需要注意，在上面的提示中：指示要求错误答案“高度详细”。没有这个指示，错误答案往往相对简短，仅凭长度就显得正确答案很突出。请注意“确保每个问题清晰独立地识别其来源部分/会议纪要/政府会议”的指示；我们稍后会回到这一点。</p>
+<p>现在，我们将创建一个数据框，其中包含一个列，用于为每个块填充提示模板，不包括我们在两样本中使用的两个块。</p>
+<pre class="codehilite"><code class="language-python">chunks = [c for c in chunks if example_passage1[20:80] not in c and example_passage2[20:80] not in c]
+df = pd.DataFrame(
+    {'chunk': chunks, 'chunk_idx': range(len(chunks))}
+)
+df['prompt'] = [mc_qa3.format(
+    example_passage1=example_passage1, example_passage2=example_passage2, questions1=questions1, questions2=questions2, test_passage=c
+    ) for c in chunks]
+print(len(df))
+</code></pre>
+
+<pre class="codehilite"><code>86
+</code></pre>
+
+<p>在本笔记本中，我们将使用 Claude Instant，它与 Claude 2 一样拥有 100K 的上下文窗口。您也可以使用 Claude 2 运行它，结果类似。首先，我们设计辅助代码，以便能够并行调用 API（如果您的组织允许）。如果不允许，您可以将 CapacityLimiter 设置为 1。</p>
+<pre class="codehilite"><code class="language-python">def get_completion(client, prompt, max_tokens=3000, model='claude-instant-1.2', temperature=0):
+    return client.completions.create(
+        prompt=prompt, max_tokens_to_sample=max_tokens, model=model, temperature=temperature, stop_sequences=['\n\nHuman:', '\n\nAssistant:']
+    ).completion
+
+async def process_case(limiter, client, prompt, results, output_col_name='completion'):
+
+    async with limiter:
+        completion = await trio.to_thread.run_sync(get_completion, client, prompt)
+
+    results.append({'prompt': prompt, output_col_name: completion})
+
+    if len(results) % 10 == 0:
+        print(f&quot;{len(results)} test cases processed&quot;)  # Optional &quot;progress bar&quot;
+
+async def get_completions_parallel(client, prompts, output_col_name='completion'):
+    async with trio.open_nursery() as nursery:
+        limiter = trio.CapacityLimiter(10)  # Set this to the maximum concurrency allowed on your API key, which may just be 1.
+        results = []
+        for prompt in prompts:
+            nursery.start_soon(process_case, limiter, CLIENT, prompt, results, output_col_name)
+    return results
+</code></pre>
+
+<pre class="codehilite"><code class="language-python"># Get questions and answers for every prompt
+qas = await get_completions_parallel(CLIENT, df.prompt.values, output_col_name='qas')
+df = df.merge(pd.DataFrame(qas), on='prompt')
+</code></pre>
+
+<p>接下来，我们将对输出进行一些小的清理：</p>
+<ul>
+<li>删除编号以便于重新排序</li>
+<li>提取标签之间的内容</li>
+<li>为每个（问题 + 答案）对创建一个单独的行</li>
+</ul>
+<pre class="codehilite"><code class="language-python">def remove_numbered_bullets(answer):
+    return re.sub(r'^\d+\. ', '', answer)
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">def extract_between_tags(tag: str, string: str, strip: bool = True, alt=True) -&gt; list[str]:
+    # Helper function for parsing Claude's output
+    try:
+        ext_list = re.findall(f&quot;&lt;{tag}\s?&gt;(.+?)&lt;/{tag}\s?&gt;&quot;, string, re.DOTALL)
+        if strip:
+            ext_list = [e.strip() for e in ext_list]
+        if alt and not ext_list:
+            ext_list = re.findall(f&quot;&lt;{tag}\s?&gt;(.+?)&lt;{tag}\s?&gt;&quot;, string, re.DOTALL)
+            if strip:
+                ext_list = [e.strip() for e in ext_list]
+        return ext_list
+    except:
+        return extract_between_tags(tag, string+'&lt;/' + tag + '&gt;', strip, alt)
+
+def extract_answer(sample):
+    return extract_between_tags('Answer', sample)[0][0] if extract_between_tags(
+        'Answer', sample) else extract_between_tags('Answer', sample + '&lt;/Answer&gt;')[0][0] if extract_between_tags('Answer', sample + '&lt;/Answer&gt;') else '_'
+
+def extract_qs_as(qas, n=5):
+    # Parse each of Claude's answers to the QA generation prompt into a question and a list of answers.
+    flattened_qas = []
+    for i in range(1, n + 1):
+        try:
+            question = extract_between_tags(f'Question {i}', qas)[0]
+            answers = extract_between_tags(f'Answers {i}', qas)[0]
+        except:
+            continue
+        flattened_qas.append({
+          'question': question,
+          'right_answer': remove_numbered_bullets(answers.split('\n')[0].strip()),
+          'wrong_answers': [remove_numbered_bullets(a.strip()) for a in answers.split('\n')[1:]]
+        })
+    return flattened_qas
+</code></pre>
+
+<p>我们最初有 86 个部分，其中 2 个原始的 88 个部分用于示例，产生了 86 * 5 = 430 个问题。</p>
+<pre class="codehilite"><code class="language-python">qs_as = df['qas'].apply(extract_qs_as)
+df['questions'] = [[q['question'] for q in qa] for qa in qs_as]
+df['right_answers'] = [[q['right_answer'] for q in qa] for qa in qs_as]
+df['wrong_answers'] = [[q['wrong_answers'] for q in qa] for qa in qs_as]
+qa_df_rows = []
+for i, row in df.iterrows():
+    for j, q in enumerate(row.questions):
+        qa_df_rows.append(row.to_dict() | {'question': q, 'right_answer': row['right_answers'][j], 'wrong_answers_q': row['wrong_answers'][j]})
+qa_df = pd.DataFrame(qa_df_rows)
+print(len(qa_df))
+</code></pre>
+
+<pre class="codehilite"><code>430
+</code></pre>
+
+<p>现在是时候看看一些问题和答案，确保它们看起来基本合理了。</p>
+<pre class="codehilite"><code class="language-python">for i in range(28, 38):
+    for c in ['question', 'right_answer', 'wrong_answers_q']:
+        print(qa_df.iloc[i][c])
+</code></pre>
+
+<h3 id="_2">建立基线 + 质量控制</h3>
+<p>让我们创建一个回答提示，告诉 Claude 阅读材料并回答一个关于它的多项选择题。</p>
+<pre class="codehilite"><code class="language-python">mc_answer_one_chunk_prompt = &quot;&quot;&quot;\n\nHuman: Please read the following government record closely and then answer the multiple choice question below.
+&lt;Government Record&gt;
+{chunk}
+&lt;/Government Record&gt;
+Here is the question:
+&lt;Question&gt;
+{question}
+&lt;/Question&gt;
+Based on the government record above, select the correct answer to the question from the list below and write the corresponding letter (A, B, C, or D) in &lt;Answer&gt;&lt;/Answer&gt; tags.
+&lt;Answers&gt;
+{answers}
+&lt;/Answers&gt;
+
+Assistant: Based on the government record provided, the correct answer to the question is:
+&quot;&quot;&quot;
+</code></pre>
+
+<p>随机化答案并跟踪哪个是正确的在“correct_answer_letter”列中。</p>
+<pre class="codehilite"><code class="language-python">def randomize_answers(answers_list):
+    # Assign a letter A-D randomly to each answer
+    shuffled = np.random.permutation(answers_list[:4])
+    letters = ['A. ', 'B. ', 'C. ', 'D. ']
+    numbered = [letters[i] + answer for i, answer in enumerate(shuffled)]
+    s_numbered = sorted(numbered)
+    return s_numbered
+
+qa_df.apply(lambda row: randomize_answers(row['wrong_answers_q'] + [row['right_answer']]), axis=1)
+
+qa_df['randomized_answers'] = qa_df.apply(lambda row: randomize_answers(row['wrong_answers_q'] + [row['right_answer']]), axis=1)
+
+def pluck_answer_letter(qa_df_row):
+    # Find the letter of the correct answer
+    answer = qa_df_row['right_answer']
+    for ra in qa_df_row['randomized_answers']:
+        if ra[3:] == answer:
+            return ra[0]
+
+qa_df['correct_answer_letter'] = qa_df.apply(lambda row: pluck_answer_letter(row), axis=1)
+</code></pre>
+
+<p>首先，我们将测试 Claude 在看到相关块且仅看到相关块时回答问题的能力。</p>
+<pre class="codehilite"><code class="language-python">qa_df['qa_with_right_chunk_prompt'] = qa_df.apply(lambda row: mc_answer_one_chunk_prompt.format(
+    chunk=row['chunk'], question=row['question'], answers=row['randomized_answers']),
+    axis=1
+) # Populate prompt column
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">qa_answer_right_chunk = await get_completions_parallel(CLIENT, qa_df['qa_with_right_chunk_prompt'].values, output_col_name='qa_answer_right_chunk')
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">qa_df = qa_df.merge(pd.DataFrame(qa_answer_right_chunk), left_on='qa_with_right_chunk_prompt', right_on='prompt', suffixes=['', '_x']).drop(columns=['prompt_x'])
+</code></pre>
+
+<p>现在让我们看看它答对了多少题。</p>
+<pre class="codehilite"><code class="language-python">def print_results(df, results):
+    cs, ics = 0, 0
+    j = 0
+    for i, row in df.iterrows():
+        if results[j] == row['correct_answer_letter']:
+            cs += 1
+        else:
+            ics += 1
+        j += 1
+    print(&quot;Results:&quot;, cs, ics)
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">qa_df['qa_answer_right_chunk'] = [extract_answer(sample) for sample in qa_df['qa_answer_right_chunk'].values]
+print_results(qa_df, qa_df['qa_answer_right_chunk'])
+</code></pre>
+
+<pre class="codehilite"><code>Results: 387 43
+</code></pre>
+
+<p>它答对了 90% 的题目。现在，让我们看看当 Claude 没有得到包含答案的块，而是得到一个随机的块时，它的表现如何。可怜的 Claude！</p>
+<pre class="codehilite"><code class="language-python">shift_val = int(len(qa_df) / 2)
+qa_df['shifted_chunk'] = qa_df['chunk'].shift(shift_val)
+qa_df['shifted_chunk'].iloc[:shift_val] = qa_df['chunk'].iloc[-1 * shift_val:].values
+</code></pre>
+
+<pre class="codehilite"><code>/tmp/ipykernel_2454397/3504946734.py:3: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  qa_df['shifted_chunk'].iloc[:shift_val] = qa_df['chunk'].iloc[-1 * shift_val:].values
+</code></pre>
+
+<pre class="codehilite"><code>qa_df['qa_with_shift_chunk_prompt'] = qa_df.apply(
+    lambda row: mc_answer_one_chunk_prompt.format(chunk=row['shifted_chunk'], question=row['question'], answers=row['randomized_answers']),
+    axis=1
+)
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">qa_answer_shift_chunk = await get_completions_parallel(CLIENT, qa_df['qa_with_shift_chunk_prompt'].values, output_col_name='qa_answer_shift_chunk')
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">qa_df = qa_df.merge(pd.DataFrame(qa_answer_shift_chunk), left_on='qa_with_shift_chunk_prompt', right_on='prompt', suffixes=['', '_x']).drop(columns=['prompt_x'])
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">qa_df['qa_answer_shift_chunk'] = [extract_answer(sample) for sample in qa_df['qa_answer_shift_chunk'].values]
+print_results(qa_df, qa_df['qa_answer_shift_chunk'])
+</code></pre>
+
+<pre class="codehilite"><code>Results: 155 275
+</code></pre>
+
+<p>仅凭运气，Claude 应该能答对 25%。实际上，Claude 答对了 36%。就像我们这样聪明的人类一样，在标准化考试中也能猜对，Claude 也是如此。与提供正确块时的准确率相比，仍然相差甚远，因此实验是有意义的。我们将过滤掉 Claude 即使有相关块也未能正确回答的问题，因为这些问题对于测试长上下文的影响来说“太难了”。</p>
+<pre class="codehilite"><code class="language-python">too_hard_qa_df = qa_df[qa_df.correct_answer_letter != qa_df.qa_answer_right_chunk]
+qa_df = qa_df[qa_df.correct_answer_letter == qa_df.qa_answer_right_chunk]
+len(qa_df)
+</code></pre>
+
+<pre class="codehilite"><code>387
+</code></pre>
+
+<h3 id="_3">测试时间</h3>
+<p>现在是长上下文部分！我们将通过获取随机块来创建长上下文，直到我们得到一个很好的大块标记。我们将为每个问题创建一个不同的长上下文。我们在这里尝试两个不同的提示：一个基本提示，以及一个包含“便签本”的提示，我们在其中要求 Claude 从可能有助于回答问题的文档中提取相关引用。</p>
+<pre class="codehilite"><code class="language-python">mc_answer_one_chunk_prompt = &quot;&quot;&quot;\n\nHuman: Please read the following government record closely and then answer the multiple choice question below.
+&lt;Government Record&gt;
+{chunk}
+&lt;/Government Record&gt;
+Here is the question:
+&lt;Question&gt;
+{question}
+&lt;/Question&gt;
+Based on the government record above, select the correct answer to the question from the list below and write the corresponding letter (A, B, C, or D) in &lt;Answer&gt;&lt;/Answer&gt; tags.
+&lt;Answers&gt;
+{answers}
+&lt;/Answers&gt;
+
+Assistant: Based on the government record provided, the correct answer to the question is:
+&quot;&quot;&quot;
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">mc_answer_one_chunk_prompt_scratchpad = &quot;&quot;&quot;\n\nHuman: Please read the following government record closely and then answer the multiple choice question below.
+&lt;Government Record&gt;
+{chunk}
+&lt;/Government Record&gt;
+Now here is the question for you to answer:
+&lt;Question&gt;
+{question}
+&lt;/Question&gt;
+Pull 2-3 relevant quotes from the record that pertain to the question and write them inside &lt;scratchpad&gt;&lt;/scratchpad&gt; tags. Then, select the correct answer to the question from the list below and write the corresponding letter (A, B, C, or D) in &lt;Answer&gt;&lt;/Answer&gt; tags.
+&lt;Answers&gt;
+{answers}
+&lt;/Answers&gt;
+
+Assistant:
+&quot;&quot;&quot;
+</code></pre>
+
+<p>为了创建长上下文，我们使用一种称为“随机拼贴”的技术——从相关块开始，连接随机块直到达到我们想要测试的最大长度，随机化块，然后将相关块移动到拼贴中的所需位置。我们将尝试将相关块放在开头、中间和开头。</p>
+<pre class="codehilite"><code class="language-python">def create_long_context(chunk, other_chunks, main_chunk_idx, max_tokens=70000):  # Can also use 95000.
+    doc_len = len(tokenizer.encode(chunk))
+    chunks_ctx = [chunk]
+    np.random.shuffle(other_chunks)
+    i = 0
+    # Add chunks until we exceed the context length
+    while doc_len &lt; max_tokens:
+        chunks_ctx.append(other_chunks[i])
+        doc_len += len(tokenizer.encode(other_chunks[i]))
+        i += 1
+    # Put the relevant chunk in the desired position.
+    chunks_ctx = chunks_ctx[:-1]
+    chunks_ctx_ordered = chunks_ctx[1:main_chunk_idx] + [chunk] + chunks_ctx[main_chunk_idx:]
+    return '\n\n\n\n'.join(chunks_ctx_ordered)
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">qa_df['long_context_end'] = qa_df.apply(lambda row: create_long_context(row['chunk'], [c for c in chunks if c != row['chunk']], len(chunks)), axis=1)
+qa_df['long_context_middle'] = qa_df.apply(lambda row: create_long_context(row['chunk'], [c for c in chunks if c != row['chunk']], 20), axis=1)
+qa_df['long_context_beginning'] = qa_df.apply(lambda row: create_long_context(row['chunk'], [c for c in chunks if c != row['chunk']], 0), axis=1)
+</code></pre>
+
+<pre class="codehilite"><code class="language-python"># Create prompts for each question/context
+qa_df['qa_long_ctx_prompt_end'] = qa_df.apply(lambda row: mc_answer_one_chunk_prompt.format(
+    chunk=row['long_context_end'], question=row['question'], answers=row['randomized_answers']),
+    axis=1
+)
+
+qa_df['qa_long_ctx_prompt_middle'] = qa_df.apply(lambda row: mc_answer_one_chunk_prompt.format(
+    chunk=row['long_context_middle'], question=row['question'], answers=row['randomized_answers']),
+    axis=1
+)
+
+qa_df['qa_long_ctx_prompt_beginning'] = qa_df.apply(lambda row: mc_answer_one_chunk_prompt.format(
+    chunk=row['long_context_beginning'], question=row['question'], answers=row['randomized_answers']),
+    axis=1
+)
+</code></pre>
+
+<p>现在我们将进行另一轮采样，用于开头、中间和结尾。</p>
+<p><em>注意：每个单元格都需要一段时间才能运行。</em> 如果您只是为了好玩而跟随，您可能只想在 qa_df 的几行上运行它。</p>
+<pre class="codehilite"><code class="language-python">async def sample_from_prompt(exp_name, prompt_col):
+    global qa_df
+    answers = await get_completions_parallel(CLIENT, qa_df[prompt_col].values, output_col_name=exp_name)
+    qa_df = qa_df.merge(pd.DataFrame(answers), left_on=prompt_col, right_on='prompt', suffixes=['', '_x'], how='left').drop(columns=['prompt_x'])
+    qa_df[exp_name] = [extract_answer(sample) for sample in qa_df[exp_name].values]
+</code></pre>
+
+<pre class="codehilite"><code class="language-python"># We reuse this code block throughout to first sample each prompt and get Claude's answer to each question, then analyze the results
+# ...and to do this for the relevant chunk being in the beginning, middle, or end.
+# Note: for a table with results for each row, see the blog post on Anthropic's website.
+# Note: if this block takes unacceptably long for you, you can downsample qa_df.
+for position in ['beginning', 'middle', 'end']:
+    exp_name = 'qa_answers_long_ctx_' + position
+    prompt_col = 'qa_long_ctx_prompt_' + position
+    _ = await sample_from_prompt(exp_name, prompt_col)
+    print(&quot;Results for &quot; + exp_name)
+    print_results(qa_df, qa_df[exp_name].values)
+</code></pre>
+
+<p>现在我们将重复实验，但让 Claude 可以访问一个便签本，用于存放从上下文中提取的确切引用。</p>
+<pre class="codehilite"><code class="language-python">qa_df['qa_long_ctx_prompt_scratchpad_end'] = qa_df.apply(lambda row: mc_answer_one_chunk_prompt_scratchpad.format(
+    chunk=row['long_context_end'], question=row['question'], answers=row['randomized_answers']),
+    axis=1
+)
+
+qa_df['qa_long_ctx_prompt_scratchpad_middle'] = qa_df.apply(lambda row: mc_answer_one_chunk_prompt_scratchpad.format(
+    chunk=row['long_context_middle'], question=row['question'], answers=row['randomized_answers']),
+    axis=1
+)
+
+qa_df['qa_long_ctx_prompt_scratchpad_beginning'] = qa_df.apply(lambda row: mc_answer_one_chunk_prompt_scratchpad.format(
+    chunk=row['long_context_beginning'], question=row['question'], answers=row['randomized_answers']),
+    axis=1
+)
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">for position in ['beginning', 'middle', 'end']:
+    exp_name = 'qa_answers_long_ctx_scratchpad_' + position
+    prompt_col = 'qa_long_ctx_prompt_scratchpad_' + position
+    _ = await sample_from_prompt(exp_name, prompt_col)
+    print(&quot;Results for &quot; + exp_name)
+    print_results(qa_df, qa_df[exp_name].values)
+</code></pre>
+
+<p>接下来，我们将尝试向提示中添加一些正确回答的多项选择题示例。首先，我们将使用一些虚构的示例。我们将测试有和没有便签本的情况。</p>
+<pre class="codehilite"><code class="language-python">mc_answer_lc_with_nongov_examples_prompt = &quot;&quot;&quot;\n\nHuman: Please read the following government record closely and then answer the multiple choice question below.
+&lt;Government Record&gt;
+{chunk}
+&lt;/Government Record&gt;
+First, here are two example questions with correct answers.
+&lt;Question&gt;
+Who was the first president of the United States?
+&lt;/Question&gt;
+&lt;Answers&gt;
+A. Thomas Jefferson
+B. George Washington
+C. Abraham Lincoln
+D. John Adams
+&lt;/Answers&gt;
+Here, the correct answer is:
+&lt;Answer&gt;
+B. George Washington
+&lt;/Answer&gt;
+&lt;Question&gt;
+What is the boiling temperature of water, in degrees Fahrenheit?
+&lt;/Question&gt;
+&lt;Answers&gt;
+A. 200
+B. 100
+C. 287
+D. 212
+&lt;/Answers&gt;
+Here, the correct answer is:
+&lt;Answer&gt;
+D. 212
+&lt;/Answer&gt;
+Now, based on the government record you've just read, please answer this question:
+&lt;Question&gt;
+{question}
+&lt;/Question&gt;
+Select the correct answer to the question from the list below and write the corresponding letter (A, B, C, or D) in &lt;Answer&gt;&lt;/Answer&gt; tags.
+&lt;Answers&gt;
+{answers}
+&lt;/Answers&gt;
+
+Assistant:
+&quot;&quot;&quot;
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">mc_answer_lc_with_nongov_examples_prompt_scratchpad = &quot;&quot;&quot;\n\nHuman: Please read the following government record closely and then answer the multiple choice question below.
+&lt;Government Record&gt;
+{chunk}
+&lt;/Government Record&gt;
+Based on the government record above, select the correct answer to the question from the list below and write the corresponding letter (A, B, C, or D) in &lt;Answer&gt;&lt;/Answer&gt; tags.
+First, here are two example questions.
+&lt;Question&gt;
+Who was the first president of the United States?
+&lt;/Question&gt;
+&lt;Answers&gt;
+A. Thomas Jefferson
+B. George Washington
+C. Abraham Lincoln
+D. John Adams
+&lt;/Answers&gt;
+Here, the correct answer is:
+&lt;Answer&gt;
+B. George Washington
+&lt;/Answer&gt;
+&lt;Question&gt;
+What is the boiling temperature of water, in degrees Fahrenheit?
+&lt;/Question&gt;
+&lt;Answers&gt;
+A. 200
+B. 100
+C. 287
+D. 212
+&lt;/Answers&gt;
+Here, the correct answer is:
+&lt;Answer&gt;
+D. 212
+&lt;/Answer&gt;
+Now, based on the government record you've just read, please answer this question:
+&lt;Question&gt;
+{question}
+&lt;/Question&gt;
+Pull 2-3 relevant quotes from the record that pertain to the question and write them inside &lt;scratchpad&gt;&lt;/scratchpad&gt; tags. Then, select the correct answer to the question from the list below and write the corresponding letter (A, B, C, or D) in &lt;Answer&gt;&lt;/Answer&gt; tags.
+&lt;Answers&gt;
+{answers}
+&lt;/Answers&gt;
+
+Assistant:
+&quot;&quot;&quot;
+</code></pre>
+
+<pre class="codehilite"><code class="language-python"># Create prompts, non-scratchpad version
+qa_df['qa_long_ctx_prompt_nongov_examples_end'] = qa_df.apply(lambda row: mc_answer_lc_with_nongov_examples_prompt.format(
+    chunk=row['long_context_end'], question=row['question'], answers=row['randomized_answers']),
+    axis=1
+)
+
+qa_df['qa_long_ctx_prompt_nongov_examples_middle'] = qa_df.apply(lambda row: mc_answer_lc_with_nongov_examples_prompt.format(
+    chunk=row['long_context_middle'], question=row['question'], answers=row['randomized_answers']),
+    axis=1
+)
+
+qa_df['qa_long_ctx_prompt_nongov_examples_beginning'] = qa_df.apply(lambda row: mc_answer_lc_with_nongov_examples_prompt.format(
+    chunk=row['long_context_beginning'], question=row['question'], answers=row['randomized_answers']),
+    axis=1
+)
+</code></pre>
+
+<pre class="codehilite"><code class="language-python"># Get answers and print accuracy.
+for position in ['beginning', 'middle', 'end']:
+    exp_name = 'qa_long_ctx_answers_nongov_examples_' + position
+    prompt_col = 'qa_long_ctx_prompt_nongov_examples_' + position
+    _ = await sample_from_prompt(exp_name, prompt_col)
+    print(&quot;Results for &quot; + exp_name)
+    print_results(qa_df, qa_df[exp_name].values)
+</code></pre>
+
+<pre class="codehilite"><code class="language-python"># Create prompts, with-scratchpad version
+qa_df['qa_long_ctx_prompt_nongov_examples_scratchpad_end'] = qa_df.apply(lambda row: mc_answer_lc_with_nongov_examples_prompt_scratchpad.format(
+    chunk=row['long_context_end'], question=row['question'], answers=row['randomized_answers']),
+    axis=1
+)
+
+qa_df['qa_long_ctx_prompt_nongov_examples_scratchpad_middle'] = qa_df.apply(lambda row: mc_answer_lc_with_nongov_examples_prompt_scratchpad.format(
+    chunk=row['long_context_middle'], question=row['question'], answers=row['randomized_answers']),
+    axis=1
+)
+
+qa_df['qa_long_ctx_prompt_nongov_examples_scratchpad_beginning'] = qa_df.apply(lambda row: mc_answer_lc_with_nongov_examples_prompt_scratchpad.format(
+    chunk=row['long_context_beginning'], question=row['question'], answers=row['randomized_answers']),
+    axis=1
+)
+</code></pre>
+
+<pre class="codehilite"><code class="language-python"># Get answers and print accuracy.
+for position in ['beginning', 'middle', 'end']:
+    exp_name = 'qa_long_ctx_answers_nongov_examples_scratchpad_' + position
+    prompt_col = 'qa_long_ctx_prompt_nongov_examples_scratchpad_' + position
+    _ = await sample_from_prompt(exp_name, prompt_col)
+    print(&quot;Results for &quot; + exp_name)
+    print_results(qa_df, qa_df[exp_name].values)
+</code></pre>
+
+<p>结果没有显示出多少改进，甚至没有。通过添加“少样本”示例可以做得更好，这些示例与任务更相关吗？</p>
+<p>生成这些少样本示例的程序如下。对于每个问题，找到其关联的块，然后选择其他块中不属于该块的随机 QA。</p>
+<p>我们将尝试使用 2 个和 5 个示例，有和没有便签本。</p>
+<pre class="codehilite"><code class="language-python"># Function to generate a prompt using examples from the context.
+def gen_mc_answer_lc_with_examples_prompt(num_examples): 
+    examples_section = &quot;some example questions that refer to the government record above, along with correct answers.&quot;
+    for i in range(num_examples):
+        examples_section += &quot;&quot;&quot;
+&lt;Question&gt;
+{sample_question&quot;&quot;&quot; + str(i+1) + &quot;&quot;&quot;}
+&lt;/Question&gt;
+&lt;Answers&gt;
+{sample_answers&quot;&quot;&quot; + str(i+1) + &quot;&quot;&quot;}
+&lt;/Answers&gt;
+Here, the correct answer is:
+&lt;Answer&gt;
+{correct_answer&quot;&quot;&quot; + str(i+1) + &quot;&quot;&quot;}
+&lt;/Answer&gt;&quot;&quot;&quot;
+    return &quot;&quot;&quot;\n\nHuman: Please read the following government record closely and then answer the multiple choice question below.
+&lt;Government Record&gt;
+{chunk}
+&lt;/Government Record&gt;
+First, here are &quot;&quot;&quot; + examples_section + &quot;&quot;&quot;
+Now here is the question for you to answer.
+&lt;Question&gt;
+{question}
+&lt;/Question&gt;
+Select the correct answer to the question from the list below and write the corresponding letter (A, B, C, or D) in &lt;Answer&gt;&lt;/Answer&gt; tags.
+&lt;Answers&gt;
+{answers}
+&lt;/Answers&gt;
+
+Assistant:
+&quot;&quot;&quot;
+</code></pre>
+
+<pre class="codehilite"><code class="language-python"># Same as above, but includes scratchpad.
+def gen_mc_answer_lc_with_examples_prompt_scratchpad(num_examples): 
+    examples_section = &quot;some example questions that refer to the government record above, along with correct answers.&quot;
+    for i in range(num_examples):
+        examples_section += &quot;&quot;&quot;
+&lt;Question&gt;
+{sample_question&quot;&quot;&quot; + str(i+1) + &quot;&quot;&quot;}
+&lt;/Question&gt;
+&lt;Answers&gt;
+{sample_answers&quot;&quot;&quot; + str(i+1) + &quot;&quot;&quot;}
+&lt;/Answers&gt;
+Here, the correct answer is:
+&lt;Answer&gt;
+{correct_answer&quot;&quot;&quot; + str(i+1) + &quot;&quot;&quot;}
+&lt;/Answer&gt;&quot;&quot;&quot;
+    return &quot;&quot;&quot;\n\nHuman: Please read the following government record closely and then answer the multiple choice question below.
+&lt;Government Record&gt;
+{chunk}
+&lt;/Government Record&gt;
+First, here are &quot;&quot;&quot; + examples_section + &quot;&quot;&quot;
+Now here is the question for you to answer.
+&lt;Question&gt;
+{question}
+&lt;/Question&gt;
+Pull 2-3 relevant quotes from the record that pertain to the question and write them inside &lt;scratchpad&gt;&lt;/scratchpad&gt; tags. Then, select the correct answer to the question from the list below and write the corresponding letter (A, B, C, or D) in &lt;Answer&gt;&lt;/Answer&gt; tags.
+&lt;Answers&gt;
+{answers}
+&lt;/Answers&gt;
+
+Assistant:
+&quot;&quot;&quot;
+</code></pre>
+
+<pre class="codehilite"><code class="language-python"># Get examples randomly
+def grab_example_qas(long_context_row, long_context_col, qa_df, num_examples=2):
+    examples = []
+    for i, row in qa_df.sample(frac=1).iterrows():  # Randomize order of questions
+        if row['chunk'] in long_context_row[long_context_col] and row['chunk'] != long_context_row.chunk:
+            # Examples must pertain to chunks that were included in the collage, but must not be the exact question in question.
+            examples.append({
+                'question': row.question, 'answers': row.randomized_answers, 
+                'correct_answer': [a for a in row.randomized_answers if row.right_answer in a][0][0]})
+        if len(examples) &gt;= num_examples:
+            break
+    examples_numbered = {}
+    for i in range(num_examples):
+        examples_numbered['sample_question' + str(i+1)] = examples[i]['question']
+        examples_numbered['sample_answers' + str(i+1)] = examples[i]['answers']
+        examples_numbered['correct_answer' + str(i+1)] = examples[i]['correct_answer']
+    return examples_numbered
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">def format_for_long_ctx_with_examples(row, chunk_col, long_context_col, qa_df, num_examples=2):
+    # Get examples QA pairs and plug them into the prompt
+    example_qas = grab_example_qas(long_context_row=row, long_context_col=long_context_col, qa_df=qa_df, num_examples=num_examples)
+    format_args = {}
+    for i in range(1, num_examples+1):
+        format_args['sample_question'+str(i)] = example_qas['sample_question'+str(i)] 
+        format_args['sample_answers'+str(i)] = example_qas['sample_answers'+str(i)]
+        format_args['correct_answer'+str(i)] = example_qas['correct_answer'+str(i)]
+    return gen_mc_answer_lc_with_examples_prompt(num_examples).format(
+        chunk=row[chunk_col], question=row['question'], answers=row['randomized_answers'],
+        **format_args
+    )
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">def format_for_long_ctx_with_examples_scratchpad(row, chunk_col, long_context_col, qa_df, num_examples=2):
+    # Same as above, but with scratchpad.
+    example_qas = grab_example_qas(long_context_row=row, long_context_col=long_context_col, qa_df=qa_df, num_examples=num_examples)
+    format_args = {}
+    for i in range(1, num_examples+1):
+        # The examples are indexed from 1.
+        format_args['sample_question'+str(i)] = example_qas['sample_question'+str(i)] 
+        format_args['sample_answers'+str(i)] = example_qas['sample_answers'+str(i)]
+        format_args['correct_answer'+str(i)] = example_qas['correct_answer'+str(i)]
+    return gen_mc_answer_lc_with_examples_prompt_scratchpad(num_examples).format(
+        chunk=row[chunk_col], question=row['question'], answers=row['randomized_answers'],
+        **format_args
+    )
+</code></pre>
+
+<p>首先，我们将尝试 2 个示例。</p>
+<pre class="codehilite"><code class="language-python">num_examples = 2
+# Generate prompts that include examples, have Claude answer questions, print accuracy numbers for (beginning, middle, end)
+qa_df[f'long_ctx_with_{num_examples}_examples_prompt_end'] = qa_df.apply(
+    lambda row: format_for_long_ctx_with_examples(row, 'long_context_end', 'qa_long_ctx_prompt_end', qa_df, num_examples=num_examples), axis=1)
+
+qa_df[f'long_ctx_with_{num_examples}_examples_prompt_middle'] = qa_df.apply(
+    lambda row: format_for_long_ctx_with_examples(row, 'long_context_middle', 'qa_long_ctx_prompt_middle', qa_df, num_examples=num_examples), axis=1)
+
+qa_df[f'long_ctx_with_{num_examples}_examples_prompt_beginning'] = qa_df.apply(
+    lambda row: format_for_long_ctx_with_examples(row, 'long_context_beginning', 'qa_long_ctx_prompt_beginning', qa_df, num_examples=num_examples), axis=1)
+
+for position in ['beginning', 'middle', 'end']:
+    exp_name = f'long_ctx_with_{num_examples}_examples_answers_' + position
+    prompt_col = f'long_ctx_with_{num_examples}_examples_prompt_' + position
+    _ = await sample_from_prompt(exp_name, prompt_col)
+    print(&quot;Results for &quot; + exp_name)
+    print_results(qa_df, qa_df[exp_name].values)
+</code></pre>
+
+<p>效果更好！如果增加示例数量到 5 个会怎样？</p>
+<pre class="codehilite"><code class="language-python">num_examples = 5
+# Same as above, but with 5 examples
+qa_df[f'long_ctx_with_{num_examples}_examples_prompt_end'] = qa_df.apply(
+    lambda row: format_for_long_ctx_with_examples(row, 'long_context_end', 'qa_long_ctx_prompt_end', qa_df, num_examples=num_examples), axis=1)
+    lambda row: format_for_long_ctx_with_examples(row, 'long_context_end', 'qa_long_ctx_prompt_end', qa_df, num_examples=num_examples), axis=1)
+
+qa_df[f'long_ctx_with_{num_examples}_examples_prompt_middle'] = qa_df.apply(
+    lambda row: format_for_long_ctx_with_examples(row, 'long_context_middle', 'qa_long_ctx_prompt_middle', qa_df, num_examples=num_examples), axis=1)
+
+qa_df[f'long_ctx_with_{num_examples}_examples_prompt_beginning'] = qa_df.apply(
+    lambda row: format_for_long_ctx_with_examples(row, 'long_context_beginning', 'qa_long_ctx_prompt_beginning', qa_df, num_examples=num_examples), axis=1)
+
+for position in ['beginning', 'middle', 'end']:
+    exp_name = f'long_ctx_with_{num_examples}_examples_answers_' + position
+    prompt_col = f'long_ctx_with_{num_examples}_examples_prompt_' + position
+    _ = await sample_from_prompt(exp_name, prompt_col)
+    print(&quot;Results for &quot; + exp_name)
+    print_results(qa_df, qa_df[exp_name].values)
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">
+</code></pre>
+
+<p>现在尝试带便签本的 2 个和 5 个示例。</p>
+<pre class="codehilite"><code class="language-python">num_examples = 2
+qa_df[f'long_ctx_with_{num_examples}_examples_scratchpad_prompt_end'] = qa_df.apply(
+    lambda row: format_for_long_ctx_with_examples_scratchpad(row, 'long_context_end', 'qa_long_ctx_prompt_end', qa_df, num_examples=num_examples), axis=1)
+
+qa_df[f'long_ctx_with_{num_examples}_examples_scratchpad_prompt_middle'] = qa_df.apply(
+    lambda row: format_for_long_ctx_with_examples_scratchpad(row, 'long_context_middle', 'qa_long_ctx_prompt_middle', qa_df, num_examples=num_examples), axis=1)
+
+qa_df[f'long_ctx_with_{num_examples}_examples_scratchpad_prompt_beginning'] = qa_df.apply(
+    lambda row: format_for_long_ctx_with_examples_scratchpad(row, 'long_context_beginning', 'qa_long_ctx_prompt_beginning', qa_df, num_examples=num_examples), axis=1)
+
+for position in ['beginning', 'middle', 'end']:
+    exp_name = f'long_ctx_with_{num_examples}_examples_scratchpad_answers_' + position
+    prompt_col = f'long_ctx_with_{num_examples}_examples_scratchpad_prompt_' + position
+    _ = await sample_from_prompt(exp_name, prompt_col)
+    print(&quot;Results for &quot; + exp_name)
+    print_results(qa_df, qa_df[exp_name].values)
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">num_examples = 5
+qa_df[f'long_ctx_with_{num_examples}_examples_scratchpad_prompt_end'] = qa_df.apply(
+    lambda row: format_for_long_ctx_with_examples_scratchpad(row, 'long_context_end', 'qa_long_ctx_prompt_end', qa_df, num_examples=num_examples), axis=1)
+
+qa_df[f'long_ctx_with_{num_examples}_examples_scratchpad_prompt_middle'] = qa_df.apply(
+    lambda row: format_for_long_ctx_with_examples_scratchpad(row, 'long_context_middle', 'qa_long_ctx_prompt_middle', qa_df, num_examples=num_examples), axis=1)
+
+qa_df[f'long_ctx_with_{num_examples}_examples_scratchpad_prompt_beginning'] = qa_df.apply(
+    lambda row: format_for_long_ctx_with_examples_scratchpad(row, 'long_context_beginning', 'qa_long_ctx_prompt_beginning', qa_df, num_examples=num_examples), axis=1)
+
+for position in ['beginning', 'middle', 'end']:
+    exp_name = f'long_ctx_with_{num_examples}_examples_scratchpad_answers_' + position
+    prompt_col = f'long_ctx_with_{num_examples}_examples_scratchpad_prompt_' + position
+    _ = await sample_from_prompt(exp_name, prompt_col)
+    print(&quot;Results for &quot; + exp_name)
+    print_results(qa_df, qa_df[exp_name].values)
+</code></pre>
+
+<h1 id="_4">结论</h1>
+<ul>
+<li>包含便签本总是有帮助的。</li>
+<li>包含随机示例并没有特别帮助。</li>
+<li>包含上下文示例确实有帮助，5 个比 2 个更好</li>
+</ul>
+<p>希望您喜欢阅读本笔记本，其中包含的技巧和代码对您有所帮助。</p>
+            </article>
+            
+            <nav class="page-nav"><a href="misc/illustrated_responses_zh.html" class="nav-link prev">← Claude 的图示化响应</a><a href="tool_use/memory_cookbook_zh.html" class="nav-link next">安装依赖 →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

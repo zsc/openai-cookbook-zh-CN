@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../">
+    <title>扩展思考与工具使用</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-folder expanded" data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">extended_thinking</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item active" style="padding-left: 20px;">
+                        <a href="extended_thinking/extended_thinking_with_tool_use_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">扩展思考与工具使用</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="extended_thinking/extended_thinking_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">扩展思考</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">finetuning</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="finetuning/finetuning_on_bedrock_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">在 Bedrock 上微调 Claude 3 Haiku</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">misc</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/batch_processing_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">批量处理消息批次API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/building_evals_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">建立评估</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/building_moderation_filter_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">建立一个带有 Claude 的审核过滤器</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/generate_test_cases_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">首先，我们有 `extract_variables` 函数，</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/how_to_enable_json_mode_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">提示 Claude 获取“JSON 模式”</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/how_to_make_sql_queries_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 进行 SQL 查询</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/illustrated_responses_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 的图示化响应</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/mc_qa_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">实验性测试 Claude 的长上下文问答能力</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/metaprompt_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Metaprompt</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/pdf_upload_summarization_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">“上传”PDF 到 Claude API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/prompt_caching_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">缓存提示（Prompt caching）通过 Anthropic API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/read_web_pages_with_haiku_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Claude 3 Haiku 总结网页内容</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/sampling_past_max_tokens_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 从 Claude 之外的采样响应，超出最大令牌限制</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/speculative_prompt_caching_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">投机性提示缓存</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/using_citations_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">引言</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">multimodal</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/best_practices_for_vision_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/getting_started_with_vision_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">开始上手 - 如何将图像传递给 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/how_to_transcribe_text_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 转录文档</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/reading_charts_graphs_powerpoints_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用图表和幻灯片放映</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/using_sub_agents_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Haiku 作为子代理</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">patterns</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">agents</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/basic_workflows_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">首先使用具有思维链的LLM确定适当的路由</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/evaluator_optimizer_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/orchestrator_workers_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">步骤1：获取协调器响应</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">构建高效代理的食谱</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">prompts</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/citations_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/research_lead_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/research_subagent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </div></div></div></div></div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">skills</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="skills/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 技能</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">classification</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/classification/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">设置我们的环境</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/classification/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 分类指南</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/classification/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Promptfoo 进行评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">contextual-embeddings</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/contextual-embeddings/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">增强检索的RAG与上下文检索</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/contextual-embeddings/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">结合上下文嵌入的检索增强生成</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">retrieval_augmented_generation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/retrieval_augmented_generation/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Retrieval Augmented Generation (RAG)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/retrieval_augmented_generation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/retrieval_augmented_generation/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Promptfoo 进行评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">summarization</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/summarization/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">摘要与 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/summarization/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 摘要</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/summarization/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Promptfoo 评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">text_to_sql</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/text_to_sql/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Set your Anthropic API key</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/text_to_sql/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 的文本到 SQL</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/text_to_sql/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Promptfoo 评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div></div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">third_party</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Deepgram</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Deepgram/prerecorded_audio_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">转录深蓝音频文件并使用 Anthropic 准备面试问题！</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Deepgram/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Deepgram <> Anthropic Cookbooks</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">LlamaIndex</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Basic_RAG_With_LlamaIndex_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">RAG 管道与 LlamaIndex</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Multi_Document_Agents_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">多文档代理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Multi_Modal_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">多模态</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/ReAct_Agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">ReAct Agent</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">LlamaIndex <> Anthropic Cookbooks</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Router_Query_Engine_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">注意：这仅在 jupyter notebook 中是必需的。</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/SubQuestion_Query_Engine_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">SubQuestionQueryEngine</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">MongoDB</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/MongoDB/rag_using_mongodb_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 3 和 MongoDB 构建 RAG 系统</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Pinecone</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Pinecone/claude_3_rag_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">检查 Python 版本</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Pinecone/rag_using_pinecone_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Pinecone 进行检索增强生成</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">VoyageAI</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/VoyageAI/how_to_create_embeddings_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">这将自动使用环境变量VOYAGE_API_KEY。</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Wikipedia</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Wikipedia/wikipedia-search-cookbook_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">迭代搜索维基百科与 Claude</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">WolframAlpha</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/WolframAlpha/using_llm_api_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Wolfram Alpha LLM API 作为 Claude 的工具</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">tool_use</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/calculator_tool_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用计算器工具与 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/customer_service_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用客户端工具创建客服代理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/extracting_structured_json_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Claude 和工具使用功能提取结构化 JSON</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/memory_cookbook_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">安装依赖</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/parallel_tools_claude_3_7_sonnet_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">在 Claude 3.7 Sonnet 上并行调用工具</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/tool_choice_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">选择工具</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/tool_use_with_pydantic_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">记事工具，支持 Pydantic 和 Anthropic 工具使用</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/vision_with_tools_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Vision 与工具</span>
+                        </a>
+                    </div>
+                </div></div></nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="_1">扩展思考与工具使用</h1>
+<h2 id="_2">目录</h2>
+<ul>
+<li><a href="#setup">设置</a></li>
+<li><a href="#basic-example">基本示例</a></li>
+<li><a href="#multiple-tool-calls-with-thinking">多次工具调用</a></li>
+<li><a href="#preserving-thinking-blocks">保留思考块</a></li>
+</ul>
+<p>本笔记本演示了如何将 Claude 3.7 Sonnet 的扩展思考功能与工具结合使用。扩展思考功能允许您在 Claude 提供最终答案之前查看其逐步思考过程，从而提高其决定使用哪些工具以及如何解释工具结果的透明度。</p>
+<p>在使用扩展思考与工具使用时，模型将在发出工具请求之前显示其思考过程，但在收到工具结果后不会重复思考过程。在下一个非 <code>tool_result</code> 的 <code>user</code> 回合之前，Claude 不会输出另一个思考块。有关扩展思考的更多信息，请参阅我们的<a href="https://docs.anthropic.com/en/docs/build-with-claude/extended-thinking">文档</a>。</p>
+<h2 id="_3">设置</h2>
+<p>首先，让我们安装必要的软件包并设置我们的环境。</p>
+<pre class="codehilite"><code class="language-python">%pip install anthropic
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">import anthropic
+import os
+import json
+
+# 模型和令牌预算的全局变量
+MODEL_NAME = &quot;claude-3-7-sonnet-20250219&quot;
+MAX_TOKENS = 4000
+THINKING_BUDGET_TOKENS = 2000
+
+# 将您的 API 密钥设置为环境变量或直接设置
+# os.environ[&quot;ANTHROPIC_API_KEY&quot;] = &quot;your_api_key_here&quot;
+
+# 初始化客户端
+client = anthropic.Anthropic()
+
+# 辅助函数
+def print_thinking_response(response):
+    &quot;&quot;&quot;以思考块的形式美观地打印消息响应。&quot;&quot;&quot;
+    print(&quot;\n==== 完整响应 ====&quot;)
+    for block in response.content:
+        if block.type == &quot;thinking&quot;:
+            print(&quot;\n🧠 思考块:&quot;)
+            # 为便于阅读，显示截断的思考内容
+            print(block.thinking[:500] + &quot;...&quot; if len(block.thinking) &gt; 500 else block.thinking)
+            print(f&quot;\n[签名可用: {bool(getattr(block, 'signature', None))}]&quot;)
+            if hasattr(block, 'signature') and block.signature:
+                print(f&quot;[签名（前 50 个字符）: {block.signature[:50]}...]&quot;)
+        elif block.type == &quot;redacted_thinking&quot;:
+            print(&quot;\n🔒 已编辑的思考块:&quot;)
+            print(f&quot;[数据长度: {len(block.data) if hasattr(block, 'data') else 'N/A'}]&quot;)
+        elif block.type == &quot;text&quot;:
+            print(&quot;\n✓ 最终答案:&quot;)
+            print(block.text)
+
+    print(&quot;\n==== 响应结束 ====&quot;)
+
+def count_tokens(messages, tools=None):
+    &quot;&quot;&quot;计算给定消息列表（可选工具）的令牌数。&quot;&quot;&quot;
+    if tools:
+        response = client.messages.count_tokens(
+            model=MODEL_NAME,
+            messages=messages,
+            tools=tools
+        )
+    else:
+        response = client.messages.count_tokens(
+            model=MODEL_NAME,
+            messages=messages
+        )
+    return response.input_tokens
+</code></pre>
+
+<h2 id="_4">带思考的单次工具调用</h2>
+<p>此示例演示了如何结合思考并进行单次工具调用，使用一个模拟的天气工具。</p>
+<pre class="codehilite"><code class="language-python">def tool_use_with_thinking():
+    # 定义一个天气工具
+    tools = [
+        {
+            &quot;name&quot;: &quot;weather&quot;,
+            &quot;description&quot;: &quot;获取某地的当前天气信息。&quot;,
+            &quot;input_schema&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;properties&quot;: {
+                    &quot;location&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;获取天气信息的地点。&quot;
+                    }
+                },
+                &quot;required&quot;: [&quot;location&quot;]
+            }
+        }
+    ]
+
+    def weather(location):
+        # 模拟天气数据
+        weather_data = {
+            &quot;纽约&quot;: {&quot;temperature&quot;: 72, &quot;condition&quot;: &quot;晴朗&quot;},
+            &quot;伦敦&quot;: {&quot;temperature&quot;: 62, &quot;condition&quot;: &quot;多云&quot;},
+            &quot;东京&quot;: {&quot;temperature&quot;: 80, &quot;condition&quot;: &quot;部分多云&quot;},
+            &quot;巴黎&quot;: {&quot;temperature&quot;: 65, &quot;condition&quot;: &quot;下雨&quot;},
+            &quot;悉尼&quot;: {&quot;temperature&quot;: 85, &quot;condition&quot;: &quot;晴朗&quot;},
+            &quot;柏林&quot;: {&quot;temperature&quot;: 60, &quot;condition&quot;: &quot;有雾&quot;},
+        }
+
+        return weather_data.get(location, {&quot;error&quot;: f&quot;无法获取 {location} 的天气数据&quot;})
+
+    # 带有工具使用和思考的初始请求
+    response = client.messages.create(
+        model=MODEL_NAME,
+        max_tokens=MAX_TOKENS,
+        thinking={
+            &quot;type&quot;: &quot;enabled&quot;,
+            &quot;budget_tokens&quot;: THINKING_BUDGET_TOKENS
+        },
+        tools=tools,
+        messages=[{
+            &quot;role&quot;: &quot;user&quot;,
+            &quot;content&quot;: &quot;今天巴黎天气怎么样？&quot;
+        }]
+    )
+
+    # 初始响应的详细诊断输出
+    print(&quot;\n=== 初始响应 ===&quot;)
+    print(f&quot;响应 ID: {response.id}&quot;)
+    print(f&quot;停止原因: {response.stop_reason}&quot;)
+    print(f&quot;模型: {response.model}&quot;)
+    print(f&quot;内容块: {len(response.content)} 块&quot;)
+
+    for i, block in enumerate(response.content):
+        print(f&quot;\n块 {i+1}: 类型 = {block.type}&quot;)
+        if block.type == &quot;thinking&quot;:
+            print(f&quot;思考内容: {block.thinking[:150]}...&quot;)
+            print(f&quot;签名可用: {bool(getattr(block, 'signature', None))}&quot;)
+        elif block.type == &quot;text&quot;:
+            print(f&quot;文本内容: {block.text}&quot;)
+        elif block.type == &quot;tool_use&quot;:
+            print(f&quot;工具: {block.name}&quot;)
+            print(f&quot;工具输入: {block.input}&quot;)
+            print(f&quot;工具 ID: {block.id}&quot;)
+    print(&quot;=== 初始响应结束 ===\n&quot;)
+
+    # 将思考块提取到对话历史中
+    assistant_blocks = []
+    for block in response.content:
+        if block.type in [&quot;thinking&quot;, &quot;redacted_thinking&quot;, &quot;tool_use&quot;]:
+            assistant_blocks.append(block)
+
+    # 处理工具使用（如果需要）
+    full_conversation = [{
+        &quot;role&quot;: &quot;user&quot;,
+        &quot;content&quot;: &quot;今天巴黎天气怎么样？&quot;
+    }]
+
+    if response.stop_reason == &quot;tool_use&quot;:
+        # 添加包含思考块和工具使用的整个助手响应
+        full_conversation.append({
+            &quot;role&quot;: &quot;assistant&quot;,
+            &quot;content&quot;: assistant_blocks
+        })
+
+        # 查找 tool_use 块
+        tool_use_block = next((block for block in response.content if block.type == &quot;tool_use&quot;), None)
+        if tool_use_block:
+            # 执行工具
+            print(f&quot;\n=== 执行工具 ===&quot;)
+            print(f&quot;工具名称: {tool_use_block.name}&quot;)
+            print(f&quot;要检查的位置: {tool_use_block.input['location']}&quot;)
+            tool_result = weather(tool_use_block.input[&quot;location&quot;])
+            print(f&quot;结果: {tool_result}&quot;)
+            print(&quot;=== 工具执行完成 ===\n&quot;)
+
+            # 将工具结果添加到对话中
+            full_conversation.append({
+                &quot;role&quot;: &quot;user&quot;,
+                &quot;content&quot;: [{
+                    &quot;type&quot;: &quot;tool_result&quot;,
+                    &quot;tool_use_id&quot;: tool_use_block.id,
+                    &quot;content&quot;: json.dumps(tool_result)
+                }]
+            })
+
+            # 使用相同的思考配置继续对话
+            print(&quot;\n=== 发送带有工具结果的后续请求 ===&quot;)
+            response = client.messages.create(
+                model=MODEL_NAME,
+                max_tokens=MAX_TOKENS,
+                thinking={
+                    &quot;type&quot;: &quot;enabled&quot;,
+                    &quot;budget_tokens&quot;: THINKING_BUDGET_TOKENS
+                },
+                tools=tools,
+                messages=full_conversation
+            )
+            print(f&quot;收到后续响应。停止原因: {response.stop_reason}&quot;)
+
+    print_thinking_response(response)
+
+# 运行示例
+tool_use_with_thinking()
+</code></pre>
+
+<pre class="codehilite"><code>=== 初始响应 ===
+响应 ID: msg_01NhR4vE9nVh2sHs5fXbzji8
+停止原因: tool_use
+模型: claude-3-7-sonnet-20250219
+内容块: 3 块
+
+块 1: 类型 = thinking
+思考内容: 用户正在询问巴黎当前的天气。我可以使用 `weather` 函数来获取此信息。
+
+`weather` 函数需要一个“地点”参数...
+签名可用: True
+
+块 2: 类型 = text
+文本内容: 我会立即为您查询巴黎的天气。
+
+块 3: 类型 = tool_use
+工具: weather
+工具输入: {'location': 'Paris'}
+工具 ID: toolu_01WaeSyitUGJFaaPe68cJuEv
+=== 初始响应结束 ===
+
+
+=== 执行工具 ===
+工具名称: weather
+要检查的位置: Paris
+结果: {'temperature': 65, 'condition': 'Rainy'}
+=== 工具执行完成 ===
+
+
+=== 发送带有工具结果的后续请求 ===
+收到后续响应。停止原因: end_turn
+
+==== 完整响应 ====
+
+✓ 最终答案:
+目前巴黎天气为 65°F（18°C），有雨。如果您要出门，可能需要带把伞！
+
+==== 响应结束 ====
+</code></pre>
+
+<h2 id="_5">带思考的多项工具调用</h2>
+<p>此示例演示了如何处理多项工具调用，例如模拟的新闻和天气服务，同时观察思考过程。</p>
+<pre class="codehilite"><code class="language-python">def multiple_tool_calls_with_thinking():
+    # 定义工具
+    tools = [
+        {
+            &quot;name&quot;: &quot;weather&quot;,
+            &quot;description&quot;: &quot;获取某地的当前天气信息。&quot;,
+            &quot;input_schema&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;properties&quot;: {
+                    &quot;location&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;获取天气信息的地点。&quot;
+                    }
+                },
+                &quot;required&quot;: [&quot;location&quot;]
+            }
+        },
+        {
+            &quot;name&quot;: &quot;news&quot;,
+            &quot;description&quot;: &quot;获取某个主题的最新新闻标题。&quot;,
+            &quot;input_schema&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;properties&quot;: {
+                    &quot;topic&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;获取新闻的主题。&quot;
+                    }
+                },
+                &quot;required&quot;: [&quot;topic&quot;]
+            }
+        }
+    ]
+
+    def weather(location):
+        # 模拟天气数据
+        weather_data = {
+            &quot;纽约&quot;: {&quot;temperature&quot;: 72, &quot;condition&quot;: &quot;晴朗&quot;},
+            &quot;伦敦&quot;: {&quot;temperature&quot;: 62, &quot;condition&quot;: &quot;多云&quot;},
+            &quot;东京&quot;: {&quot;temperature&quot;: 80, &quot;condition&quot;: &quot;部分多云&quot;},
+            &quot;巴黎&quot;: {&quot;temperature&quot;: 65, &quot;condition&quot;: &quot;下雨&quot;},
+            &quot;悉尼&quot;: {&quot;temperature&quot;: 85, &quot;condition&quot;: &quot;晴朗&quot;},
+            &quot;柏林&quot;: {&quot;temperature&quot;: 60, &quot;condition&quot;: &quot;有雾&quot;},
+        }
+
+        return weather_data.get(location, {&quot;error&quot;: f&quot;无法获取 {location} 的天气数据&quot;})
+
+    def news(topic):
+        # 模拟新闻数据
+        news_data = {
+            &quot;technology&quot;: [
+                &quot;研究实验室宣布了新的人工智能突破&quot;,
+                &quot;科技公司发布了最新的智能手机型号&quot;,
+                &quot;量子计算达到了里程碑式的成就&quot;
+            ],
+            &quot;sports&quot;: [
+                &quot;当地球队赢得了冠军赛&quot;,
+                &quot;明星球员签署了创纪录的合同&quot;,
+                &quot;奥委会宣布了 2036 年的举办城市&quot;
+            ],
+            &quot;weather&quot;: [
+                &quot;风暴系统正在大西洋发展&quot;,
+                &quot;欧洲各地记录到创纪录的高温&quot;,
+                &quot;气候科学家发布了新的研究成果&quot;
+            ]
+        }
+
+        return {&quot;headlines&quot;: news_data.get(topic.lower(), [&quot;此主题没有新闻可用&quot;])}
+
+    # 初始请求
+    response = client.messages.create(
+        model=MODEL_NAME,
+        max_tokens=MAX_TOKENS,
+        thinking={
+                &quot;type&quot;: &quot;enabled&quot;,
+                &quot;budget_tokens&quot;: THINKING_BUDGET_TOKENS
+        },
+        tools=tools,
+        messages=[{
+            &quot;role&quot;: &quot;user&quot;,
+            &quot;content&quot;: &quot;伦敦的天气怎么样？另外，能告诉我最新的科技新闻吗？&quot;
+        }]
+    )
+
+    # 打印初始响应的详细信息
+    print(&quot;\n=== 初始响应 ===&quot;)
+    print(f&quot;响应 ID: {response.id}&quot;)
+    print(f&quot;停止原因: {response.stop_reason}&quot;)
+    print(f&quot;模型: {response.model}&quot;)
+    print(f&quot;内容块: {len(response.content)} 块&quot;)
+
+    # 打印每个内容块
+    for i, block in enumerate(response.content):
+        print(f&quot;\n块 {i+1}: 类型 = {block.type}&quot;)
+        if block.type == &quot;thinking&quot;:
+            print(f&quot;思考内容: {block.thinking[:150]}...&quot;)
+            print(f&quot;签名可用: {bool(getattr(block, 'signature', None))}&quot;)
+        elif block.type == &quot;text&quot;:
+            print(f&quot;文本内容: {block.text}&quot;)
+        elif block.type == &quot;tool_use&quot;:
+            print(f&quot;工具: {block.name}&quot;)
+            print(f&quot;工具输入: {block.input}&quot;)
+            print(f&quot;工具 ID: {block.id}&quot;)
+    print(&quot;=== 初始响应结束 ===\n&quot;)
+
+    # 处理可能的多项工具调用
+    full_conversation = [{
+        &quot;role&quot;: &quot;user&quot;,
+        &quot;content&quot;: &quot;伦敦的天气怎么样？另外，能告诉我最新的科技新闻吗？&quot;
+    }]
+
+    # 跟踪迭代次数以进行多轮工具使用
+    iteration = 0
+
+    while response.stop_reason == &quot;tool_use&quot;:
+        iteration += 1
+        print(f&quot;\n=== 工具使用迭代 {iteration} ===&quot;)
+
+        # 提取思考块和工具使用以包含在对话历史中
+        assistant_blocks = []
+        for block in response.content:
+            if block.type in [&quot;thinking&quot;, &quot;redacted_thinking&quot;, &quot;tool_use&quot;]:
+                assistant_blocks.append(block)
+
+        # 添加包含思考块和工具使用的助手响应
+        full_conversation.append({
+            &quot;role&quot;: &quot;assistant&quot;,
+            &quot;content&quot;: assistant_blocks
+        })
+
+        # 查找 tool_use 块
+        tool_use_block = next((block for block in response.content if block.type == &quot;tool_use&quot;), None)
+        if tool_use_block:
+            print(f&quot;\n=== 执行工具 ===&quot;)
+            print(f&quot;工具名称: {tool_use_block.name}&quot;)
+
+            # 执行相应的工具
+            if tool_use_block.name == &quot;weather&quot;:
+                print(f&quot;要检查的位置: {tool_use_block.input['location']}&quot;)
+                tool_result = weather(tool_use_block.input[&quot;location&quot;])
+            elif tool_use_block.name == &quot;news&quot;:
+                print(f&quot;要检查的主题: {tool_use_block.input['topic']}&quot;)
+                tool_result = news(tool_use_block.input[&quot;topic&quot;])
+            else:
+                tool_result = {&quot;error&quot;: &quot;未知工具&quot;}
+
+            print(f&quot;结果: {tool_result}&quot;)
+            print(&quot;=== 工具执行完成 ===\n&quot;)
+
+            # 将工具结果添加到对话中
+            full_conversation.append({
+                &quot;role&quot;: &quot;user&quot;,
+                &quot;content&quot;: [{
+                    &quot;type&quot;: &quot;tool_result&quot;,
+                    &quot;tool_use_id&quot;: tool_use_block.id,
+                    &quot;content&quot;: json.dumps(tool_result)
+                }]
+            })
+
+            # 继续对话
+            print(&quot;\n=== 发送带有工具结果的后续请求 ===&quot;)
+            response = client.messages.create(
+                model=MODEL_NAME,
+                max_tokens=MAX_TOKENS,
+                thinking={
+                        &quot;type&quot;: &quot;enabled&quot;,
+                        &quot;budget_tokens&quot;: THINKING_BUDGET_TOKENS
+                },
+                tools=tools,
+                messages=full_conversation
+            )
+
+            # 打印后续响应详情
+            print(f&quot;\n=== 后续响应（迭代 {iteration}）===&quot;)
+            print(f&quot;响应 ID: {response.id}&quot;)
+            print(f&quot;停止原因: {response.stop_reason}&quot;)
+            print(f&quot;内容块: {len(response.content)} 块&quot;)
+
+            for i, block in enumerate(response.content):
+                print(f&quot;\n块 {i+1}: 类型 = {block.type}&quot;)
+                if block.type == &quot;thinking&quot;:
+                    print(f&quot;思考内容预览: {block.thinking[:100]}...&quot;)
+                elif block.type == &quot;text&quot;:
+                    print(f&quot;文本内容预览: {block.text[:100]}...&quot;)
+                elif block.type == &quot;tool_use&quot;:
+                    print(f&quot;工具: {block.name}&quot;)
+                    print(f&quot;工具输入预览: {str(block.input)[:100]}&quot;)
+            print(f&quot;=== 后续响应结束（迭代 {iteration}）===\n&quot;)
+
+            if response.stop_reason != &quot;tool_use&quot;:
+                print(&quot;\n=== 最终响应 ===&quot;)
+                print_thinking_response(response)
+                print(&quot;=== 最终响应结束 ===&quot;)
+        else:
+            print(&quot;响应中未找到 tool_use 块。&quot;)
+            break
+
+# 运行示例
+multiple_tool_calls_with_thinking()
+</code></pre>
+
+<pre class="codehilite"><code>=== 初始响应 ===
+响应 ID: msg_01VwqpBMARVoTP1H8Ytvmvsb
+停止原因: tool_use
+模型: claude-3-7-sonnet-20250219
+内容块: 3 块
+
+块 1: 类型 = thinking
+思考内容: 用户要求两项信息：
+
+1. 伦敦的天气
+2. 最新的科技新闻
+
+让我看看我有什么可用的工具...
+签名可用: True
+
+块 2: 类型 = text
+文本内容: 我会立即为您获取信息。
+
+块 3: 类型 = tool_use
+工具: weather
+工具输入: {'location': 'London'}
+工具 ID: toolu_016xHQWMR4JsKtWvH9nbsZyA
+=== 初始响应结束 ===
+
+
+=== 工具使用迭代 1 ===
+
+=== 执行工具 ===
+工具名称: weather
+要检查的位置: London
+结果: {'temperature': 62, 'condition': 'Cloudy'}
+=== 工具执行完成 ===
+
+
+=== 发送带有工具结果的后续请求 ===
+
+=== 后续响应（迭代 1）===
+响应 ID: msg_01EhR96Z2Z2t5EDhuWeodUod
+停止原因: tool_use
+内容块: 1 块
+
+块 1: 类型 = tool_use
+工具: news
+工具输入预览: {'topic': 'technology'}
+=== 后续响应结束（迭代 1）===
+
+
+=== 工具使用迭代 2 ===
+
+=== 执行工具 ===
+工具名称: news
+要检查的主题: technology
+结果: {'headlines': ['研究实验室宣布了新的人工智能突破', '科技公司发布了最新的智能手机型号', '量子计算达到了里程碑式的成就']}
+=== 工具执行完成 ===
+
+
+=== 发送带有工具结果的后续请求 ===
+
+=== 后续响应（迭代 2）===
+响应 ID: msg_01WUEfC4UxPFaJaktjVDMJEN
+停止原因: end_turn
+内容块: 1 块
+
+块 1: 类型 = text
+文本内容预览: 这是您要求的信息：
+
+## 伦敦天气
+目前，伦敦天气为 62°F，多云。
+...
+=== 后续响应结束（迭代 2）===
+
+
+=== 最终响应 ===
+
+==== 完整响应 ====
+
+✓ 最终答案:
+这是您要求的信息：
+
+## 伦敦天气
+目前，伦敦天气为 62°F，多云。
+
+## 最新科技新闻头条
+
+- 研究实验室宣布了新的人工智能突破
+- 科技公司发布了最新的智能手机型号
+- 量子计算达到了里程碑式的成就
+
+==== 响应结束 ====
+=== 最终响应结束 ===
+</code></pre>
+
+<h2 id="_6">保留思考块</h2>
+<p>在处理扩展思考和工具时，请务必：</p>
+<ol>
+<li>
+<p><strong>保留思考块签名</strong>：每个思考块都包含一个加密签名，用于验证对话上下文。在将思考块传递回 Claude 时，必须包含这些签名。</p>
+</li>
+<li>
+<p><strong>避免修改先前上下文</strong>：在提交包含工具结果的新请求时，如果修改了任何先前的内容（包括思考块），API 将会拒绝。</p>
+</li>
+<li>
+<p><strong>同时处理思考和已编辑的思考块</strong>：这两种类型的块都必须保留在对话历史中，即使已编辑块的内容无法被人类阅读。</p>
+</li>
+</ol>
+<p>有关不使用工具的扩展思考的更多详细信息，请参阅主要的“扩展思考”笔记本。</p>
+<pre class="codehilite"><code class="language-python">def thinking_block_preservation_example():
+    # 定义一个简单的天气工具
+    tools = [
+        {
+            &quot;name&quot;: &quot;weather&quot;,
+            &quot;description&quot;: &quot;获取某地的当前天气信息。&quot;,
+            &quot;input_schema&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;properties&quot;: {
+                    &quot;location&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;获取天气信息的地点。&quot;
+                    }
+                },
+                &quot;required&quot;: [&quot;location&quot;]
+            }
+        }
+    ]
+
+    def weather(location):
+        # 模拟天气数据
+        weather_data = {
+            &quot;纽约&quot;: {&quot;temperature&quot;: 72, &quot;condition&quot;: &quot;晴朗&quot;},
+            &quot;伦敦&quot;: {&quot;temperature&quot;: 62, &quot;condition&quot;: &quot;多云&quot;},
+            &quot;东京&quot;: {&quot;temperature&quot;: 80, &quot;condition&quot;: &quot;部分多云&quot;},
+            &quot;巴黎&quot;: {&quot;temperature&quot;: 65, &quot;condition&quot;: &quot;下雨&quot;},
+            &quot;悉尼&quot;: {&quot;temperature&quot;: 85, &quot;condition&quot;: &quot;晴朗&quot;},
+            &quot;柏林&quot;: {&quot;temperature&quot;: 60, &quot;condition&quot;: &quot;有雾&quot;},
+        }
+
+        return weather_data.get(location, {&quot;error&quot;: f&quot;无法获取 {location} 的天气数据&quot;})
+
+    # 带有工具使用和思考的初始请求
+    response = client.messages.create(
+        model=MODEL_NAME,
+        max_tokens=MAX_TOKENS,
+        thinking={
+            &quot;type&quot;: &quot;enabled&quot;,
+            &quot;budget_tokens&quot;: THINKING_BUDGET_TOKENS
+        },
+        tools=tools,
+        messages=[{
+            &quot;role&quot;: &quot;user&quot;,
+            &quot;content&quot;: &quot;柏林现在天气怎么样？&quot;
+        }]
+    )
+
+    # 从响应中提取块
+    thinking_blocks = [b for b in response.content if b.type == &quot;thinking&quot;]
+    tool_use_blocks = [b for b in response.content if b.type == &quot;tool_use&quot;]
+
+    print(&quot;\n=== 初始响应 ===&quot;)
+    print(f&quot;响应包含:&quot;)
+    print(f&quot;- {len(thinking_blocks)} 个思考块&quot;)
+    print(f&quot;- {len(tool_use_blocks)} 个工具使用块&quot;)
+
+    # 检查是否触发了工具使用
+    if tool_use_blocks:
+        tool_block = tool_use_blocks[0]
+        print(f&quot;\n调用的工具: {tool_block.name}&quot;)
+        print(f&quot;要检查的位置: {tool_block.input['location']}&quot;)
+
+        # 执行工具
+        tool_result = weather(tool_block.input[&quot;location&quot;])
+        print(f&quot;工具结果: {tool_result}&quot;)
+
+        # 首先，我们尝试不包含思考块
+        print(&quot;\n=== 测试 1：不包含思考块 ===&quot;)
+        try:
+            # 注意我们只包含 tool_use 块，不包含思考块
+            partial_blocks = tool_use_blocks
+
+            incomplete_response = client.messages.create(
+                model=MODEL_NAME,
+                max_tokens=MAX_TOKENS,
+                thinking={
+                        &quot;type&quot;: &quot;enabled&quot;,
+                        &quot;budget_tokens&quot;: THINKING_BUDGET_TOKENS
+                },
+                tools=tools,
+                messages=[
+                    {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;柏林现在天气怎么样？&quot;},
+                    {&quot;role&quot;: &quot;assistant&quot;, &quot;content&quot;: partial_blocks},
+                    {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: [{
+                        &quot;type&quot;: &quot;tool_result&quot;,
+                        &quot;tool_use_id&quot;: tool_block.id,
+                        &quot;content&quot;: json.dumps(tool_result)
+                    }]}
+                ]
+            )
+            print(&quot;成功：在没有思考块的情况下收到了响应（不符合预期）&quot;)
+        except Exception as e:
+            print(f&quot;错误: {e}&quot;)
+            print(&quot;这表明必须保留思考块&quot;)
+
+        # 现在尝试包含思考块（正确方法）
+        print(&quot;\n=== 测试 2：包含思考块（正确方法）===&quot;)
+        try:
+            # 包含响应中的所有块
+            complete_blocks = thinking_blocks + tool_use_blocks
+
+            complete_response = client.messages.create(
+                model=MODEL_NAME,
+                max_tokens=MAX_TOKENS,
+                thinking={
+                    &quot;type&quot;: &quot;enabled&quot;,
+                    &quot;budget_tokens&quot;: THINKING_BUDGET_TOKENS
+                },
+                tools=tools,
+                messages=[
+                    {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;柏林现在天气怎么样？&quot;},
+                    {&quot;role&quot;: &quot;assistant&quot;, &quot;content&quot;: complete_blocks},
+                    {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: [{
+                        &quot;type&quot;: &quot;tool_result&quot;,
+                        &quot;tool_use_id&quot;: tool_block.id,
+                        &quot;content&quot;: json.dumps(tool_result)
+                    }]}
+                ]
+            )
+            print(&quot;成功：在包含思考块的情况下收到了响应&quot;)
+
+            # 检查第二个响应是否包含思考块
+            second_thinking = [b for b in complete_response.content if b.type == &quot;thinking&quot;]
+            second_text = [b for b in complete_response.content if b.type == &quot;text&quot;]
+
+            print(f&quot;\n第二个响应包含:&quot;)
+            print(f&quot;- {len(second_thinking)} 个思考块&quot;)
+            print(f&quot;- {len(second_text)} 个文本块&quot;)
+
+            if second_text:
+                print(f&quot;\n最终答案: {second_text[0].text}&quot;)
+
+            print(&quot;\n注意：工具使用后的第二个响应不包含思考块。&quot;)
+            print(&quot;这是预期的行为 - 思考在工具使用前显示，但在收到工具结果后不显示。&quot;)
+
+        except Exception as e:
+            print(f&quot;错误: {e}&quot;)
+
+# 取消注释以运行示例
+thinking_block_preservation_example()
+</code></pre>
+
+<pre class="codehilite"><code>=== 初始响应 ===
+响应包含:
+
+- 1 个思考块
+- 1 个工具使用块
+
+调用的工具: weather
+要检查的位置: Berlin
+工具结果: {'temperature': 60, 'condition': 'Foggy'}
+
+=== 测试 1：不包含思考块 ===
+错误: 错误代码: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'messages.1.content.0.type: 预期为 `thinking` 或 `redacted_thinking`，但发现为 `tool_use`。当启用 `thinking` 时，最后的 `assistant` 消息必须以思考块开头（位于最后设置的 `tool_use` 和 `tool_result` 块之前）。我们建议您包含之前的思考块。要避免此要求，请禁用 `thinking`。请查阅我们的文档 https://docs.anthropic.com/en/docs/build-with-claude/extended-thinking'}}
+这表明必须保留思考块
+
+=== 测试 2：包含思考块（正确方法）===
+成功：在包含思考块的情况下收到了响应
+
+第二个响应包含:
+
+- 0 个思考块
+- 1 个文本块
+
+最终答案: 目前柏林天气为 60°F（约 15.5°C），有雾。
+
+注意：工具使用后的第二个响应不包含思考块。
+这是预期的行为 - 思考在工具使用前显示，但在收到工具结果后不显示。
+</code></pre>
+
+<h2 id="_7">结论</h2>
+<p>本笔记本展示了如何将 Claude 的扩展思考功能与工具使用相结合。主要优点包括：</p>
+<ol>
+<li>使用工具时 Claude 思考过程的透明度</li>
+<li>Claude 决定何时使用工具与内部知识的可见性</li>
+<li>对涉及多项工具调用的多步任务的更好理解</li>
+<li>对 Claude 如何解释工具结果并将其纳入响应的洞察</li>
+</ol>
+<p>在使用扩展思考与工具结合使用时，请记住：</p>
+<ul>
+<li>为复杂任务设置适当的思考预算（最少 1,024 个令牌）</li>
+<li>在传递工具结果时始终保留思考块及其签名</li>
+<li>在对话历史中包含常规和已编辑的思考块</li>
+<li>确保系统提示、工具和思考配置在调用之间匹配</li>
+<li>预期工具结果回合不包含额外的思考块</li>
+<li>工具使用和思考结合使用会增加令牌使用量和响应时间</li>
+</ul>
+            </article>
+            
+            <nav class="page-nav"><a href="patterns/agents/evaluator_optimizer_zh.html" class="nav-link prev">← Untitled</a><a href="extended_thinking/extended_thinking_zh.html" class="nav-link next">扩展思考 →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

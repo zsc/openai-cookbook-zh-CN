@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../../">
+    <title>摘要与 Claude</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">extended_thinking</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="extended_thinking/extended_thinking_with_tool_use_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">扩展思考与工具使用</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="extended_thinking/extended_thinking_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">扩展思考</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">finetuning</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="finetuning/finetuning_on_bedrock_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">在 Bedrock 上微调 Claude 3 Haiku</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">misc</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/batch_processing_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">批量处理消息批次API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/building_evals_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">建立评估</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/building_moderation_filter_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">建立一个带有 Claude 的审核过滤器</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/generate_test_cases_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">首先，我们有 `extract_variables` 函数，</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/how_to_enable_json_mode_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">提示 Claude 获取“JSON 模式”</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/how_to_make_sql_queries_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 进行 SQL 查询</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/illustrated_responses_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 的图示化响应</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/mc_qa_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">实验性测试 Claude 的长上下文问答能力</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/metaprompt_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Metaprompt</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/pdf_upload_summarization_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">“上传”PDF 到 Claude API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/prompt_caching_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">缓存提示（Prompt caching）通过 Anthropic API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/read_web_pages_with_haiku_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Claude 3 Haiku 总结网页内容</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/sampling_past_max_tokens_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 从 Claude 之外的采样响应，超出最大令牌限制</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/speculative_prompt_caching_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">投机性提示缓存</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/using_citations_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">引言</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">multimodal</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/best_practices_for_vision_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/getting_started_with_vision_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">开始上手 - 如何将图像传递给 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/how_to_transcribe_text_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 转录文档</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/reading_charts_graphs_powerpoints_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用图表和幻灯片放映</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/using_sub_agents_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Haiku 作为子代理</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">patterns</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">agents</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/basic_workflows_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">首先使用具有思维链的LLM确定适当的路由</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/evaluator_optimizer_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/orchestrator_workers_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">步骤1：获取协调器响应</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">构建高效代理的食谱</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">prompts</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/citations_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/research_lead_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/research_subagent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </div></div></div></div></div></div>
+                    <div class="tree-folder expanded" data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">skills</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="skills/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 技能</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">classification</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/classification/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">设置我们的环境</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/classification/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 分类指南</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/classification/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Promptfoo 进行评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">contextual-embeddings</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/contextual-embeddings/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">增强检索的RAG与上下文检索</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/contextual-embeddings/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">结合上下文嵌入的检索增强生成</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">retrieval_augmented_generation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/retrieval_augmented_generation/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Retrieval Augmented Generation (RAG)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/retrieval_augmented_generation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/retrieval_augmented_generation/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Promptfoo 进行评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder expanded" data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">summarization</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item active" style="padding-left: 40px;">
+                        <a href="skills/summarization/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">摘要与 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/summarization/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 摘要</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/summarization/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Promptfoo 评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">text_to_sql</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/text_to_sql/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Set your Anthropic API key</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/text_to_sql/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 的文本到 SQL</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/text_to_sql/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Promptfoo 评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div></div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">third_party</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Deepgram</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Deepgram/prerecorded_audio_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">转录深蓝音频文件并使用 Anthropic 准备面试问题！</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Deepgram/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Deepgram <> Anthropic Cookbooks</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">LlamaIndex</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Basic_RAG_With_LlamaIndex_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">RAG 管道与 LlamaIndex</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Multi_Document_Agents_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">多文档代理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Multi_Modal_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">多模态</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/ReAct_Agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">ReAct Agent</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">LlamaIndex <> Anthropic Cookbooks</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Router_Query_Engine_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">注意：这仅在 jupyter notebook 中是必需的。</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/SubQuestion_Query_Engine_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">SubQuestionQueryEngine</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">MongoDB</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/MongoDB/rag_using_mongodb_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 3 和 MongoDB 构建 RAG 系统</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Pinecone</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Pinecone/claude_3_rag_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">检查 Python 版本</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Pinecone/rag_using_pinecone_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Pinecone 进行检索增强生成</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">VoyageAI</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/VoyageAI/how_to_create_embeddings_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">这将自动使用环境变量VOYAGE_API_KEY。</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Wikipedia</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Wikipedia/wikipedia-search-cookbook_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">迭代搜索维基百科与 Claude</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">WolframAlpha</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/WolframAlpha/using_llm_api_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Wolfram Alpha LLM API 作为 Claude 的工具</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">tool_use</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/calculator_tool_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用计算器工具与 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/customer_service_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用客户端工具创建客服代理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/extracting_structured_json_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Claude 和工具使用功能提取结构化 JSON</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/memory_cookbook_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">安装依赖</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/parallel_tools_claude_3_7_sonnet_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">在 Claude 3.7 Sonnet 上并行调用工具</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/tool_choice_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">选择工具</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/tool_use_with_pydantic_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">记事工具，支持 Pydantic 和 Anthropic 工具使用</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/vision_with_tools_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Vision 与工具</span>
+                        </a>
+                    </div>
+                </div></div></nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="claude">摘要与 Claude</h1>
+<h2 id="_1">引言</h2>
+<p>摘要是自然语言处理中的一项关键任务，它涉及将大量文本浓缩成更短、更易于理解的格式，同时保留关键信息。在当今信息丰富的世界中，从长篇文档中快速提取和综合要点并在各种行业和应用中都非常有价值。</p>
+<p>本指南侧重于利用 Claude 的摘要能力，并特别强调法律文档。法律文档通常冗长且阅读起来很费力——尤其是在有大量细则和法律术语的情况下。我们将探讨有效摘要此类文档的技术、评估摘要质量的方法以及系统地提高摘要性能的策略。</p>
+<p>我们将涵盖的关键方面包括：</p>
+<ul>
+<li>制作有效的摘要提示</li>
+<li>从文档中提取特定元数据</li>
+<li>处理超出常规令牌限制的长文档</li>
+<li>使用自动化方法评估摘要质量（例如，ROUGE 分数和 <a href="https://www.promptfoo.dev/">Promptfoo</a> 自定义方法）</li>
+<li>迭代改进摘要性能</li>
+<li>关于如何优化摘要工作流程的通用结论性提示</li>
+</ul>
+<p>在本指南结束时，您将对如何使用 Claude 实现和优化摘要任务有扎实的理解，并有一个框架可以将这些技术应用于您自己的特定用例。</p>
+<p>在我们开始之前，值得谈谈本指南中的评估。评估摘要质量是一项艰巨的任务。与许多其他自然语言处理任务不同，摘要评估通常缺乏明确、客观的指标。该过程可能高度主观，不同的读者重视摘要的不同方面。像 ROUGE 分数这样的传统经验方法虽然有用，但在捕捉连贯性、事实准确性和相关性等细微差别方面存在局限性。此外，“最佳”摘要可能因具体用例、目标受众和所需的详细程度而异。尽管存在这些挑战，我们在本指南中探索了几种可以利用的方法，结合了自动化指标、正则表达式和特定任务的标准。在本指南中，我们认识到最有效的方法通常是根据手头的特定摘要任务量身定制技术组合。</p>
+<h2 id="_2">目录</h2>
+<ol>
+<li><a href="#setup">设置</a></li>
+<li><a href="#data-preparation">数据准备</a></li>
+<li><a href="#basic-summarization">基本摘要</a></li>
+<li><a href="#multi-shot-basic-summarization">多轮基本摘要</a></li>
+<li><a href="#advanced-techniques">高级技术</a><ul>
+<li><a href="#guided-summarization">引导式摘要</a></li>
+<li><a href="#domain-specific-guided-summarization">特定领域引导式摘要</a></li>
+<li><a href="#including-the-context-of-the-entire-document-meta-summarization">元摘要</a></li>
+</ul>
+</li>
+<li><a href="#summary-indexed-documents-an-advanced-rag-approach">摘要索引文档：一种高级 RAG 方法</a><ul>
+<li><a href="#best-practices-for-summarization-rag">摘要 RAG 的最佳实践</a></li>
+</ul>
+</li>
+<li><a href="#evaluations">评估</a></li>
+<li><a href="#iterative-improvement">迭代改进</a></li>
+<li><a href="#conclusion-and-best-practices">结论和最佳实践</a></li>
+</ol>
+<h2 id="_3">设置</h2>
+<p>要完成本指南，您需要安装以下软件包：</p>
+<ul>
+<li>anthropic</li>
+<li>pypdf</li>
+<li>pandas</li>
+<li>matplotlib</li>
+<li>sklearn</li>
+<li>numpy</li>
+<li>rouge-score</li>
+<li>nltk</li>
+<li>seaborn</li>
+<li><a href="https://www.promptfoo.dev/">promptfoo</a>（用于评估）</li>
+</ul>
+<p>您还需要一个 Anthropic API 密钥。</p>
+<p>让我们开始安装所需的软件包并设置我们的环境：</p>
+<pre class="codehilite"><code class="language-python"># install packages
+!pip install anthropic pypdf pandas matplotlib numpy rouge-score nltk seaborn --quiet
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">import os
+import re
+import anthropic
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+from typing import List, Dict, Tuple
+import json
+import seaborn as sns
+
+# Set up Anthropic client
+# You can set up a .env file with your API key to keep it private, and import it like so:
+# from dotenv import load_dotenv
+# load_dotenv()
+
+# or add your key directly
+api_key = 'ANTHROPIC_API_KEY' # Replace ANTHROPIC_API_KEY with your actual API key
+client = anthropic.Anthropic(api_key=api_key)
+
+print(&quot;Setup complete!&quot;)
+</code></pre>
+
+<pre class="codehilite"><code>Setup complete!
+</code></pre>
+
+<h2 id="_4">数据准备</h2>
+<p>在我们开始摘要文档之前，我们需要准备数据。这包括从 PDF 中提取文本、清理文本并确保其已准备好输入到我们的语言模型中。为了演示的目的，我们已从 sec.gov 网站获取了一个<a href="https://www.sec.gov/Archives/edgar/data/1045425/000119312507044370/dex1032.htm">公开可用的转租协议</a>。</p>
+<p>如果您有任何要在此处测试的 PDF，请随时将其导入此目录，然后更改下面的文件路径。<strong>如果您只想通过复制和粘贴使用文本块，请跳过此步骤并定义 <code>text = &lt;text blob&gt;</code></strong>。</p>
+<p>这是一组用于处理此过程的函数：</p>
+<pre class="codehilite"><code class="language-python">import pypdf
+import re
+
+pdf_path = &quot;data/Sample Sublease Agreement.pdf&quot;
+
+def extract_text_from_pdf(pdf_path):
+    with open(pdf_path, 'rb') as file:
+        reader = pypdf.PdfReader(file)
+        text = &quot;&quot;
+        for page in reader.pages:
+            text += page.extract_text() + &quot;\n&quot;
+    return text
+
+def clean_text(text):
+    # Remove extra whitespace
+    text = re.sub(r'\s+', ' ', text)
+    # Remove page numbers
+    text = re.sub(r'\n\s*\d+\s*\n', '\n', text)
+    return text.strip()
+
+def prepare_for_llm(text, max_tokens=180000):
+    # Truncate text to fit within token limit (approximate)
+    return text[:max_tokens * 4]  # Assuming average of 4 characters per token
+
+def get_llm_text(path):
+    extracted_text = extract_text_from_pdf(path)
+    cleaned_text = clean_text(extracted_text)
+    llm_ready_text = prepare_for_llm(cleaned_text)
+    return llm_ready_text
+
+# You can now use get_llm_text in your LLM prompt
+text = get_llm_text(pdf_path)
+print(text[:500])
+</code></pre>
+
+<pre class="codehilite"><code>EX-10.32 7 dex1032.htm SUBLEASE AGREEMENT Exhibit 10.32 SUBLEASE AGREEMENT THIS SUBLEASE AGREEMENT (“Sublease ”), is dated as of April 1, 2006, by and between COHEN BROTHERS, LLC d/b/a COHEN &amp; COMP ANY (“Sublessor ”) and TABERNA CAPIT AL MANAGEMENT , LLC (“Sublessee ”), collectively , the “ Parties ” and each a “ Party ”. WHEREAS, Sublessor is the lessee under a written lease agreement dated June 22, 2005 wherein Brandywine Cira, L.P ., a Delaware limited partnership (“ Lessor ”), leased Suite N
+</code></pre>
+
+<p>此设置使我们能够轻松处理 PDF 文档并为摘要做好准备。在下一节中，我们将从基本的摘要方法开始，然后通过更高级的技术进行改进。</p>
+<h2 id="_5">基本摘要</h2>
+<p>让我们从使用 Claude 的简单摘要函数开始。这是使用 Claude 摘要上述文档文本的简单尝试。随着本指南的进行，我们将改进此方法。</p>
+<p>需要注意的一点是，虽然这看起来很简单，但我们实际上已经在利用 Claude 的一些重要功能。值得注意的一点是助手角色和停止序列的使用。助手前导语将 Claude 定位为在最后一个短语 <code>&lt;summary&gt;</code> 之后直接包含摘要。停止序列 <code>&lt;/summary&gt;</code> 然后告诉 Claude 停止生成。这是我们将继续在本指南中使用的模式。</p>
+<pre class="codehilite"><code class="language-python">def basic_summarize(text, max_tokens=1000):
+
+    # Prompt the model to summarize the text
+    prompt = f&quot;&quot;&quot;Summarize the following text in bullet points. Focus on the main ideas and key details:
+    {text}
+    &quot;&quot;&quot;
+
+    response = client.messages.create(
+            model=&quot;claude-3-5-sonnet-20241022&quot;,
+            max_tokens=max_tokens,
+            system=&quot;You are a legal analyst known for highly accurate and detailed summaries of legal documents.&quot;,
+            messages=[
+                {
+                    &quot;role&quot;: &quot;user&quot;,
+                    &quot;content&quot;: prompt
+                },
+                {
+                    &quot;role&quot;: &quot;assistant&quot;,
+                    &quot;content&quot;: &quot;Here is the summary of the legal document: &lt;summary&gt;&quot;
+                }
+            ],
+            stop_sequences=[&quot;&lt;/summary&gt;&quot;]
+        )
+
+    return response.content[0].text
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">basic_response = basic_summarize(text, max_tokens=1000)
+
+print(basic_response)
+</code></pre>
+
+<pre class="codehilite"><code>Key Points:
+•Between parties: COHEN BROTHERS, LLC d/b/a COHEN &amp; COMPANY (Sublessor) and TABERNA CAPITAL MANAGEMENT, LLC (Sublessee).
+•Signed on April 1, 2006.
+•Premises: 2,000 square feet of office space in Suite 1703 in the Cira Center at 2929 Arch Street, Philadelphia.
+
+Major Terms:
+•Term: 5 years starting April 1, 2006
+•Payment: Fixed rent increases annually from $34.50/sf to $37.34/sf over the term.
+•Utilities: Tenant pays for electricity and pro rata share of building expenses.
+•Use: General office use only.
+•Assignment/Subletting: Requires prior written consent of landlord.
+
+Key Obligations:
+•Tenant must maintain insurance including liability and property insurance.
+•Tenant responsible for interior maintenance/condition of the premises.
+•Tenant must comply with all building rules and regulations.
+•Tenant must maintain premises in good order and repair.
+
+Notable Provisions:
+•Sublessor can recapture premises if tenant tries to assign/sublet without proper consent.
+•Default provisions give sublessor multiple remedies including termination and accelerated rent.
+•Tenant must indemnify landlord for claims related to tenant's use or actions.
+•Tenant responsible for maintaining and repairing interior of premises.
+
+This appears to be a fairly standard commercial office sublease with typical provisions regarding tenant obligations, insurance requirements, default remedies, etc. The sublessor retains significant control and remedies while the sublessee has standard obligations for an office tenant.
+</code></pre>
+
+<p>这种基本方法提供了简单的摘要，但对于法律或财务文件来说，它可能无法捕捉到我们所需的所有细微差别。正如您在上面重新运行单元格时注意到的那样，没有标准的、正式化的输出。相反，我们检索了文档的基本摘要，没有太多可供解析的结构化输出。这使得它更难阅读，更难信任（我们怎么知道它没有遗漏什么？）因此，在任何实际应用中使用它都更加困难。</p>
+<p>让我们看看是否可以调整我们的提示以获得更结构化的摘要输出。</p>
+<h2 id="_6">多轮基本摘要</h2>
+<p>我们能够如此快速地摘要大量文档，这很酷，但我们可以做得更好。让我们尝试在提示中添加一些示例，看看是否可以改进输出并在我们继续进行更高级的技术之前创建一些结构。</p>
+<p>请注意，这里我们实际上并没有更改请求的实际格式，尽管我们附加了 2 个附加项：</p>
+<ol>
+<li>我们告诉模型“不要前导”。在限制模型输出仅为我们想要的答案时，这通常是一个好主意，而没有您在使用 Claude 时可能熟悉的初始形式的对话角度。当我们稍后在本指南中使用其他“说明”时，这尤其重要。</li>
+<li>我们附加了 3 个摘要文档的示例。这称为少样本或多样本学习，它可以帮助模型理解我们的需求。</li>
+</ol>
+<p>让我们看看输出如何变化：</p>
+<pre class="codehilite"><code class="language-python"># We import from our data directory to save space in our notebook
+from data.multiple_subleases import document1, document2, document3, sample1, sample2, sample3
+
+def basic_summarize_multishot(text, max_tokens=1000):
+
+    # Prompt the model to summarize the text
+    prompt = f&quot;&quot;&quot;Summarize the following text in bullet points. Focus on the main ideas and key details:
+        {text}
+
+    Do not preamble.
+
+    Use these examples for guidance in summarizing:
+
+    &lt;example1&gt;
+        &lt;original1&gt;
+            {document1}
+        &lt;/original1&gt;
+
+        &lt;summary1&gt;
+            {sample1}
+        &lt;/summary1&gt;
+    &lt;/example1&gt;
+
+    &lt;example2&gt;
+        &lt;original2&gt;
+            {document2}
+        &lt;/original2&gt;
+
+        &lt;summary2&gt;
+            {sample2}
+        &lt;/summary2&gt;
+    &lt;/example2&gt;
+
+    &lt;example3&gt;
+        &lt;original3&gt;
+            {document3}
+        &lt;/original3&gt;
+
+        &lt;summary3&gt;
+            {sample3}
+        &lt;/summary3&gt;
+    &lt;/example3&gt;
+    &quot;&quot;&quot;
+
+    response = client.messages.create(
+            model=&quot;claude-3-5-sonnet-20241022&quot;,
+            max_tokens=max_tokens,
+            system=&quot;You are a legal analyst known for highly accurate and detailed summaries of legal documents.&quot;,
+            messages=[
+                {
+                    &quot;role&quot;: &quot;user&quot;,
+                    &quot;content&quot;: prompt
+                },
+                {
+                    &quot;role&quot;: &quot;assistant&quot;,
+                    &quot;content&quot;: &quot;Here is the summary of the legal document: &lt;summary&gt;&quot;
+                }
+            ],
+            stop_sequences=[&quot;&lt;/summary&gt;&quot;]
+        )
+
+    return response.content[0].text
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">basic_multishot_response = basic_summarize_multishot(text, max_tokens=1000)
+
+print(basic_multishot_response)
+</code></pre>
+
+<pre class="codehilite"><code>Description: This is a sublease agreement between Cohen Brothers, LLC (Sublessor) and Taberna Capital Management, LLC (Sublessee) for office space in Philadelphia.
+
+&lt;parties involved&gt;
+Sublessor: Cohen Brothers, LLC d/b/a Cohen &amp; Company
+Sublessee: Taberna Capital Management, LLC
+Original lessor: Brandywine Cira, L.P.
+&lt;/parties involved&gt;
+
+&lt;property details&gt; 
+Address: 2929 Arch Street, Suite 1703, Philadelphia, PA
+Description: 2,000 square feet of office space with access to file space, printers, copiers, kitchen, conference rooms
+Permitted use: General office use
+&lt;/property details&gt;
+
+&lt;term and rent&gt;
+Start date: April 1, 2006
+End date: 5 years from start date
+Monthly rent:
+• Months 1-12: $5,750
+• Months 13-24: $5,865
+• Months 25-36: $5,981.67
+• Months 37-48: $6,101.67
+• Months 49-60: $6,223.33
+&lt;/term and rent&gt;
+
+&lt;responsibilities&gt;
+Utilities: Not explicitly specified
+Maintenance: Not explicitly specified
+Repairs: Tenant responsible for damage repairs
+Insurance: Tenant required to maintain liability insurance with $3M limit and workers compensation insurance
+&lt;/responsibilities&gt;
+
+&lt;special provisions&gt;
+Default: Detailed events of default and remedies specified
+Holdover: Double rent for unauthorized holdover period
+Assignment/Subletting: Not permitted without landlord consent
+Alterations: Require landlord consent
+Access to services: Includes file space, copiers, conference rooms, receptionist services
+&lt;/special provisions&gt;
+</code></pre>
+
+<p>如果您查看我们提供的示例，您会发现输出格式与此相同（请转到 data/&lt;任何 .txt 文件&gt; 查看）。这很有趣——我们没有明确告诉 Claude 遵循示例的格式，但它似乎也已经注意到了。这说明了少样本学习的力量，以及 Claude 如何从少数示例中泛化到新输入。</p>
+<h2 id="_7">高级摘要技术</h2>
+<h3 id="_8">引导式摘要</h3>
+<p>引导式摘要是指我们明确定义一个框架供模型在其摘要任务中遵守。我们可以通过更改提示的详细信息来完成所有这些操作，以指导 Claude 的详细程度、包含或排除技术术语的程度，或者提供更高或更低级别的上下文摘要。对于法律文件，我们可以引导摘要关注特定方面。</p>
+<p>请注意，我们很可能可以通过示例（我们在上面探讨过！）来完成与下面相同的格式化输出！</p>
+<pre class="codehilite"><code class="language-python">def guided_legal_summary(text, max_tokens=1000):
+
+    # Prompt the model to summarize the text
+    prompt = f&quot;&quot;&quot;Summarize the following legal document. Focus on these key aspects:
+
+    1. Parties involved
+    2. Main subject matter
+    3. Key terms and conditions
+    4. Important dates or deadlines
+    5. Any unusual or notable clauses
+
+    Provide the summary in bullet points under each category.
+
+    Document text:
+    {text}
+
+    &quot;&quot;&quot;
+
+    response = client.messages.create(
+        model=&quot;claude-3-5-sonnet-20241022&quot;,
+        max_tokens=max_tokens,
+        system=&quot;You are a legal analyst known for highly accurate and detailed summaries of legal documents.&quot;,
+        messages=[
+            {
+                &quot;role&quot;: &quot;user&quot;,
+                &quot;content&quot;: prompt
+            },
+            {
+                &quot;role&quot;: &quot;assistant&quot;,
+                &quot;content&quot;: &quot;Here is the summary of the legal document: &lt;summary&gt;&quot;
+            }
+        ],
+        stop_sequences=[&quot;&lt;/summary&gt;&quot;]
+    )
+
+    return response.content[0].text
+</code></pre>
+
+<pre class="codehilite"><code class="language-python"># Example usage
+legal_summary = guided_legal_summary(text)
+print(legal_summary)
+</code></pre>
+
+<pre class="codehilite"><code>1. Parties Involved
+- Sublessor: Cohen Brothers, LLC d/b/a Cohen &amp; Company
+- Sublessee: Taberna Capital Management, LLC
+- Original Landlord: Brandywine Cira, L.P. (Master Lease landlord)
+
+2. Main Subject Matter
+- Sublease agreement for Suite 1703 at Cira Centre, 2929 Arch Street, Philadelphia, PA
+- 2,000 square feet of office space within the Master Premises of 13,777 rentable square feet
+- Includes furniture, file space, printers, copiers, kitchen, conference room facilities and receptionist/secretarial services
+
+3. Key Terms and Conditions
+- Initial Term: 5 years from April 1, 2006 
+- Fixed Rent: Escalating annual rent schedule starting at $34.50/sq ft in Year 1 ($69,000 annually) up to $37.34/sq ft in Year 5 ($74,680 annually)
+- Pro rata share of operating expenses and utilities
+- No assignment or subletting without Sublessor's prior written consent
+- Sublessee takes premises &quot;AS IS&quot;
+- Sublessee must maintain required insurance coverage
+- Default provisions for non-payment, breach of lease terms, bankruptcy, etc.
+
+4. Important Dates/Deadlines  
+- Commencement Date: April 1, 2006
+- Expiration Date: 5 years from Commencement Date
+- Fixed Rent payable monthly in advance on 1st of each month
+- 5-day grace period for late payments before default
+
+5. Notable Clauses
+- Indemnification requirements for both parties
+- Holdover rent at 2x monthly rate if Sublessee remains after term ends
+- Sublessor not liable for utilities/services interruption
+- Sublessee responsible for any construction liens
+- Confession of judgment provision
+- Waiver of jury trial provision
+</code></pre>
+
+<p>这确实使得解析文档中最相关的部分并理解特定项目和重要条款的含义更加容易。</p>
+<h3 id="_9">特定领域引导式摘要</h3>
+<p>您可以将上述引导式摘要提示应用于任何类型的文档，但通过针对特定文档类型进行定制，我们可以使其功能更强大。例如，如果我们知道我们正在处理一份转租协议，我们可以引导模型关注该特定文档类型最相关的法律术语和概念。当我们使用 Claude 处理特定用例并明确知道我们想要提取的最相关值时，这将是最相关的。</p>
+<p>以下是我们如何修改转租协议的引导式摘要函数的一个示例。请注意，我们还将“模型”作为函数的附加参数，以便我们可以根据任务更轻松地为摘要选择不同的模型：</p>
+<pre class="codehilite"><code class="language-python">def guided_sublease_summary(text, model=&quot;claude-3-5-sonnet-20241022&quot;, max_tokens=1000):
+
+    # Prompt the model to summarize the sublease agreement
+    prompt = f&quot;&quot;&quot;Summarize the following sublease agreement. Focus on these key aspects:
+
+    1. Parties involved (sublessor, sublessee, original lessor)
+    2. Property details (address, description, permitted use)
+    3. Term and rent (start date, end date, monthly rent, security deposit)
+    4. Responsibilities (utilities, maintenance, repairs)
+    5. Consent and notices (landlord's consent, notice requirements)
+    6. Special provisions (furniture, parking, subletting restrictions)
+
+    Provide the summary in bullet points nested within the XML header for each section. For example:
+
+    &lt;parties involved&gt;
+
+    - Sublessor: [Name]
+    // Add more details as needed
+    &lt;/parties involved&gt;
+
+    If any information is not explicitly stated in the document, note it as &quot;Not specified&quot;. Do not preamble.
+
+    Sublease agreement text:
+    {text}
+
+    &quot;&quot;&quot;
+
+    response = client.messages.create(
+        model=model,
+        max_tokens=max_tokens,
+        system=&quot;You are a legal analyst specializing in real estate law, known for highly accurate and detailed summaries of sublease agreements.&quot;,
+        messages=[
+            {
+                &quot;role&quot;: &quot;user&quot;,
+                &quot;content&quot;: prompt
+            },
+            {
+                &quot;role&quot;: &quot;assistant&quot;,
+                &quot;content&quot;: &quot;Here is the summary of the sublease agreement: &lt;summary&gt;&quot;
+            }
+        ],
+        stop_sequences=[&quot;&lt;/summary&gt;&quot;]
+    )
+
+    return response.content[0].text
+</code></pre>
+
+<pre class="codehilite"><code class="language-python"># Example usage
+sublease_summary = guided_sublease_summary(text)
+print(sublease_summary)
+</code></pre>
+
+<pre class="codehilite"><code>&lt;parties involved&gt;
+
+- Sublessor: Cohen Brothers, LLC (d/b/a Cohen &amp; Company) 
+- Sublessee: Taberna Capital Management, LLC
+- Original Lessor: Brandywine Cira, L.P. (Master Lease holder)
+&lt;/parties involved&gt;
+
+&lt;property details&gt;
+
+- Address: 2929 Arch Street, Suite 1703, Philadelphia, PA
+- Description: 2,000 square feet of office space in Suite 1703 
+- Permitted Use: General office use
+- Includes: Access to file space, printers, copiers, kitchen, conference rooms, receptionist/secretarial services
+&lt;/property details&gt;
+
+&lt;term and rent&gt;
+
+- Start Date: April 1, 2006
+- End Date: 5 years from commencement
+- Monthly Rent: Escalating schedule starting at $5,750 in year 1 up to $6,223.33 in year 5
+- Security Deposit: Not specified
+&lt;/term and rent&gt;
+
+&lt;responsibilities&gt;
+
+- Utilities: Sublessee pays proportional share of utilities and operating expenses
+- Maintenance: Sublessor responsible for base building maintenance
+- Repairs: Sublessee responsible for repairs due to its use
+- Insurance: Sublessee must maintain general liability and property insurance
+&lt;/responsibilities&gt;
+
+&lt;consent and notices&gt;
+
+- Landlord's Consent: Required for assignment/subletting
+- Notice Requirements: All notices must be in writing and delivered to specified addresses
+- Sublessor's Consent: Required for alterations, improvements, signage
+&lt;/consent and notices&gt;
+
+&lt;special provisions&gt;
+
+- Furniture: Included in lease
+- Parking: Not included
+- Assignment: No assignment/subletting without Sublessor's consent
+- Default Remedies: Specified remedies including termination and accelerated rent
+&lt;/special provisions&gt;
+</code></pre>
+
+<p>由于我们决定将摘要的每个部分都输出为 XML 标签，因此我们现在可以像这样单独解析它们（也可以通过 JSON 或任何其他格式完成）：</p>
+<pre class="codehilite"><code class="language-python">import re
+
+def parse_sections_regex(text):
+    pattern = r'&lt;(.*?)&gt;(.*?)&lt;/\1&gt;'
+    matches = re.findall(pattern, text, re.DOTALL)
+
+    parsed_sections = {}
+    for tag, content in matches:
+        items = [item.strip('- ').strip() for item in content.strip().split('\n') if item.strip()]
+        parsed_sections[tag] = items
+
+    return parsed_sections
+
+
+# Parse the sections
+parsed_sections = parse_sections_regex(sublease_summary)
+
+# Check if parsing was successful
+if isinstance(parsed_sections, dict) and 'parties involved' in parsed_sections:
+    print(&quot;Parties involved:&quot;)
+    for item in parsed_sections['parties involved']:
+        print(f&quot;- {item}&quot;)
+else:
+    print(&quot;Error: Parsing failed or 'parties involved' section not found.&quot;)
+    print(&quot;Parsed result:&quot;, parsed_sections)
+</code></pre>
+
+<pre class="codehilite"><code>Parties involved:
+
+- Sublessor: Cohen Brothers, LLC (d/b/a Cohen &amp; Company)
+- Sublessee: Taberna Capital Management, LLC
+- Original Lessor: Brandywine Cira, L.P. (Master Lease holder)
+</code></pre>
+
+<h3 id="_10">包含多个文档的上下文（元摘要）</h3>
+<p>如果我们有许多与同一客户相关的文档怎么办？我们可以使用分块方法来处理此问题。这是一种将文档分解为更小、可管理块，然后单独处理每个块的技术。然后，我们可以合并每个块的摘要，以创建整个文档的元摘要。当我们想要摘要大量文档或想要摘要单个非常长的文档时，这可能特别有用。</p>
+<p>以下是我们如何执行此操作的示例：</p>
+<pre class="codehilite"><code class="language-python">from data.multiple_subleases import document1, document2, document3
+
+def chunk_text(text, chunk_size=2000):
+    return [text[i:i+chunk_size] for i in range(0, len(text), chunk_size)]
+
+def summarize_long_document(text, max_tokens=2000):
+
+    chunks = chunk_text(text)
+
+    # Iterate over chunks and summarize each one
+    # We use guided_legal_summary here, but you can use basic_summarize or any other summarization function
+    # Note that we'll also use haiku for the interim summaries, and the 3.5 sonnet for the final summary
+    chunk_summaries = [guided_sublease_summary(chunk, model=&quot;claude-3-haiku-20240307&quot;, max_tokens=max_tokens) for chunk in chunks]
+
+    final_summary_prompt = f&quot;&quot;&quot;
+
+    You are looking at the chunked summaries of multiple documents that are all related. Combine the following summaries of the document from different truthful sources into a coherent overall summary:
+
+    {&quot;&quot;.join(chunk_summaries)}
+
+    1. Parties involved (sublessor, sublessee, original lessor)
+    2. Property details (address, description, permitted use)
+    3. Term and rent (start date, end date, monthly rent, security deposit)
+    4. Responsibilities (utilities, maintenance, repairs)
+    5. Consent and notices (landlord's consent, notice requirements)
+    6. Special provisions (furniture, parking, subletting restrictions)
+
+    Provide the summary in bullet points nested within the XML header for each section. For example:
+
+    &lt;parties involved&gt;
+
+    - Sublessor: [Name]
+    // Add more details as needed
+    &lt;/parties involved&gt;
+
+    If any information is not explicitly stated in the document, note it as &quot;Not specified&quot;.
+
+    Summary:
+    &quot;&quot;&quot;
+
+    response = client.messages.create(
+        model=&quot;claude-3-5-sonnet-20241022&quot;,
+        max_tokens=max_tokens,
+        system=&quot;You are a legal expert that summarizes notes on one document.&quot;,
+        messages=[
+            {
+                &quot;role&quot;: &quot;user&quot;,
+                &quot;content&quot;: final_summary_prompt
+            },
+            {
+                &quot;role&quot;: &quot;assistant&quot;,
+                &quot;content&quot;: &quot;Here is the summary of the legal document: &lt;summary&gt;&quot;
+            }
+        ],
+        stop_sequences=[&quot;&lt;/summary&gt;&quot;]
+    )
+
+    return response.content[0].text
+
+# Example usage
+# combine 3 documents (all related) together
+text = document1 + document2 + document3
+long_summary = summarize_long_document(text)
+print(long_summary)
+</code></pre>
+
+<pre class="codehilite"><code>&lt;parties involved&gt;
+
+- Sublessor: Apex Innovations, Inc. (Delaware corporation) later identified as TechHub Enterprises, LLC
+- Sublessee: NanoSphere Solutions, Inc. and Quantum Dynamics, LLC (California LLC)
+- Original Lessor: Innovate Properties, LLP
+&lt;/parties involved&gt;
+
+&lt;property details&gt;
+
+- Address: 9876 Innovation Park, Building C, San Francisco, CA 94107
+- Description: Approximately 15,000-25,000 square feet of office and laboratory space
+- Permitted Use: General office purposes, research and development, and laboratory uses consistent with BSL-2 facility requirements
+&lt;/property details&gt;
+
+&lt;term and rent&gt;
+
+- Start Date: September 1, 2023
+- End Date: August 31, 2026 (with option to extend for 3-5 additional years)
+- Monthly Rent: Starting at $75,000/month with annual 3% increases
+- Security Deposit: $450,000-$787,500
+&lt;/term and rent&gt;
+
+&lt;responsibilities&gt;
+
+- Utilities: Sublessee responsible for all utilities and services, including electricity, gas, water, sewer, telephone, internet, and janitorial
+- Maintenance: Sublessee responsible for interior maintenance, repairs and replacements, including walls, floors, ceilings, doors, windows, fixtures
+- Repairs: Sublessee responsible for repairs except building structure, exterior walls, roof which are Sublessor's responsibility
+&lt;/responsibilities&gt;
+
+&lt;consent and notices&gt;
+
+- Landlord's Consent: Required for assignments, subletting, alterations
+- Notice Requirements: 30 days written notice for defaults, insurance changes; 9-12 months notice for term extensions
+&lt;/consent and notices&gt;
+
+&lt;special provisions&gt;
+
+- Furniture: Right to install furniture/equipment 15-30 days before commencement
+- Parking: Non-exclusive right to use common parking facilities
+- Subletting Restrictions: No assignment/subletting without Sublessor's consent, except to affiliated entities
+- Additional: Hazardous materials restrictions, OFAC compliance requirements, jury trial waiver
+&lt;/special provisions&gt;
+</code></pre>
+
+<h2 id="rag">摘要索引文档：一种高级 RAG 方法</h2>
+<p>摘要索引文档是一种先进的检索增强生成 (RAG) 方法，它在文档级别运行。</p>
+<p>与传统的 RAG 技术相比，此方法具有许多优势，尤其是在涉及大型文档或需要精确信息检索的情况下。</p>
+<h4 id="_11">工作原理</h4>
+<ol>
+<li>文档摘要：为语料库中的每个文档生成简洁的摘要（查询子集文本并快速摘要）。</li>
+<li>上下文窗口优化：确保所有摘要都适合语言模型的上下文窗口。</li>
+<li>相关性评分：要求模型对每个摘要与正在查询的相关性进行排名。</li>
+<li>重新排名（可选）：应用重新排名技术以进一步优化和压缩 top-K 结果。</li>
+<li>回答当前查询。</li>
+</ol>
+<p>这种方法有一些明显的优势：</p>
+<ul>
+<li>更高效的文档检索排名方式，使用的上下文比传统 RAG 方法少。</li>
+<li>在特定任务上表现更优：优于其他 RAG 方法，始终将正确文档排名第一。</li>
+<li>优化的信息检索：重新排名有助于压缩结果，确保向模型呈现最简洁、最相关的信息。</li>
+</ul>
+<pre class="codehilite"><code class="language-python">class LegalSummaryIndexedDocuments:
+
+    def __init__(self, client):
+        self.client = client # Claude client
+        self.documents: List[Dict[str, str]] = [] # List of docs to store
+        self.summaries: List[str] = []
+
+    def add_document(self, doc_id: str, content: str):
+        # Adds a document to the index
+        self.documents.append({&quot;id&quot;: doc_id, &quot;content&quot;: content})
+
+    def generate_summaries(self):
+        # Generates summaries for all documents in the index
+        for doc in self.documents:
+            summary = self._generate_legal_summary(doc[&quot;content&quot;])
+            self.summaries.append(summary)
+
+    def _generate_legal_summary(self, content: str) -&gt; str:
+
+        # Note how we constrain the content to a maximum of 2000 words. We do this because we don't need that much information for the intial ranking.
+        prompt = f&quot;&quot;&quot;
+        Summarize the following sublease agreement. Focus on these key aspects:
+
+        1. Parties involved (sublessor, sublessee, original lessor)
+        2. Property details (address, description, permitted use)
+        3. Term and rent (start date, end date, monthly rent, security deposit)
+        4. Responsibilities (utilities, maintenance, repairs)
+        5. Consent and notices (landlord's consent, notice requirements)
+        6. Special provisions (furniture, parking, subletting restrictions)
+
+        Provide the summary in bullet points nested within the XML header for each section. For example:
+
+        &lt;parties involved&gt;
+
+        - Sublessor: [Name]
+        // Add more details as needed
+        &lt;/parties involved&gt;
+
+        If any information is not explicitly stated in the document, note it as &quot;Not specified&quot;.
+
+        Sublease agreement text:
+        {content[:2000]}...
+
+        Summary:
+        &quot;&quot;&quot;
+
+        response = client.messages.create(
+            model=&quot;claude-3-5-sonnet-20241022&quot;,
+            max_tokens=500,
+            temperature=0.2,
+            messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: prompt},
+                      {&quot;role&quot;: &quot;assistant&quot;, &quot;content&quot;: &quot;Here is the summary of the legal document: &lt;summary&gt;&quot;}],
+            stop_sequences=[&quot;&lt;/summary&gt;&quot;]        
+        )
+        return response.content[0].text
+
+    def rank_documents(self, query: str, top_k: int = 3) -&gt; List[Tuple[str, float]]:
+        &quot;&quot;&quot;
+        Rank documents based on their relevance to the given query.
+        We use Haiku here as a cheaper, faster model for ranking. 
+        &quot;&quot;&quot;
+        ranked_scores = []
+        for summary in self.summaries:
+
+            prompt=f&quot;Legal document summary: {summary}\n\nLegal query: {query}\n\nRate the relevance of this legal document to the query on a scale of 0 to 10. Only output the numeric value:&quot;
+
+            response = client.messages.create(
+                model=&quot;claude-3-haiku-20240307&quot;,
+                max_tokens=2,
+                temperature=0,
+                messages=[
+                    {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: prompt}
+                ]
+            )
+            ranked_score = float(response.content[0].text)
+            ranked_scores.append(ranked_score)
+
+        ranked_indices = np.argsort(ranked_scores)[::-1][:top_k]
+        return [(self.documents[i][&quot;id&quot;], ranked_scores[i]) for i in ranked_indices]
+
+    def extract_relevant_clauses(self, doc_id: str, query: str) -&gt; List[str]:
+        &quot;&quot;&quot;
+        Extracts relevant clauses from a document based on a query.
+        &quot;&quot;&quot;
+        doc_content = next(doc[&quot;content&quot;] for doc in self.documents if doc[&quot;id&quot;] == doc_id)
+
+        prompt = f&quot;&quot;&quot;
+        Given the following legal query and document content, extract the most relevant clauses or sections and write the answer to the query. 
+        Provide each relevant clause or section separately, preserving the original legal language:
+
+        Legal query: {query}
+
+        Document content: {doc_content}...
+
+        Relevant clauses or sections (separated by '---'):&quot;&quot;&quot;
+
+        response = client.messages.create(
+                model=&quot;claude-3-5-sonnet-20241022&quot;,
+                max_tokens=1000,
+                temperature=0,
+                messages=[
+                    {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: prompt}
+                ]
+            )
+
+        clauses = re.split(r'\n\s*---\s*\n', response.content[0].text.strip())
+        return [clause.strip() for clause in clauses if clause.strip()]
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">from data.multiple_subleases import document1, document2, document3
+
+lsid = LegalSummaryIndexedDocuments(client=client)
+
+# Add documents
+lsid.add_document(&quot;doc1&quot;, document1)
+lsid.add_document(&quot;doc2&quot;, document2)
+lsid.add_document(&quot;doc3&quot;, document3)
+
+# Generate summaries - this would happen at ingestion
+lsid.generate_summaries()
+
+# Rank documents for a legal query
+legal_query = &quot;What contract is for the sublessor Apex Innovations, LLC?&quot;
+ranked_results = lsid.rank_documents(legal_query)
+
+print(&quot;Initial ranking:&quot;, ranked_results)
+
+# Extract relevant clauses from the top-ranked document
+top_doc_id = ranked_results[0][0]
+relevant_clauses = lsid.extract_relevant_clauses(top_doc_id, legal_query)
+
+print(&quot;\nRelevant clauses from the top-ranked document:&quot;)
+for i, clause in enumerate(relevant_clauses[1:], 1):
+    print(f&quot;Clause {i}: {clause}&quot;)
+</code></pre>
+
+<pre class="codehilite"><code>Initial ranking: [('doc1', 8.0), ('doc3', 0.0), ('doc2', 0.0)]
+
+Relevant clauses from the top-ranked document:
+Clause 1: COMMERCIAL SUBLEASE AGREEMENT
+
+THIS COMMERCIAL SUBLEASE AGREEMENT (hereinafter referred to as the &quot;Sublease&quot;) is made and entered into on this 15th day of August, 2023 (the &quot;Effective Date&quot;), by and between:
+
+SUBLESSOR: Apex Innovations, Inc., a Delaware corporation with its principal place of business at 1234 Tech Boulevard, Suite 5000, San Francisco, CA 94105 (hereinafter referred to as the &quot;Sublessor&quot;)
+Clause 2: WHEREAS, Sublessor is the Tenant under that certain Master Lease Agreement dated January 1, 2020 (hereinafter referred to as the &quot;Master Lease&quot;), wherein Innovate Properties, LLP (hereinafter referred to as the &quot;Master Lessor&quot;) leased to Sublessor those certain premises consisting of approximately 50,000 square feet of office space located at 9876 Innovation Park, Building C, Floors 10-12, San Francisco, CA 94107 (hereinafter referred to as the &quot;Master Premises&quot;);
+Clause 3: Answer: There appears to be an error in the legal query. The query refers to &quot;Apex Innovations, LLC&quot; but the document shows that the sublessor is actually &quot;Apex Innovations, Inc.&quot;, a Delaware corporation. The contract for Apex Innovations, Inc. is:
+
+1. A Commercial Sublease Agreement dated August 15, 2023, where they are the Sublessor
+2. A Master Lease Agreement dated January 1, 2020, where they are the Tenant under Innovate Properties, LLP
+</code></pre>
+
+<h3 id="rag_1">摘要 RAG 的最佳实践</h3>
+<ul>
+<li>最佳摘要长度：尝试不同的摘要长度，以在简洁性和信息量之间找到平衡。</li>
+<li>迭代重新排名：考虑多轮重新排名以获得更精确的结果，尤其是在处理大型文档集时。</li>
+<li>缓存：为摘要和初始排名实现缓存机制，以提高重复查询的性能。</li>
+</ul>
+<p>摘要索引文档提供了一种强大的 RAG 方法，尤其是在涉及大型文档或需要精确信息检索的情况下表现出色。通过利用文档摘要、对数概率评分和可选的重新排名，此方法提供了一种高效有效的方式来检索和呈现相关信息给语言模型。</p>
+<h2 id="_12">评估</h2>
+<p>正如本食谱引言中所提到的，评估摘要质量是一项艰巨的工作。这是因为摘要文档有多种方法，并且不同的摘要可能同样有效。根据用例的不同，摘要的不同方面可能更重要或更不重要。</p>
+<p>您可以在此处阅读有关我们提示工程的经验方法<a href="https://docs.anthropic.com/en/docs/prompt-engineering">此处</a>。使用 Jupyter Notebook 是开始提示工程的好方法，但随着数据集的增长和提示数量的增加，利用能够与您一起扩展的工具非常重要。</p>
+<p>在本指南的这一部分，我们将探讨使用 <a href="https://www.promptfoo.dev/">Promptfoo</a>，一个开源 LLM 评估工具包。要开始，请前往 <code>./evaluation</code> 目录并查看 <code>./evaluation/README.md</code>。</p>
+<p>成功运行评估后，请返回此处查看结果。您也可以使用命令 <code>npx promptfoo@latest view</code> 以动态方式查看结果，在创建一些结果之后。</p>
+<pre class="codehilite"><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import re
+
+%matplotlib inline
+plt.style.use('seaborn')
+
+# Load the data
+df = pd.read_csv('data/results.csv')
+
+# Function to extract PASS/FAIL and score
+def extract_result(text):
+    match = re.search(r'\[(PASS|FAIL)\]\s*\((\d+\.\d+)\)', str(text))
+    if match:
+        return match.group(1), float(match.group(2))
+    return 'UNKNOWN', 0.0
+
+# Apply the extraction to relevant columns
+for col in df.columns[2:]:
+    df[f'{col}_result'], df[f'{col}_score'] = zip(*df[col].apply(extract_result))
+
+# Prepare data for grouped accuracy score
+models = ['3.5 Sonnet', '3.0 Haiku']
+prompts = ['basic_summarize', 'guided_legal_summary', 'summarize_long_document']
+
+results = []
+for model in models:
+    for prompt in prompts:
+        col = f'[{model}] prompts.py:{prompt}_result'
+        if col in df.columns:
+            pass_rate = (df[col] == 'PASS').mean()
+            results.append({'Model': model, 'Prompt': prompt, 'Pass Rate': pass_rate})
+
+result_df = pd.DataFrame(results)
+
+# 1. Grouped bar chart for accuracy scores
+plt.figure(figsize=(12, 6))
+result_pivot = result_df.pivot(index='Prompt', columns='Model', values='Pass Rate')
+result_pivot.plot(kind='bar')
+plt.title('Pass Rate by Model and Prompt')
+plt.ylabel('Pass Rate')
+plt.legend(title='Model')
+plt.xticks(rotation=45, ha='right')
+plt.tight_layout()
+plt.show()
+
+# 2. Box plot of scores
+plt.figure(figsize=(8, 8))
+score_cols = [col for col in df.columns if col.endswith('_score')]
+score_data = df[score_cols].melt()
+sns.boxplot(x='variable', y='value', data=score_data)
+plt.title('Distribution of Scores')
+plt.xticks(rotation=90)
+plt.xlabel('Model and Prompt')
+plt.ylabel('Score')
+plt.tight_layout()
+plt.show()
+
+# Display summary statistics
+summary_stats = df[[col for col in df.columns if col.endswith('_score')]].describe()
+display(summary_stats)
+</code></pre>
+
+<pre class="codehilite"><code>/var/folders/c8/rjj6d5_15tj4qh_zhlnz9xxr0000gp/T/ipykernel_58010/2701104606.py:7: MatplotlibDeprecationWarning: The seaborn styles shipped by Matplotlib are deprecated since 3.6, as they no longer correspond to the styles shipped by seaborn. However, they will remain available as 'seaborn-v0_8-&lt;style&gt;'. Alternatively, directly use the seaborn API instead.
+  plt.style.use('seaborn')
+
+
+
+&lt;Figure size 1200x600 with 0 Axes&gt;
+</code></pre>
+
+<p><img alt="png" src="guide_files/guide_30_2.png" /></p>
+<p><img alt="png" src="guide_files/guide_30_3.png" /></p>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>[3.0 Haiku] prompts.py:basic_summarize_score</th>
+      <th>[3.0 Haiku] prompts.py:guided_legal_summary_score</th>
+      <th>[3.0 Haiku] prompts.py:summarize_long_document_score</th>
+      <th>[3.5 Sonnet] prompts.py:basic_summarize_score</th>
+      <th>[3.5 Sonnet] prompts.py:guided_legal_summary_score</th>
+      <th>[3.5 Sonnet] prompts.py:summarize_long_document_score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>9.000000</td>
+      <td>9.000000</td>
+      <td>9.000000</td>
+      <td>9.000000</td>
+      <td>9.000000</td>
+      <td>9.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>1.423333</td>
+      <td>1.443333</td>
+      <td>1.522222</td>
+      <td>1.088889</td>
+      <td>1.330000</td>
+      <td>1.475556</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.135647</td>
+      <td>0.146969</td>
+      <td>0.092030</td>
+      <td>0.535547</td>
+      <td>0.086458</td>
+      <td>0.285750</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>1.190000</td>
+      <td>1.270000</td>
+      <td>1.440000</td>
+      <td>0.000000</td>
+      <td>1.230000</td>
+      <td>0.750000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>1.400000</td>
+      <td>1.300000</td>
+      <td>1.460000</td>
+      <td>1.210000</td>
+      <td>1.280000</td>
+      <td>1.450000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>1.440000</td>
+      <td>1.450000</td>
+      <td>1.460000</td>
+      <td>1.290000</td>
+      <td>1.310000</td>
+      <td>1.600000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>1.510000</td>
+      <td>1.490000</td>
+      <td>1.630000</td>
+      <td>1.400000</td>
+      <td>1.340000</td>
+      <td>1.640000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>1.600000</td>
+      <td>1.660000</td>
+      <td>1.660000</td>
+      <td>1.490000</td>
+      <td>1.480000</td>
+      <td>1.650000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>从结果来看，我们的最佳表现者似乎是 3.5 Sonnet，在所有评估中通过率为 66%，仅失败了 3 个测试（当一个测试失败时，它就被视为失败）。而这仅仅是开始——我们使用的是完全虚构的数据，这些数据要么是（a）由 Claude 生成的，要么是（b）取自 SEC gov 网站。当我们拥有真实数据时，我们可以做得更好，因为我们对我们正在处理的特定问题集有了更多的了解。</p>
+<h2 id="_13">迭代改进</h2>
+<p>当我们进一步查看评估结果时，仍有改进的空间。这就是提示工程的迭代部分发挥作用的地方。以下是我们为改进结果可以采取的一些步骤：</p>
+<ol>
+<li>分析 Promptfoo 结果以确定优势和劣势——例如，我们的包含评估似乎经常失败。这可能是因为一些文档不包含 XML 标签所需的信息。如果我们想准确评估性能，应该改进此评估（但这只是一个示例！）。</li>
+<li>优化提示以解决特定问题（例如，提高简洁性或完整性）——我们看到多轮是最初非常好的尝试。这是我们应该结合一些高级技术来进一步提高性能的内容。</li>
+<li>尝试长文档的不同分块策略。</li>
+<li>微调温度和 max_tokens 参数。</li>
+<li>实现后处理步骤以增强摘要质量。</li>
+</ol>
+<h2 id="_14">结论和最佳实践</h2>
+<p>在本指南中，我们涵盖了一系列使用 Claude 摘要文档的技术，重点关注法律文档。构建完美的摘要系统和摘要评估框架是一门艺术：它需要结合这些方法才能成功。正如我们一开始提到的，摘要是一个非常主观的话题，但我们已经很好地尝试寻找可行的评估方法，并对我们的结果感到满意。请始终记住——您不是在将结果与 100% 的准确性进行基准测试。您是在与您自己执行这项复杂任务的能力进行基准测试；借助本指南所示的 Claude 的速度和效率，您可以开始真正体会到这种方法论的好处，从而将时间用于真正的决策。</p>
+<p>总结一下这里的建议，我们包含了一些最佳实践供您参考：</p>
+<ol>
+<li>制作清晰具体的提示。使用“不要前导”之类的短语来限制输出。</li>
+<li>使用至少 2 个示例。</li>
+<li>对特定领域的文档使用引导式摘要。</li>
+<li>为长文档实施有效的高级策略。</li>
+<li>定期评估和优化您的方法。</li>
+<li>考虑 AI 生成摘要的伦理影响和局限性。</li>
+</ol>
+            </article>
+            
+            <nav class="page-nav"><a href="skills/classification/guide_zh.html" class="nav-link prev">← 设置我们的环境</a><a href="skills/retrieval_augmented_generation/guide_zh.html" class="nav-link next">Retrieval Augmented Generation (RAG) →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

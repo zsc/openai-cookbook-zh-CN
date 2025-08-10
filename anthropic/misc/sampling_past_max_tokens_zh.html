@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../">
+    <title>Claude 从 Claude 之外的采样响应，超出最大令牌限制</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">extended_thinking</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="extended_thinking/extended_thinking_with_tool_use_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">扩展思考与工具使用</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="extended_thinking/extended_thinking_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">扩展思考</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">finetuning</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="finetuning/finetuning_on_bedrock_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">在 Bedrock 上微调 Claude 3 Haiku</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder expanded" data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">misc</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/batch_processing_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">批量处理消息批次API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/building_evals_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">建立评估</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/building_moderation_filter_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">建立一个带有 Claude 的审核过滤器</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/generate_test_cases_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">首先，我们有 `extract_variables` 函数，</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/how_to_enable_json_mode_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">提示 Claude 获取“JSON 模式”</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/how_to_make_sql_queries_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 进行 SQL 查询</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/illustrated_responses_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 的图示化响应</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/mc_qa_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">实验性测试 Claude 的长上下文问答能力</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/metaprompt_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Metaprompt</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/pdf_upload_summarization_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">“上传”PDF 到 Claude API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/prompt_caching_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">缓存提示（Prompt caching）通过 Anthropic API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/read_web_pages_with_haiku_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Claude 3 Haiku 总结网页内容</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" style="padding-left: 20px;">
+                        <a href="misc/sampling_past_max_tokens_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 从 Claude 之外的采样响应，超出最大令牌限制</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/speculative_prompt_caching_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">投机性提示缓存</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/using_citations_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">引言</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">multimodal</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/best_practices_for_vision_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/getting_started_with_vision_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">开始上手 - 如何将图像传递给 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/how_to_transcribe_text_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 转录文档</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/reading_charts_graphs_powerpoints_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用图表和幻灯片放映</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/using_sub_agents_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Haiku 作为子代理</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">patterns</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">agents</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/basic_workflows_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">首先使用具有思维链的LLM确定适当的路由</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/evaluator_optimizer_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/orchestrator_workers_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">步骤1：获取协调器响应</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">构建高效代理的食谱</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">prompts</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/citations_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/research_lead_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/research_subagent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </div></div></div></div></div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">skills</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="skills/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 技能</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">classification</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/classification/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">设置我们的环境</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/classification/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 分类指南</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/classification/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Promptfoo 进行评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">contextual-embeddings</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/contextual-embeddings/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">增强检索的RAG与上下文检索</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/contextual-embeddings/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">结合上下文嵌入的检索增强生成</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">retrieval_augmented_generation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/retrieval_augmented_generation/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Retrieval Augmented Generation (RAG)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/retrieval_augmented_generation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/retrieval_augmented_generation/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Promptfoo 进行评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">summarization</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/summarization/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">摘要与 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/summarization/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 摘要</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/summarization/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Promptfoo 评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">text_to_sql</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/text_to_sql/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Set your Anthropic API key</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/text_to_sql/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 的文本到 SQL</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/text_to_sql/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Promptfoo 评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div></div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">third_party</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Deepgram</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Deepgram/prerecorded_audio_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">转录深蓝音频文件并使用 Anthropic 准备面试问题！</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Deepgram/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Deepgram <> Anthropic Cookbooks</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">LlamaIndex</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Basic_RAG_With_LlamaIndex_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">RAG 管道与 LlamaIndex</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Multi_Document_Agents_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">多文档代理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Multi_Modal_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">多模态</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/ReAct_Agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">ReAct Agent</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">LlamaIndex <> Anthropic Cookbooks</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Router_Query_Engine_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">注意：这仅在 jupyter notebook 中是必需的。</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/SubQuestion_Query_Engine_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">SubQuestionQueryEngine</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">MongoDB</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/MongoDB/rag_using_mongodb_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 3 和 MongoDB 构建 RAG 系统</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Pinecone</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Pinecone/claude_3_rag_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">检查 Python 版本</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Pinecone/rag_using_pinecone_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Pinecone 进行检索增强生成</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">VoyageAI</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/VoyageAI/how_to_create_embeddings_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">这将自动使用环境变量VOYAGE_API_KEY。</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Wikipedia</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Wikipedia/wikipedia-search-cookbook_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">迭代搜索维基百科与 Claude</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">WolframAlpha</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/WolframAlpha/using_llm_api_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Wolfram Alpha LLM API 作为 Claude 的工具</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">tool_use</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/calculator_tool_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用计算器工具与 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/customer_service_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用客户端工具创建客服代理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/extracting_structured_json_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Claude 和工具使用功能提取结构化 JSON</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/memory_cookbook_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">安装依赖</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/parallel_tools_claude_3_7_sonnet_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">在 Claude 3.7 Sonnet 上并行调用工具</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/tool_choice_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">选择工具</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/tool_use_with_pydantic_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">记事工具，支持 Pydantic 和 Anthropic 工具使用</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/vision_with_tools_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Vision 与工具</span>
+                        </a>
+                    </div>
+                </div></div></nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <p>逐字翻译：</p>
+<h1 id="claude-claude">Claude 从 Claude 之外的采样响应，超出最大令牌限制</h1>
+<p>本笔记本说明如何通过使用预填充内容和上一条消息的内容来让 Claude 给出比 max_tokens 参数的最大值更长的响应。</p>
+<pre class="codehilite"><code class="language-python">%%capture
+!pip install anthropic
+</code></pre>
+
+<p>首先，我们将通过要求 Claude 编写超过 4096 个令牌的内容来提示 Claude。</p>
+<pre class="codehilite"><code class="language-python">import anthropic
+
+client = anthropic.Anthropic(
+    api_key=&quot;YOUR API KEY HERE&quot;,
+)
+message = client.messages.create(
+    model=&quot;claude-3-sonnet-20240229&quot;,
+    max_tokens=4096,
+    messages=[
+        {
+            &quot;role&quot;: &quot;user&quot;,
+            &quot;content&quot;: &quot;&quot;&quot;
+请写五个故事。每个故事至少包含 1000 个单词。对单词进行编号以确保您不会丢失计数。每个故事都应关于不同的动物。
+将它们放在 &lt;story_1&gt;、&lt;story_2&gt; 等标签中
+&quot;&quot;&quot;},
+
+    ]
+)
+</code></pre>
+
+<pre class="codehilite"><code>[TextBlock(text=&quot;&lt;story_1&gt;\n1. 从前，在广阔的非洲大草原上，生活着一头名叫穆法萨的雄伟的狮子。2. 他的金色鬃毛在温暖的微风中飘动，他锐利的琥珀色眼睛让所有看到他的人都敬畏三分。3. 穆法萨是荣耀王国的国王，这是一个充满各种野生动物和茂密草原的领域。\n\n4. 每天早晨太阳升起时，穆法萨都会进行日常巡逻，警惕地审视着他的领地。5. 他熟悉荣耀王国的每一寸土地，从高耸的金合欢树到维持生命的蜿蜒河流。6. 他响亮的吼声回荡在平原上，提醒所有人他是这片领地无可争议的统治者。\n\n7. 有一天，在带领他的狮群狩猎时，穆法萨注意到一群鬣狗潜伏在阴影中。8. 这些食腐动物以其狡猾和残忍而闻名，它们对荣耀王国脆弱的平衡构成了持续的威胁。9. 穆法萨甩了甩尾巴，示意他的母狮保持警惕，随时准备不惜一切代价保卫他们的领地。\n\n10. 随着日子的流逝，鬣狗变得越来越大胆，侵占狮群的狩猎场并恐吓其他动物。11. 穆法萨知道他必须采取果断行动来保护他的王国。12. 他积聚力量，发出了震动整个大草原的雷鸣般的吼声，警告鬣狗远离。\n\n13. 鬣狗们感觉到穆法萨坚定不移的决心，暂时退却了，但它们远未被击败。14. 它们策划了一个阴险的计划，要袭击狮群的核心，目标是穆法萨心爱的儿子和继承人辛巴。15. 在一个令人痛苦的事件转折中，辛巴发现自己陷入了鬣狗精心策划的危险踩踏事件中。\n\n16. 穆法萨冒着生命危险，冲入混乱中营救他的儿子。17. 他以无与伦比的勇气和力量，对抗汹涌的兽群，保护辛巴免受伤害。18. 但命运弄人，穆法萨被无情的踩踏事件卷走，生命不幸过早结束。\n\n19. 辛巴因失去父亲而心烦意乱，逃离了荣耀王国，使王国容易受到鬣狗及其邪恶盟友的操纵。20. 岁月流逝，穆法萨的遗产似乎逐渐淡出了狮群的遥远记忆。\n\n21. 然而，穆法萨的精神依然存在，从天上传授辛巴。22. 随着辛巴成长为一头强大的狮子，他认识到重夺荣耀王国国王的合法地位的重要性。23. 在朋友们的帮助和他父亲精神的启示下，辛巴踏上了一段危险的旅程，以对抗篡位者并恢复王国的平衡。\n\n24. 在与鬣狗及其首领的史诗般的战斗中，辛巴取得了胜利，纪念了他父亲的遗志，并成为新国王。25. 当他站在荣耀岩顶上，鬃毛沐浴在夕阳的金光中时，辛巴发誓要继承穆法萨的遗志，以智慧、勇气和对生命之轮的坚定奉献来统治。\n\n26. 从那天起，荣耀王国在辛巴公正仁慈的统治下蓬勃发展，穆法萨的精神依然存在，指导着后代狮子保护和珍惜大自然的脆弱平衡。27. 勇敢而高贵的穆法萨的传奇深深地印在了所有称荣耀王国为家的人们心中，证明了父爱和牺牲的持久力量。\n&lt;/story_1&gt;\n\n&lt;story_2&gt;\n1. 在亚马逊茂密的热带雨林深处，一群蜘蛛猴在树枝间优雅地摆荡，它们长长的尾巴提供了完美的平衡。2. 其中有一只名叫奇科的淘气而好奇的小猴子，它对冒险的永不满足的胃口常常使它陷入危险的境地。\n\n3. 一天早上，当一家人正在觅食多汁的水果和嫩叶时，奇科的注意力被一个奇怪的景象吸引了。4. 一群色彩鲜艳的金刚鹦鹉栖息在一棵附近的树上，它们鲜艳的羽毛与翡翠色的树冠形成了鲜明的对比。5. 奇科以前从未见过如此壮丽的生物，它的好奇心占了上风。\n\n6. 奇科不顾长辈的警告，悄悄地靠近金刚鹦鹉，它敏捷的动作几乎没有惊扰周围的树叶。7. 当它靠近时，金刚鹦鹉注意到了好奇的猴子，发出了刺耳的叫声和尖叫声，翅膀疯狂地拍打着。\n\n8. 奇科毫不气馁，继续靠近，每走一步，它淘气的笑容都更大了。9. 然而，金刚鹦鹉的首领，一只头顶着华丽冠冕的雄伟的绯红金刚鹦鹉，注意到了它大胆的行为。10. 首领发出一声震耳欲聋的尖叫，发出了警告，导致整个鸟群在一阵鲜艳的色彩中起飞。\n\n11. 奇科被这景象迷住了，从树枝跳到树枝，决心跟上金刚鹦鹉的步伐。12. 它的家人惊恐地看着它消失在茂密的树叶中，它们让它回来的呼唤声在雨林的交响乐中消失了。\n\n13. 几个小时里，奇科跟着金刚鹦鹉，它灵活的身躯穿梭在藤蔓和树枝的复杂迷宫中。14. 金刚鹦鹉感觉到潜在的威胁，将它引向雨林深处，它们的飞行似乎毫不费力。\n\n15. 夜幕降临时，奇科发现自己完全迷路了，周围都是陌生的景象和声音。16. 家人的呼唤声早已消失，取而代之的是猫头鹰怪异的叫声和潜伏在阴影中的看不见生物的沙沙声。\n\n17. 奇科筋疲力尽，晕头转向，蜷缩在一根结实的树枝上，眼睛因恐惧而睁大。18. 夜晚过得很慢，每一片树叶的沙沙声都让它不寒而栗。19. 当第一缕晨光透过树冠时，奇科意识到了自己处境的严重性——它独自一人，离家人的安全很远。\n\n20. 奇科鼓起勇气，开始原路返回，希望能找到熟悉的标志来指引它回家。21. 然而，雨林被证明是一个危险的迷宫，每条路似乎都把它引向更远的地方。\n\n22. 日子变成了星期，奇科曾经鲜艳的毛皮变得杂乱而暗淡。23. 它学会了觅食，依靠它敏锐的感觉和敏捷性在严酷的荒野中生存。\n\n24. 就在所有希望似乎都破灭的时候，奇科敏锐的耳朵捕捉到了一个熟悉的声音——它家人的独特叫声。25. 奇科决心重燃，跟着叫声，心怦怦直跳，充满期待。\n\n26. 终于，在似乎永恒的时间之后，奇科从茂密的树叶中走了出来，受到了它亲人的喜悦的叫声的欢迎。27. 当它拥抱家人时，眼泪夺眶而出，发誓再也不会离它们充满爱意的怀抱太远。\n\n28. 从那天起，奇科的冒险精神得到了智慧和谨慎的平衡。29. 它明白了待在家人身边的重要性，因为在广阔而不可预测的雨林中，它们的团结是它们最大的力量。30. 每当它听到远处金刚鹦鹉的叫声时，奇科都会微笑，回忆起那次改变它命运的相遇，它从中学会了关于亚马逊丛林的奇观和危险的宝贵一课。\n&lt;/story_2&gt;\n\n&lt;story_3&gt;\n1. 在北冰洋的冰冷深处，一只雄伟的北极熊纳努克在冰冻的景观中漫步，它强壮的爪子在清脆的雪地上留下印记。2. 它是这片严酷领域的无可争议的女王，一位技艺高超的猎手，它敏锐的感觉和坚定不移的决心确保了它在最恶劣的条件下生存。\n\n3. 随着漫长的北极冬季的持续，纳努克的本能驱使它去寻找最好的狩猎场，那里聚集了大量的海豹。4. 随着每一天的过去，它的饥饿感变得越来越难以满足，助长了它对猎物的无情追逐。\n\n5. 一个寒冷的早晨，纳努克闻到了附近海豹群的气味，它的鼻孔因期待而扩张。6. 它悄无声息地穿过广阔的冰面，动作流畅而有条理。7. 海豹对迫近的危险毫无察觉，在苍白的北极阳光下晒着太阳，它们光滑的身体在雪地上闪闪发光。\n\n8. 纳努克靠近时，它的强壮的下颚开始流口水，它的肌肉像弹簧一样绷紧，准备发动攻击。9. 在白色的皮毛和锋利的爪子的一瞬间，它扑向了毫无戒备的猎物，它巨大的爪子将挣扎的海豹按在冰上。\n\n10. 随着狩猎的展开，纳努克注意到一个奇怪的景象——一艘人类船只，轻松地划破了冰冷的海水。11. 它以前遇到过人类，那些无所畏惧的探险家带着敬畏和尊重进入了它的领域。12. 然而，这次感觉有些不同，一种不祥的预感让它不寒而栗。\n\n13. 在接下来的几天里，纳努克目睹了人类的存在越来越强，他们的机器和设备侵入了它的狩猎场。14. 曾经原始的冰开始破裂和融化，扰乱了北极生态系统的脆弱平衡。\n\n15. 随着冰的退缩，海豹也随之退缩，它们传统的繁殖和休息地在纳努克眼前消失。16. 为了寻找食物，它冒险远离了它熟悉的领地，它的旅程变得越来越危险。\n\n17. 有一天，纳努克发现自己被困在一块迅速融化的浮冰上，它强壮的身体因饥饿和疲惫而虚弱。18. 无情的洋流将它抛来抛去，将它与该地区仅剩的几只海豹隔离开来。\n\n19. 随着太阳落到地平线以下，纳努克发出了悲伤的吼叫，它的叫声回荡在广阔而空旷的水域中。20. 在那一刻，它明白了它所面临的严峻威胁——人类活动引发的气候变化的无情进程，正在慢慢侵蚀它北极家园的根基。\n\n21. 纳努克带着新的决心，踏上了一段危险的旅程，连续游了好几天，它强壮的划水动作划破了冰冷的海水。22. 它寻找新的狩猎场，适应不断变化的地貌，它的韧性和力量推动着它前进。\n\n23. 在途中，它遇到了其他北极熊，它们的故事呼应着它自己的挣扎。24. 它们一起组成了一个强大的群体，团结一致，共同对抗自然和人类的力量以求生存。\n\n25. 随着岁月的流逝，纳努克的遗产通过它的后代得以延续，每一代都见证了北极的快速变化。26. 它们曾经冰冻的王国现在是一片广阔的开阔水域，点缀着不断缩小的浮冰和正在慢慢消失的世界的残骸。\n\n27. 然而，即使面对如此大的困难，北极熊仍然坚定不移，它们坚定不移的精神证明了自然本身的力量。\n28. 当纳努克的后代们凝视着不断变化的北极时，它们心中铭记着它们的 matriarch，一位坚强而高贵的女王，它奋战到最后，以保护这片白色北方生命脆弱的平衡。\n&lt;/story_3&gt;\n\n&lt;story_4&gt;\n1. 在澳大利亚内陆茂密而郁郁葱葱的丛林中，一群袋鼠在阳光普照的草原上安详地吃草。2. 其中有一只名叫琪琪的活泼的小袋鼠，它精力充沛，好奇心旺盛，经常惹是生非。\n\n3. 一个闷热的下午，袋鼠群在巨大的桉树荫下休息时，琪琪的注意力被一条奇怪的、爬行的生物吸引了。4. 它闪闪发光的鳞片在斑驳的阳光下闪耀，它分叉的舌头一进一出，品尝着温暖的空气。\n\n5. 琪琪不顾长辈的警告，跳得更近了，它的大脚扬起了红色的尘土。6. 蛇感觉到好奇的小袋鼠的存在，盘绕起来嘶嘶作响，它凶猛的毒牙在阳光下闪闪发光。\n\n7. 琪琪毫不气馁，继续靠近，它黑色的纽扣鼻子兴奋地抽动着。8. 就在它伸出爪子去触摸蛇的时候，它的母亲介入了，把它抱起来，然后飞奔到安全的地方。\n\n9. 然而，琪琪的好奇心依然未减。10. 在接下来的几天里，它对那条神秘的蛇着迷了，花了几个小时从安全距离观察它，研究它的一举一动。\n\n11. 随着季节的变化，澳大利亚严酷的夏天让位于凉爽的秋天，琪琪的迷恋只变得更强。12. 它离家人越来越远，它的探索使它深入崎岖的内陆地区。\n\n13. 一个清爽的早晨，琪琪再次面对那条蛇，它催眠般的目光让它无法动弹。14. 蛇吐了吐舌头，开始向它爬去，它强壮的身体在尘土飞扬的地面上起伏。\n\n15. 琪琪的心怦怦直跳，它的本能在战斗和逃跑之间挣扎。16. 就在蛇扑过来的时候，一声隆隆的吼声回荡在丛林中，让它们俩都大吃一惊。17. 是琪琪的父亲，一只强壮的公袋鼠，它威严的身影令人敬畏。\n\n18. 它用强壮的后腿迅速踢了一下，将蛇踢得向后退去，它的身体盘绕起来进行防御性攻击。19. 琪琪惊奇地看着它的父亲坚守阵地，肌肉在它光滑的皮毛下起伏。\n\n20. 在那一刻，琪琪明白了内陆的真正本质——一个既美丽又危险的地方，生存取决于对大自然脆弱平衡的尊重。\n\n21. 随着岁月的流逝，琪琪的冒险精神从未减退，但它与蛇的遭遇让她对澳大利亚野生动物的力量和韧性有了更深的认识。\n\n22. 它成了一名熟练的猎人和导航员，它强壮的腿轻松地将它带到广阔的、被晒得发烫的平原上。23. 它敏锐的感觉提醒它最轻微的动作，使它能够避开潜在的威胁并寻找最佳的放牧场。\n\n24. 每当它瞥见那熟悉的身影时，琪琪都会停下来，眼中充满了迷恋和尊重。25. 因为在严酷而无情的内陆地区，每一种生物都在生命错综复杂的网络中扮演着至关重要的角色。\n\n26. 随着季节的循环和袋鼠群的增长，琪琪将它辛苦获得的智慧传授给下一代，教导它们警惕和尊重养育它们的土地的重要性。\n\n27. 在月光皎洁的夜晚，当内陆地区因野狗凄厉的叫声和夜行动物的沙沙声而变得生机勃勃时，琪琪会抬头仰望璀璨的星空，心中充满了对它称之为家的壮丽世界的感激之情。\n&lt;/story_4&gt;\n\n&lt;story_5&gt;\n1. 在亚马逊雨林茂密翠绿的树冠深处，生活着一群色彩鲜艳的巨嘴鸟。2. 其中有一只名叫齐科的淘气而好奇的小巨嘴鸟，它对冒险的永不满足的胃口常常使它迷失方向。\n\n3. 一天早上，当一家人正在觅食多汁的水果和多汁的昆虫时，齐科的注意力被一个奇怪的景象吸引了。4. 一群色彩鲜艳的金刚鹦鹉栖息在一棵附近的树上，它们鲜艳的羽毛与翠绿的树叶形成了鲜明的对比。\n\n5. 齐科以前从未遇到过如此壮丽的生物，它的好奇心被激发了。6. 齐科不顾长辈的警告，起飞了，它强壮的翅膀带着它靠近金刚鹦鹉。\n\n7. 当它靠近时，金刚鹦鹉注意到了好奇的巨嘴鸟，发出了刺耳的叫声和尖叫声。8. 齐科毫不气馁，继续靠近，它独特的喙随着翅膀的每一次拍打而上下摆动。\n\n9. 突然，金刚鹦鹉群的首领，一只华丽的绯红金刚鹦鹉，带着华丽的冠冕，腾空而起，翅膀疯狂地拍打着。10. 首领发出一声震耳欲聋的尖叫，发出了警告，导致整个鸟群\n\n&quot;, type='text')]
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">print(message.stop_reason)
+</code></pre>
+
+<pre class="codehilite"><code>max_tokens
+</code></pre>
+
+<p>如上所示，Claude 由于 max_tokens 而停止采样。您可以看到 Claude 的消息在第五个故事中间被截断了。</p>
+<pre class="codehilite"><code class="language-python">print(message.content[0].text)
+</code></pre>
+
+<pre class="codehilite"><code>&lt;story_1&gt;
+
+1. 从前，在广阔的非洲大草原上，生活着一头名叫穆法萨的雄伟的狮子。2. 他的金色鬃毛在温暖的微风中飘动，他锐利的琥珀色眼睛让所有看到他的人都敬畏三分。3. 穆法萨是荣耀王国的国王，这是一个充满各种野生动物和茂密草原的领域。
+
+4. 每天早晨太阳升起时，穆法萨都会进行日常巡逻，警惕地审视着他的领地。5. 他熟悉荣耀王国的每一寸土地，从高耸的金合欢树到维持生命的蜿蜒河流。6. 他响亮的吼声回荡在平原上，提醒所有人他是这片领地无可争议的统治者。
+
+7. 有一天，在带领他的狮群狩猎时，穆法萨注意到一群鬣狗潜伏在阴影中。8. 这些食腐动物以其狡猾和残忍而闻名，它们对荣耀王国脆弱的平衡构成了持续的威胁。9. 穆法萨甩了甩尾巴，示意他的母狮保持警惕，随时准备不惜一切代价保卫他们的领地。
+
+10. 随着日子的流逝，鬣狗变得越来越大胆，侵占狮群的狩猎场并恐吓其他动物。11. 穆法萨知道他必须采取果断行动来保护他的王国。12. 他积聚力量，发出了震动整个大草原的雷鸣般的吼声，警告鬣狗远离。
+
+13. 鬣狗们感觉到穆法萨坚定不移的决心，暂时退却了，但它们远未被击败。14. 它们策划了一个阴险的计划，要袭击狮群的核心，目标是穆法萨心爱的儿子和继承人辛巴。15. 在一个令人痛苦的事件转折中，辛巴发现自己陷入了鬣狗精心策划的危险踩踏事件中。
+
+16. 穆法萨冒着生命危险，冲入混乱中营救他的儿子。17. 他以无与伦比的勇气和力量，对抗汹涌的兽群，保护辛巴免受伤害。18. 但命运弄人，穆法萨被无情的踩踏事件卷走，生命不幸过早结束。
+
+19. 辛巴因失去父亲而心烦意乱，逃离了荣耀王国，使王国容易受到鬣狗及其邪恶盟友的操纵。20. 岁月流逝，穆法萨的遗产似乎逐渐淡出了狮群的遥远记忆。
+
+21. 然而，穆法萨的精神依然存在，从天上传授辛巴。22. 随着辛巴成长为一头强大的狮子，他认识到重夺荣耀王国国王的合法地位的重要性。23. 在朋友们的帮助和他父亲精神的启示下，辛巴踏上了一段危险的旅程，以对抗篡位者并恢复王国的平衡。
+
+24. 在与鬣狗及其首领的史诗般的战斗中，辛巴取得了胜利，纪念了他父亲的遗志，并成为新国王。25. 当他站在荣耀岩顶上，鬃毛沐浴在夕阳的金光中时，辛巴发誓要继承穆法萨的遗志，以智慧、勇气和对生命之轮的坚定奉献来统治。
+
+26. 从那天起，荣耀王国在辛巴公正仁慈的统治下蓬勃发展，穆法萨的精神依然存在，指导着后代狮子保护和珍惜大自然的脆弱平衡。27. 勇敢而高贵的穆法萨的传奇深深地印在了所有称荣耀王国为家的人们心中，证明了父爱和牺牲的持久力量。
+&lt;/story_1&gt;
+
+&lt;story_2&gt;
+
+1. 在亚马逊茂密的热带雨林深处，一群蜘蛛猴在树枝间优雅地摆荡，它们长长的尾巴提供了完美的平衡。2. 其中有一只名叫奇科的淘气而好奇的小猴子，它对冒险的永不满足的胃口常常使它陷入危险的境地。
+
+3. 一天早上，当一家人正在觅食多汁的水果和嫩叶时，奇科的注意力被一个奇怪的景象吸引了。4. 一群色彩鲜艳的金刚鹦鹉栖息在一棵附近的树上，它们鲜艳的羽毛与翡翠色的树冠形成了鲜明的对比。5. 奇科以前从未见过如此壮丽的生物，它的好奇心占了上风。
+
+6. 奇科不顾长辈的警告，悄悄地靠近金刚鹦鹉，它敏捷的动作几乎没有惊扰周围的树叶。7. 当它靠近时，金刚鹦鹉注意到了好奇的猴子，发出了刺耳的叫声和尖叫声，翅膀疯狂地拍打着。
+
+8. 奇科毫不气馁，继续靠近，每走一步，它淘气的笑容都更大了。9. 然而，金刚鹦鹉的首领，一只头顶着华丽冠冕的雄伟的绯红金刚鹦鹉，注意到了它大胆的行为。10. 首领发出一声震耳欲聋的尖叫，发出了警告，导致整个鸟群在一阵鲜艳的色彩中起飞。
+
+11. 奇科被这景象迷住了，从树枝跳到树枝，决心跟上金刚鹦鹉的步伐。12. 它的家人惊恐地看着它消失在茂密的树叶中，它们让它回来的呼唤声在雨林的交响乐中消失了。
+
+13. 几个小时里，奇科跟着金刚鹦鹉，它灵活的身躯穿梭在藤蔓和树枝的复杂迷宫中。14. 金刚鹦鹉感觉到潜在的威胁，将它引向雨林深处，它们的飞行似乎毫不费力。
+
+15. 夜幕降临时，奇科发现自己完全迷路了，周围都是陌生的景象和声音。16. 家人的呼唤声早已消失，取而代之的是猫头鹰怪异的叫声和潜伏在阴影中的看不见生物的沙沙声。
+
+17. 奇科筋疲力尽，晕头转向，蜷缩在一根结实的树枝上，眼睛因恐惧而睁大。18. 夜晚过得很慢，每一片树叶的沙沙声都让它不寒而栗。19. 当第一缕晨光透过树冠时，奇科意识到了自己处境的严重性——它独自一人，离家人的安全很远。
+
+20. 奇科鼓起勇气，开始原路返回，希望能找到熟悉的标志来指引它回家。21. 然而，雨林被证明是一个危险的迷宫，每条路似乎都把它引向更远的地方。
+
+22. 日子变成了星期，奇科曾经鲜艳的毛皮变得杂乱而暗淡。23. 它学会了觅食，依靠它敏锐的感觉和敏捷性在严酷的荒野中生存。
+
+24. 就在所有希望似乎都破灭的时候，奇科敏锐的耳朵捕捉到了一个熟悉的声音——它家人的独特叫声。25. 奇科决心重燃，跟着叫声，心怦怦直跳，充满期待。
+
+26. 终于，在似乎永恒的时间之后，奇科从茂密的树叶中走了出来，受到了它亲人的喜悦的叫声的欢迎。27. 当它拥抱家人时，眼泪夺眶而出，发誓再也不会离它们充满爱意的怀抱太远。
+
+28. 从那天起，奇科的冒险精神得到了智慧和谨慎的平衡。29. 它明白了待在家人身边的重要性，因为在广阔而不可预测的雨林中，它们的团结是它们最大的力量。30. 每当它听到远处金刚鹦鹉的叫声时，奇科都会微笑，回忆起那次改变它命运的相遇，它从中学会了关于亚马逊丛林的奇观和危险的宝贵一课。
+&lt;/story_2&gt;
+
+&lt;story_3&gt;
+
+1. 在北冰洋的冰冷深处，一只雄伟的北极熊纳努克在冰冻的景观中漫步，它强壮的爪子在清脆的雪地上留下印记。2. 它是这片严酷领域的无可争议的女王，一位技艺高超的猎手，它敏锐的感觉和坚定不移的决心确保了它在最恶劣的条件下生存。
+
+3. 随着漫长的北极冬季的持续，纳努克的本能驱使它去寻找最好的狩猎场，那里聚集了大量的海豹。4. 随着每一天的过去，它的饥饿感变得越来越难以满足，助长了它对猎物的无情追逐。
+
+5. 一个寒冷的早晨，纳努克闻到了附近海豹群的气味，它的鼻孔因期待而扩张。6. 它悄无声息地穿过广阔的冰面，动作流畅而有条理。7. 海豹对迫近的危险毫无察觉，在苍白的北极阳光下晒着太阳，它们光滑的身体在雪地上闪闪发光。
+
+8. 纳努克靠近时，它的强壮的下颚开始流口水，它的肌肉像弹簧一样绷紧，准备发动攻击。9. 在白色的皮毛和锋利的爪子的一瞬间，它扑向了毫无戒备的猎物，它巨大的爪子将挣扎的海豹按在冰上。
+
+10. 随着狩猎的展开，纳努克注意到一个奇怪的景象——一艘人类船只，轻松地划破了冰冷的海水。11. 它以前遇到过人类，那些无所畏惧的探险家带着敬畏和尊重进入了它的领域。12. 然而，这次感觉有些不同，一种不祥的预感让它不寒而栗。
+
+13. 在接下来的几天里，纳努克目睹了人类的存在越来越强，他们的机器和设备侵入了它的狩猎场。14. 曾经原始的冰开始破裂和融化，扰乱了北极生态系统的脆弱平衡。
+
+15. 随着冰的退缩，海豹也随之退缩，它们传统的繁殖和休息地在纳努克眼前消失。16. 为了寻找食物，它冒险远离了它熟悉的领地，它的旅程变得越来越危险。
+
+17. 有一天，纳努克发现自己被困在一块迅速融化的浮冰上，它强壮的身体因饥饿和疲惫而虚弱。18. 无情的洋流将它抛来抛去，将它与该地区仅剩的几只海豹隔离开来。
+
+19. 随着太阳落到地平线以下，纳努克发出了悲伤的吼叫，它的叫声回荡在广阔而空旷的水域中。20. 在那一刻，它明白了它所面临的严峻威胁——人类活动引发的气候变化的无情进程，正在慢慢侵蚀它北极家园的根基。
+
+21. 纳努克带着新的决心，踏上了一段危险的旅程，连续游了好几天，它强壮的划水动作划破了冰冷的海水。22. 它寻找新的狩猎场，适应不断变化的地貌，它的韧性和力量推动着它前进。
+
+23. 在途中，它遇到了其他北极熊，它们的故事呼应着它自己的挣扎。24. 它们一起组成了一个强大的群体，团结一致，共同对抗自然和人类的力量以求生存。
+
+25. 随着岁月的流逝，纳努克的遗产通过它的后代得以延续，每一代都见证了北极的快速变化。26. 它们曾经冰冻的王国现在是一片广阔的开阔水域，点缀着不断缩小的浮冰和正在慢慢消失的世界的残骸。
+
+27. 然而，即使面对如此大的困难，北极熊仍然坚定不移，它们坚定不移的精神证明了自然本身的力量。28. 当纳努克的后代们凝视着不断变化的北极时，它们心中铭记着它们的 matriarch，一位坚强而高贵的女王，它奋战到最后，以保护这片白色北方生命脆弱的平衡。
+&lt;/story_3&gt;
+
+&lt;story_4&gt;
+
+1. 在澳大利亚内陆茂密而郁郁葱葱的丛林中，一群袋鼠在阳光普照的草原上安详地吃草。2. 其中有一只名叫琪琪的活泼的小袋鼠，它精力充沛，好奇心旺盛，经常惹是生非。
+
+3. 一个闷热的下午，袋鼠群在巨大的桉树荫下休息时，琪琪的注意力被一条奇怪的、爬行的生物吸引了。4. 它闪闪发光的鳞片在斑驳的阳光下闪耀，它分叉的舌头一进一出，品尝着温暖的空气。
+
+5. 琪琪不顾长辈的警告，跳得更近了，它的大脚扬起了红色的尘土。6. 蛇感觉到好奇的小袋鼠的存在，盘绕起来嘶嘶作响，它凶猛的毒牙在阳光下闪闪发光。
+
+7. 琪琪毫不气馁，继续靠近，它黑色的纽扣鼻子兴奋地抽动着。8. 就在它伸出爪子去触摸蛇的时候，它的母亲介入了，把它抱起来，然后飞奔到安全的地方。
+
+9. 然而，琪琪的好奇心依然未减。10. 在接下来的几天里，它对那条神秘的蛇着迷了，花了几个小时从安全距离观察它，研究它的一举一动。
+
+11. 随着季节的变化，澳大利亚严酷的夏天让位于凉爽的秋天，琪琪的迷恋只变得更强。12. 它离家人越来越远，它的探索使它深入崎岖的内陆地区。
+
+13. 一个清爽的早晨，琪琪再次面对那条蛇，它催眠般的目光让它无法动弹。14. 蛇吐了吐舌头，开始向它爬去，它强壮的身体在尘土飞扬的地面上起伏。
+
+15. 琪琪的心怦怦直跳，它的本能在战斗和逃跑之间挣扎。16. 就在蛇扑过来的时候，一声隆隆的吼声回荡在丛林中，让它们俩都大吃一惊。17. 是琪琪的父亲，一只强壮的公袋鼠，它威严的身影令人敬畏。
+
+18. 它用强壮的后腿迅速踢了一下，将蛇踢得向后退去，它的身体盘绕起来进行防御性攻击。19. 琪琪惊奇地看着它的父亲坚守阵地，肌肉在它光滑的皮毛下起伏。
+
+20. 在那一刻，琪琪明白了内陆的真正本质——一个既美丽又危险的地方，生存取决于对大自然脆弱平衡的尊重。
+
+21. 随着岁月的流逝，琪琪的冒险精神从未减退，但它与蛇的遭遇让她对澳大利亚野生动物的力量和韧性有了更深的认识。
+
+22. 它成了一名熟练的猎人和导航员，它强壮的腿轻松地将它带到广阔的、被晒得发烫的平原上。23. 它敏锐的感觉提醒它最轻微的动作，使它能够避开潜在的威胁并寻找最佳的放牧场。
+
+24. 每当它瞥见那熟悉的身影时，琪琪都会停下来，眼中充满了迷恋和尊重。25. 因为在严酷而无情的内陆地区，每一种生物都在生命错综复杂的网络中扮演着至关重要的角色。
+
+26. 随着季节的循环和袋鼠群的增长，琪琪将它辛苦获得的智慧传授给下一代，教导它们警惕和尊重养育它们的土地的重要性。
+
+27. 在月光皎洁的夜晚，当内陆地区因野狗凄厉的叫声和夜行动物的沙沙声而变得生机勃勃时，琪琪会抬头仰望璀璨的星空，心中充满了对它称之为家的壮丽世界的感激之情。
+&lt;/story_4&gt;
+
+&lt;story_5&gt;
+
+1. 在亚马逊雨林茂密翠绿的树冠深处，生活着一群色彩鲜艳的巨嘴鸟。2. 其中有一只名叫齐科的淘气而好奇的小巨嘴鸟，它对冒险的永不满足的胃口常常使它迷失方向。
+
+3. 一天早上，当一家人正在觅食多汁的水果和多汁的昆虫时，齐科的注意力被一个奇怪的景象吸引了。4. 一群色彩鲜艳的金刚鹦鹉栖息在一棵附近的树上，它们鲜艳的羽毛与翠绿的树叶形成了鲜明的对比。
+
+5. 齐科以前从未遇到过如此壮丽的生物，它的好奇心被激发了。6. 齐科不顾长辈的警告，起飞了，它强壮的翅膀带着它靠近金刚鹦鹉。
+
+7. 当它靠近时，金刚鹦鹉注意到了好奇的巨嘴鸟，发出了刺耳的叫声和尖叫声。8. 齐科毫不气馁，继续靠近，它独特的喙随着翅膀的每一次拍打而上下摆动。
+
+9. 突然，金刚鹦鹉群的首领，一只华丽的绯红金刚鹦鹉，带着华丽的冠冕，腾空而起，翅膀疯狂地拍打着。10. 首领发出一声震耳欲聋的尖叫，发出了警告，导致整个鸟群\n\n&quot;, type='text')]
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">print(message2.content[0].text)
+</code></pre>
+
+<pre class="codehilite"><code>一群色彩鲜艳的金刚鹦鹉栖息在一棵附近的树上，它们鲜艳的羽毛与翠绿的树叶形成了鲜明的对比。
+
+5. 齐科以前从未遇到过如此壮丽的生物，它的好奇心被激发了。6. 齐科不顾长辈的警告，起飞了，它强壮的翅膀带着它靠近金刚鹦鹉。
+
+7. 当它靠近时，金刚鹦鹉注意到了好奇的巨嘴鸟，发出了刺耳的叫声和尖叫声。8. 齐科毫不气馁，继续靠近，它独特的喙随着翅膀的每一次拍打而上下摆动。
+
+9. 突然，金刚鹦鹉群的首领，一只华丽的绯红金刚鹦鹉，带着华丽的冠冕，腾空而起，翅膀疯狂地拍打着。10. 首领发出一声震耳欲聋的尖叫，发出了警告，导致整个鸟群\n\n    disperse in a whirlwind of vibrant colors.
+
+11. Zico, enthralled by the spectacle, followed the macaws deeper into the heart of the rainforest, weaving through the intricate maze of vines and branches. 12. His family's calls for him to return faded into the distance, lost in the symphony of the jungle.
+
+13. For hours, Zico trailed the macaws, his nimble form navigating the treacherous terrain with ease. 14. The macaws, sensing a potential threat, led him on a winding path, their flight seemingly effortless.
+
+15. As dusk fell, Zico found himself utterly lost, surrounded by unfamiliar sights and sounds. 16. The calls of his family had long faded, replaced by the eerie hoots of owls and the rustling of unseen creatures lurking in the shadows.
+
+17. Exhausted and disoriented, Zico alighted on a sturdy branch, his eyes wide with fear. 18. The night passed slowly, every rustle of leaves sending shivers down his spine.
+
+19. As the first rays of dawn filtered through the canopy, Zico realized the gravity of his situation – he was alone, far from the safety of his family's nest.
+
+20. Mustering his courage, Zico took to the air once more, his keen eyes scanning the landscape for familiar landmarks. 21. However, the rainforest proved to be a treacherous labyrinth, each path seeming to lead him further astray.
+
+22. Days turned into weeks, and Zico's once-vibrant feathers grew dull and matted. 23. He learned to forage for sustenance, relying on his sharp senses and agility to survive in the unforgiving wilderness.
+
+24. Just when all hope seemed lost, Zico's keen ears picked up a familiar sound – the distinct calls of his family. 25. With renewed determination, he followed the calls, his heart pounding with anticipation.
+
+26. Finally, after what seemed like an eternity, Zico emerged from the dense foliage and was greeted by the joyous cries of his kin. 27. Tears of relief streamed down his face as he embraced his family, vowing never again to stray too far from their loving embrace.
+
+28. From that day forward, Zico's adventurous spirit was tempered by wisdom and caution. 29. He understood the importance of staying close to his family, for in the vast and unpredictable rainforest, their unity was their greatest strength.
+
+30. And whenever he heard the distant squawks of macaws, Zico would smile, remembering the fateful encounter that had taught him a valuable lesson about the wonders and perils of the Amazon jungle.
+&lt;/story_5&gt;
+</code></pre>
+
+<p>解决方案？我们将部分完成的响应（在第五个故事中被截断）放入助手消息中给 Claude，然后 Claude 继续采样并完成故事。您可以看到 Claude 无缝地接上了句子。</p>
+<pre class="codehilite"><code class="language-python">message2 = client.messages.create(
+    model=&quot;claude-3-sonnet-20240229&quot;,
+    max_tokens=4096,
+    messages=[
+        {
+            &quot;role&quot;: &quot;user&quot;,
+            &quot;content&quot;: &quot;&quot;&quot;
+请写五个故事。每个故事至少包含 1000 个单词。对单词进行编号以确保您不会丢失计数。每个故事都应关于不同的动物。
+将它们放在 &lt;story_1&gt;、&lt;story_2&gt; 等标签中
+&quot;&quot;&quot;},
+        {
+            &quot;role&quot;: &quot;assistant&quot;,
+            &quot;content&quot;: message.content[0].text  # Claude 部分完成的消息的文本。
+        }
+    ]
+)
+print(message2.content[0].text)
+</code></pre>
+
+<pre class="codehilite"><code> to disperse in a whirlwind of vibrant colors.
+
+11. Zico, enthralled by the spectacle, followed the macaws deeper into the heart of the rainforest, weaving through the intricate maze of vines and branches. 12. His family's calls for him to return faded into the distance, lost in the symphony of the jungle.
+
+13. For hours, Zico trailed the macaws, his nimble form navigating the treacherous terrain with ease. 14. The macaws, sensing a potential threat, led him on a winding path, their flight seemingly effortless.
+
+15. As dusk fell, Zico found himself utterly lost, surrounded by unfamiliar sights and sounds. 16. The calls of his family had long faded, replaced by the eerie hoots of owls and the rustling of unseen creatures lurking in the shadows.
+
+17. Exhausted and disoriented, Zico alighted on a sturdy branch, his eyes wide with fear. 18. The night passed slowly, every rustle of leaves sending shivers down his spine.
+
+19. As the first rays of dawn filtered through the canopy, Zico realized the gravity of his situation – he was alone, far from the safety of his family's nest.
+
+20. Mustering his courage, Zico took to the air once more, his keen eyes scanning the landscape for familiar landmarks. 21. However, the rainforest proved to be a treacherous labyrinth, each path seeming to lead him further astray.
+
+22. Days turned into weeks, and Zico's once-vibrant feathers grew dull and matted. 23. He learned to forage for sustenance, relying on his sharp senses and agility to survive in the unforgiving wilderness.
+
+24. Just when all hope seemed lost, Zico's keen ears picked up a familiar sound – the distinct calls of his family. 25. With renewed determination, he followed the calls, his heart pounding with anticipation.
+
+26. Finally, after what seemed like an eternity, Zico emerged from the dense foliage and was greeted by the joyous cries of his kin. 27. Tears of relief streamed down his face as he embraced his family, vowing never again to stray too far from their loving embrace.
+
+28. From that day forward, Zico's adventurous spirit was tempered by wisdom and caution. 29. He understood the importance of staying close to his family, for in the vast and unpredictable rainforest, their unity was their greatest strength.
+
+30. And whenever he heard the distant squawks of macaws, Zico would smile, remembering the fateful encounter that had taught him a valuable lesson about the wonders and perils of the Amazon jungle.
+&lt;/story_5&gt;
+</code></pre>
+
+<p>请注意，此方法不幸需要“双重收费”，因为您提示中的输入令牌将被读取，而 Claude 的 4096 个令牌响应将被读取并作为输入令牌收取单次费用。但是，它们不会被双重收取输出令牌的费用。</p>
+            </article>
+            
+            <nav class="page-nav"><a href="third_party/LlamaIndex/Router_Query_Engine_zh.html" class="nav-link prev">← 注意：这仅在 jupyter notebook 中是必需的。</a><a href="misc/speculative_prompt_caching_zh.html" class="nav-link next">投机性提示缓存 →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

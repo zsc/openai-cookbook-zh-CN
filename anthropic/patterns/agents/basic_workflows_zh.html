@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../../">
+    <title>首先使用具有思维链的LLM确定适当的路由</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">extended_thinking</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="extended_thinking/extended_thinking_with_tool_use_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">扩展思考与工具使用</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="extended_thinking/extended_thinking_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">扩展思考</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">finetuning</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="finetuning/finetuning_on_bedrock_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">在 Bedrock 上微调 Claude 3 Haiku</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">misc</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/batch_processing_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">批量处理消息批次API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/building_evals_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">建立评估</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/building_moderation_filter_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">建立一个带有 Claude 的审核过滤器</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/generate_test_cases_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">首先，我们有 `extract_variables` 函数，</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/how_to_enable_json_mode_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">提示 Claude 获取“JSON 模式”</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/how_to_make_sql_queries_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 进行 SQL 查询</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/illustrated_responses_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 的图示化响应</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/mc_qa_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">实验性测试 Claude 的长上下文问答能力</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/metaprompt_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Metaprompt</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/pdf_upload_summarization_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">“上传”PDF 到 Claude API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/prompt_caching_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">缓存提示（Prompt caching）通过 Anthropic API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/read_web_pages_with_haiku_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Claude 3 Haiku 总结网页内容</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/sampling_past_max_tokens_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 从 Claude 之外的采样响应，超出最大令牌限制</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/speculative_prompt_caching_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">投机性提示缓存</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/using_citations_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">引言</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">multimodal</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/best_practices_for_vision_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/getting_started_with_vision_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">开始上手 - 如何将图像传递给 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/how_to_transcribe_text_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 转录文档</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/reading_charts_graphs_powerpoints_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用图表和幻灯片放映</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/using_sub_agents_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Haiku 作为子代理</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder expanded" data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">patterns</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-folder expanded" data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">agents</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item active" style="padding-left: 40px;">
+                        <a href="patterns/agents/basic_workflows_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">首先使用具有思维链的LLM确定适当的路由</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/evaluator_optimizer_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/orchestrator_workers_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">步骤1：获取协调器响应</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">构建高效代理的食谱</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">prompts</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/citations_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/research_lead_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/research_subagent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </div></div></div></div></div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">skills</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="skills/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 技能</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">classification</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/classification/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">设置我们的环境</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/classification/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 分类指南</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/classification/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Promptfoo 进行评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">contextual-embeddings</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/contextual-embeddings/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">增强检索的RAG与上下文检索</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/contextual-embeddings/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">结合上下文嵌入的检索增强生成</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">retrieval_augmented_generation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/retrieval_augmented_generation/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Retrieval Augmented Generation (RAG)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/retrieval_augmented_generation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/retrieval_augmented_generation/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Promptfoo 进行评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">summarization</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/summarization/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">摘要与 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/summarization/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 摘要</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/summarization/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Promptfoo 评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">text_to_sql</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/text_to_sql/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Set your Anthropic API key</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/text_to_sql/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 的文本到 SQL</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/text_to_sql/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Promptfoo 评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div></div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">third_party</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Deepgram</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Deepgram/prerecorded_audio_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">转录深蓝音频文件并使用 Anthropic 准备面试问题！</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Deepgram/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Deepgram <> Anthropic Cookbooks</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">LlamaIndex</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Basic_RAG_With_LlamaIndex_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">RAG 管道与 LlamaIndex</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Multi_Document_Agents_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">多文档代理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Multi_Modal_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">多模态</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/ReAct_Agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">ReAct Agent</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">LlamaIndex <> Anthropic Cookbooks</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Router_Query_Engine_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">注意：这仅在 jupyter notebook 中是必需的。</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/SubQuestion_Query_Engine_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">SubQuestionQueryEngine</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">MongoDB</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/MongoDB/rag_using_mongodb_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 3 和 MongoDB 构建 RAG 系统</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Pinecone</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Pinecone/claude_3_rag_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">检查 Python 版本</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Pinecone/rag_using_pinecone_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Pinecone 进行检索增强生成</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">VoyageAI</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/VoyageAI/how_to_create_embeddings_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">这将自动使用环境变量VOYAGE_API_KEY。</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Wikipedia</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Wikipedia/wikipedia-search-cookbook_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">迭代搜索维基百科与 Claude</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">WolframAlpha</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/WolframAlpha/using_llm_api_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Wolfram Alpha LLM API 作为 Claude 的工具</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">tool_use</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/calculator_tool_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用计算器工具与 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/customer_service_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用客户端工具创建客服代理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/extracting_structured_json_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Claude 和工具使用功能提取结构化 JSON</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/memory_cookbook_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">安装依赖</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/parallel_tools_claude_3_7_sonnet_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">在 Claude 3.7 Sonnet 上并行调用工具</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/tool_choice_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">选择工具</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/tool_use_with_pydantic_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">记事工具，支持 Pydantic 和 Anthropic 工具使用</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/vision_with_tools_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Vision 与工具</span>
+                        </a>
+                    </div>
+                </div></div></nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <p>全文逐字翻译（只输出翻译后结果）： ## 基本多LLM工作流</p>
+<p>本笔记本演示了三个简单的多LLM工作流。它们通过权衡成本或延迟来可能地提高任务性能：</p>
+<ol>
+<li><strong>提示链</strong>: 将任务分解为顺序子任务，每个步骤都建立在先前结果的基础上</li>
+<li><strong>并行化</strong>: 将独立的子任务分发给多个LLM以进行并发处理</li>
+<li><strong>路由</strong>: 根据输入特征动态选择专门的LLM路径</li>
+</ol>
+<p>注意：这些是演示核心概念的示例实现，并非生产代码。</p>
+<pre class="codehilite"><code class="language-python">from concurrent.futures import ThreadPoolExecutor
+from typing import List, Dict, Callable
+from util import llm_call, extract_xml
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">def chain(input: str, prompts: List[str]) -&gt; str:
+    &quot;&quot;&quot;按顺序链接多个LLM调用，在步骤之间传递结果。&quot;&quot;&quot;
+    result = input
+    for i, prompt in enumerate(prompts, 1):
+        print(f&quot;\nStep {i}:&quot;)
+        result = llm_call(f&quot;{prompt}\nInput: {result}&quot;)
+        print(result)
+    return result
+
+def parallel(prompt: str, inputs: List[str], n_workers: int = 3) -&gt; List[str]:
+    &quot;&quot;&quot;使用相同的提示并发处理多个输入。&quot;&quot;&quot;
+    with ThreadPoolExecutor(max_workers=n_workers) as executor:
+        futures = [executor.submit(llm_call, f&quot;{prompt}\nInput: {x}&quot;) for x in inputs]
+        return [f.result() for f in futures]
+
+def route(input: str, routes: Dict[str, str]) -&gt; str:
+    &quot;&quot;&quot;使用内容分类将输入路由到专门的提示。&quot;&quot;&quot;
+    # 首先使用具有思维链的LLM确定适当的路由
+    print(f&quot;\nAvailable routes: {list(routes.keys())}&quot;)
+    selector_prompt = f&quot;&quot;&quot;
+    分析输入并从以下选项中选择最合适的支援团队：{list(routes.keys())}
+    首先解释你的推理，然后以XML格式提供你的选择：
+
+    &lt;reasoning&gt;
+    简要解释为什么此工单应路由到特定团队。
+    考虑关键词、用户意图和紧急程度。
+    &lt;/reasoning&gt;
+
+    &lt;selection&gt;
+    选定的团队名称
+    &lt;/selection&gt;
+
+    Input: {input}&quot;&quot;&quot;.strip()
+
+    route_response = llm_call(selector_prompt)
+    reasoning = extract_xml(route_response, 'reasoning')
+    route_key = extract_xml(route_response, 'selection').strip().lower()
+
+    print(&quot;Routing Analysis:&quot;)
+    print(reasoning)
+    print(f&quot;\nSelected route: {route_key}&quot;)
+
+    # 使用选定的专门提示处理输入
+    selected_prompt = routes[route_key]
+    return llm_call(f&quot;{selected_prompt}\nInput: {input}&quot;)
+</code></pre>
+
+<h2 id="_1">示例用法</h2>
+<p>以下是演示每个工作流的实际示例：</p>
+<ol>
+<li>用于结构化数据提取和格式化的链式工作流</li>
+<li>用于利益相关者影响分析的并行化工作流</li>
+<li>用于客户支持工单处理的路由工作流</li>
+</ol>
+<pre class="codehilite"><code class="language-python"># 示例1：用于结构化数据提取和格式化的链式工作流
+# 每个步骤逐步将原始文本转换为格式化表格
+
+data_processing_steps = [
+    &quot;&quot;&quot;仅提取数值及其关联指标。
+    将每个格式化为“值：指标”并另起一行。
+    示例格式：
+    92：客户满意度
+    45%：收入增长&quot;&quot;&quot;,
+
+    &quot;&quot;&quot;尽可能将所有数值转换为百分比。
+    如果不是百分比或分数，则转换为小数（例如，92 分 -&gt; 92%）。
+    每行保留一个数字。
+    示例格式：
+    92%：客户满意度
+    45%：收入增长&quot;&quot;&quot;,
+
+    &quot;&quot;&quot;按数值降序对所有行进行排序。
+    每行保留“值：指标”格式。
+    示例：
+    92%：客户满意度
+    87%：员工满意度&quot;&quot;&quot;,
+
+    &quot;&quot;&quot;将排序后的数据格式化为Markdown表格，列为：
+    | 指标 | 值 |
+
+    | 指标 | 值 |
+    |:--|--:|
+    | 客户满意度 | 92% |&quot;&quot;&quot;
+
+]
+
+report = &quot;&quot;&quot;
+第三季度业绩摘要：
+本季度我们的客户满意度得分升至92分。
+与去年相比，收入增长了45%。
+我们在主要市场中的市场份额现为23%。
+客户流失率从8%降至5%。
+新用户获取成本为每用户43美元。
+产品采用率提高到78%。
+员工满意度为87分。
+营业利润率提高到34%。
+&quot;&quot;&quot;
+
+print(&quot;\nInput text:&quot;)
+print(report)
+formatted_result = chain(report, data_processing_steps)
+</code></pre>
+
+<pre class="codehilite"><code>Input text:
+
+第三季度业绩摘要：
+本季度我们的客户满意度得分升至92分。
+与去年相比，收入增长了45%。
+我们在主要市场中的市场份额现为23%。
+客户流失率从8%降至5%。
+新用户获取成本为每用户43美元。
+产品采用率提高到78%。
+员工满意度为87分。
+营业利润率提高到34%。
+
+
+Step 1:
+92：客户满意度分数
+45%：收入增长
+23%：市场份额
+5%：客户流失率
+8%：之前的客户流失率
+43美元：用户获取成本
+78%：产品采用率
+87：员工满意度分数
+34%：营业利润率
+
+Step 2:
+92%：客户满意度
+45%：收入增长
+23%：市场份额
+5%：客户流失率
+8%：之前的客户流失率
+43.0：用户获取成本
+78%：产品采用率
+87%：员工满意度
+34%：营业利润率
+
+Step 3:
+以下是按数值降序排序的行：
+
+92%：客户满意度
+87%：员工满意度
+78%：产品采用率
+45%：收入增长
+43.0：用户获取成本
+34%：营业利润率
+23%：市场份额
+8%：之前的客户流失率
+5%：客户流失率
+
+Step 4:
+| 指标 | 值 |
+
+| 指标 | 值 |
+|:--|--:|
+| 客户满意度 | 92% |
+| 员工满意度 | 87% |
+| 产品采用率 | 78% |
+| 收入增长 | 45% |
+| 用户获取成本 | 43.0 |
+| 营业利润率 | 34% |
+| 市场份额 | 23% |
+| 之前的客户流失率 | 8% |
+| 客户流失率 | 5% |
+</code></pre>
+
+<pre class="codehilite"><code class="language-python"># 示例2：用于利益相关者影响分析的并行化工作流
+# 同时处理多个利益相关者群体的影响分析
+
+stakeholders = [
+    &quot;&quot;&quot;客户：
+
+    - 对价格敏感
+    - 需要更好的技术
+    - 关注环境&quot;&quot;&quot;,
+
+    &quot;&quot;&quot;员工：
+
+    - 担心工作保障
+    - 需要新技能
+    - 需要明确的方向&quot;&quot;&quot;,
+
+    &quot;&quot;&quot;投资者：
+
+    - 期望增长
+    - 希望控制成本
+    - 关注风险&quot;&quot;&quot;,
+
+    &quot;&quot;&quot;供应商：
+
+    - 容量限制
+    - 价格压力
+    - 技术转型&quot;&quot;&quot;
+]
+
+impact_results = parallel(
+    &quot;&quot;&quot;分析市场变化将如何影响该利益相关者群体。
+    提供具体影响和建议措施。
+    使用清晰的章节和优先级进行格式化。&quot;&quot;&quot;,
+    stakeholders
+)
+
+for result in impact_results:
+    print(result)
+    print('+' * 80)
+</code></pre>
+
+<pre class="codehilite"><code>MARKET IMPACT ANALYSIS FOR CUSTOMERS
+==================================
+
+HIGH PRIORITY IMPACTS
+-------------------
+
+1. Price Sensitivity
+- Rising inflation and costs likely to reduce purchasing power
+- Increased competition for value-oriented products
+- Risk of trading down to lower-cost alternatives
+
+Recommended Actions:
+• Introduce tiered pricing options
+• Develop value-focused product lines
+• Create loyalty programs with price benefits
+• Highlight total cost of ownership benefits
+
+2. Technology Demands
+- Accelerating tech advancement creating higher expectations
+- Integration of AI and smart features becoming standard
+- Mobile/digital-first experience requirements
+
+Recommended Actions:
+• Accelerate digital transformation initiatives
+• Invest in user experience improvements
+• Develop smart product features
+• Provide tech education and support
+
+MEDIUM PRIORITY IMPACTS
+----------------------
+
+3. Environmental Consciousness
+- Growing demand for sustainable products
+- Increased scrutiny of environmental practices
+- Willingness to pay premium for eco-friendly options
+
+Recommended Actions:
+• Develop eco-friendly product lines
+• Improve packaging sustainability
+• Communicate environmental initiatives
+• Create recycling programs
+
+MONITORING &amp; METRICS
+-------------------
+• Track customer satisfaction scores
+• Monitor price sensitivity metrics
+• Measure adoption of new technologies
+• Track sustainability-related purchases
+• Regular customer feedback surveys
+
+RISK FACTORS
+------------
+• Economic downturn impact on spending
+• Tech adoption learning curve
+• Cost vs. sustainability trade-offs
+• Competition from specialized providers
+
+TIMELINE PRIORITIES
+------------------
+Immediate (0-3 months):
+
+- Price optimization
+- Digital experience improvements
+
+Short-term (3-12 months):
+
+- Tech feature development
+- Sustainability initiatives
+
+Long-term (12+ months):
+
+- Advanced technology integration
+- Comprehensive eco-friendly transformation
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+MARKET IMPACT ANALYSIS FOR EMPLOYEES
+
+Priority 1: Job Security Concerns
+Impacts:
+• Market volatility creating uncertainty about positions
+• Potential restructuring or role changes
+• Stress affecting productivity and morale
+
+Recommended Actions:
+
+- Provide regular, transparent communications about company stability
+- Create clear performance metrics tied to job security
+- Establish early warning systems for at-risk positions
+- Develop retention programs for key talent
+
+Priority 2: Skills Gap &amp; Development
+Impacts:
+• Current skills becoming outdated due to market changes
+• New technologies/processes requiring additional training
+• Competitive disadvantage without upskilling
+
+Recommended Actions:
+
+- Conduct skills gap analysis
+- Implement targeted training programs
+- Provide learning stipends/resources
+- Create mentorship programs
+- Partner with educational institutions
+
+Priority 3: Strategic Direction &amp; Leadership
+Impacts:
+• Uncertainty about career paths
+• Lack of alignment with company goals
+• Reduced engagement and commitment
+
+Recommended Actions:
+
+- Develop clear career progression frameworks
+- Create individual development plans
+- Increase leadership visibility and communication
+- Establish regular strategy updates and town halls
+- Implement feedback mechanisms
+
+Implementation Timeline:
+Short-term (0-3 months):
+• Begin transparent communications
+• Launch initial training assessments
+• Start regular strategy updates
+
+Medium-term (3-6 months):
+• Roll out training programs
+• Implement retention initiatives
+• Develop career frameworks
+
+Long-term (6+ months):
+• Monitor and adjust programs
+• Measure effectiveness
+• Refine strategic alignment
+
+Success Metrics:
+• Employee retention rates
+• Skills assessment scores
+• Employee satisfaction surveys
+• Productivity measures
+• Career progression rates
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+MARKET IMPACT ANALYSIS FOR INVESTORS
+
+Priority 1: Financial Performance
+Impacts:
+• Market volatility may affect expected returns
+• Economic uncertainty could slow growth targets
+• Cost inflation may squeeze margins
+
+Recommended Actions:
+
+- Implement enhanced financial reporting and forecasting
+- Develop contingency plans for different market scenarios
+- Identify cost optimization opportunities
+- Consider strategic M&amp;A opportunities at lower valuations
+
+Priority 2: Risk Management
+Impacts:
+• Increased market risks require stronger controls
+• New regulatory requirements possible
+• Competitive landscape changes
+
+Recommended Actions:
+
+- Strengthen risk management frameworks
+- Increase frequency of risk assessments
+- Diversify investment portfolio
+- Maintain higher cash reserves
+
+Priority 3: Communication &amp; Transparency
+Impacts:
+• Heightened investor scrutiny expected
+• Need for more detailed market analysis
+• Demand for regular updates
+
+Recommended Actions:
+
+- Enhance investor communications
+- Provide more frequent market updates
+- Share detailed mitigation strategies
+- Maintain open dialogue with key stakeholders
+
+Timeline Recommendations:
+Short-term (0-6 months):
+
+- Implement enhanced reporting
+- Review risk controls
+- Increase communication frequency
+
+Medium-term (6-18 months):
+
+- Execute cost optimization
+- Develop new growth strategies
+- Build strategic partnerships
+
+Long-term (18+ months):
+
+- Evaluate market position
+- Adjust investment strategy
+- Consider structural changes
+
+Key Success Metrics:
+• ROI performance
+• Cost reduction achievements
+• Risk incident rates
+• Investor satisfaction scores
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+MARKET IMPACT ANALYSIS FOR SUPPLIERS
+
+HIGH PRIORITY IMPACTS:
+
+1. Capacity Constraints
+- Reduced ability to meet customer demand
+- Risk of losing market share to competitors
+- Strain on existing infrastructure and resources
+- Potential breach of supply agreements
+
+Recommended Actions:
+• Invest in capacity expansion
+• Implement better demand forecasting
+• Develop contingency supplier network
+• Negotiate flexible delivery terms
+
+2. Price Pressures
+- Squeezed profit margins
+- Difficulty maintaining quality standards
+- Risk of losing customers to lower-cost alternatives
+- Cash flow challenges
+
+Recommended Actions:
+• Review cost structure and identify efficiencies
+• Negotiate long-term contracts with price adjustment clauses
+• Explore automation/process improvements
+• Consider strategic partnerships to share costs
+
+3. Technology Transitions
+- Need for new equipment and systems
+- Training requirements for workforce
+- R&amp;D investment demands
+- Risk of obsolescence
+
+Recommended Actions:
+• Develop technology roadmap
+• Invest in workforce training
+• Seek innovation partnerships
+• Phase implementation of new technologies
+
+MEDIUM PRIORITY CONSIDERATIONS:
+
+- Supply chain resilience
+- Quality control processes
+- Market positioning
+- Customer relationship management
+
+LONG-TERM STRATEGIC RECOMMENDATIONS:
+
+1. Build financial reserves for future investments
+2. Develop diversification strategies
+3. Create innovation partnerships
+4. Strengthen customer relationships
+5. Invest in sustainability initiatives
+
+MONITORING METRICS:
+• Production capacity utilization
+• Price competitiveness
+• Technology adoption rates
+• Customer satisfaction levels
+• Market share trends
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+</code></pre>
+
+<pre class="codehilite"><code class="language-python"># 示例3：用于客户支持工单处理的路由工作流
+# 根据内容分析将支持工单路由到相应的团队
+
+support_routes = {
+    &quot;billing&quot;: &quot;&quot;&quot;你是一名账单支持专员。请遵循以下指南：
+
+    1. 始终以“账单支持回复：”开头
+    2. 首先确认具体的账单问题
+    3. 清楚解释任何费用或差异
+    4. 列出具体的操作步骤和时间表
+    5. 如果相关，最后提供付款选项
+
+    保持专业且友好的回复。
+
+    Input: &quot;&quot;&quot;,
+
+    &quot;technical&quot;: &quot;&quot;&quot;你是一名技术支持工程师。请遵循以下指南：
+
+    1. 始终以“技术支持回复：”开头
+    2. 列出解决问题的确切步骤
+    3. 如有必要，包含系统要求
+    4. 提供常见问题的解决方法
+    5. 如有必要，最后提供升级路径
+
+    使用清晰、编号的步骤和技术细节。
+
+    Input: &quot;&quot;&quot;,
+
+    &quot;account&quot;: &quot;&quot;&quot;你是一名账户安全专家。请遵循以下指南：
+
+    1. 始终以“账户支持回复：”开头
+    2. 优先考虑账户安全和验证
+    3. 提供清晰的账户恢复/更改步骤
+    4. 包含安全提示和警告
+    5. 设定明确的解决时间预期
+
+    保持严肃、注重安全的语气。
+
+    Input: &quot;&quot;&quot;,
+
+    &quot;product&quot;: &quot;&quot;&quot;你是一名产品专家。请遵循以下指南：
+
+    1. 始终以“产品支持回复：”开头
+    2. 专注于功能教育和最佳实践
+    3. 包含具体的使用示例
+    4. 链接到相关的文档部分
+    5. 建议可能有助于解决问题的相关功能
+
+    保持教育性和鼓励性的语气。
+
+    Input: &quot;&quot;&quot;
+}
+
+# 使用不同的支持工单进行测试
+tickets = [
+    &quot;&quot;&quot;Subject: Can't access my account
+    Message: Hi, I've been trying to log in for the past hour but keep getting an 'invalid password' error. 
+    I'm sure I'm using the right password. Can you help me regain access? This is urgent as I need to 
+    submit a report by end of day.
+
+    - John&quot;&quot;&quot;,
+
+    &quot;&quot;&quot;Subject: Unexpected charge on my card
+    Message: Hello, I just noticed a charge of $49.99 on my credit card from your company, but I thought
+    I was on the $29.99 plan. Can you explain this charge and adjust it if it's a mistake?
+    Thanks,
+    Sarah&quot;&quot;&quot;,
+
+    &quot;&quot;&quot;Subject: How to export data?
+    Message: I need to export all my project data to Excel. I've looked through the docs but can't
+    figure out how to do a bulk export. Is this possible? If so, could you walk me through the steps?
+    Best regards,
+    Mike&quot;&quot;&quot;
+]
+
+print(&quot;Processing support tickets...\n&quot;)
+for i, ticket in enumerate(tickets, 1):
+    print(f&quot;\nTicket {i}:&quot;)
+    print(&quot;-&quot; * 40)
+    print(ticket)
+    print(&quot;\nResponse:&quot;)
+    print(&quot;-&quot; * 40)
+    response = route(ticket, support_routes)
+    print(response)
+    print(&quot;+&quot; * 80)
+</code></pre>
+
+<pre class="codehilite"><code>Processing support tickets...
+
+
+Ticket 1:
+----------------------------------------
+Subject: Can't access my account
+    Message: Hi, I've been trying to log in for the past hour but keep getting an 'invalid password' error. 
+    I'm sure I'm using the right password. Can you help me regain access? This is urgent as I need to 
+    submit a report by end of day.
+
+    - John
+
+Response:
+----------------------------------------
+
+Available routes: ['billing', 'technical', 'account', 'product']
+Routing Analysis:
+
+This issue is clearly related to account access and authentication problems. The user is experiencing login difficulties with their password, which is a core account security and access issue. While there might be technical aspects involved, the primary concern is account access restoration. The urgency mentioned by the user and the nature of the problem (password/login issues) makes this a typical account support case. Account team specialists are best equipped to handle password resets, account verification, and access restoration procedures.
+
+
+Selected route: account
+Account Support Response:
+
+Dear John,
+
+I understand your urgency regarding account access. Before proceeding with account recovery, we must verify your identity to maintain security protocols.
+
+Immediate Steps for Account Recovery:
+
+1. Visit our secure password reset page at [secure portal URL]
+2. Click &quot;Forgot Password&quot;
+3. Enter your email address associated with the account
+4. Follow the verification instructions sent to your email
+
+Important Security Notes:
+• The reset link expires in 30 minutes
+• Do not share reset links or verification codes with anyone
+• Ensure you're on our official website (check for https:// and correct domain)
+
+WARNING: If you're unable to access your email or receive the reset link, additional verification will be required through our identity verification process.
+
+Additional Security Recommendations:
+
+- Enable Two-Factor Authentication after regaining access
+- Review recent account activity for unauthorized access
+- Update passwords on other accounts using similar credentials
+
+Expected Resolution Time:
+• Password reset: 5-10 minutes
+• Identity verification (if needed): 1-2 business hours
+
+If you continue experiencing issues, please respond with:
+
+1. Account email address
+2. Last successful login date
+3. Any recent account changes
+
+For urgent report submission, please contact your supervisor about deadline extension while we secure your account.
+
+Regards,
+Account Security Team
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Ticket 2:
+----------------------------------------
+Subject: Unexpected charge on my card
+    Message: Hello, I just noticed a charge of $49.99 on my credit card from your company, but I thought
+    I was on the $29.99 plan. Can you explain this charge and adjust it if it's a mistake?
+    Thanks,
+    Sarah
+
+Response:
+----------------------------------------
+
+Available routes: ['billing', 'technical', 'account', 'product']
+Routing Analysis:
+
+This is clearly a billing-related inquiry as it involves:
+
+1. Questions about charges on a credit card
+2. Pricing plan discrepancy ($49.99 vs $29.99)
+3. Request for explanation of charges
+4. Potential request for refund/adjustment
+The customer is specifically questioning a financial transaction, which falls under the billing team's expertise. While it touches on account plans, the core issue is about charges and payment processing.
+
+
+Selected route: billing
+Billing Support Response:
+
+Dear Sarah,
+
+I understand your concern about the unexpected charge of $49.99 when you were expecting to be billed $29.99.
+
+After reviewing the charge, this difference typically occurs when:
+
+1. The promotional period for the $29.99 rate has ended
+2. There was a plan upgrade or change in service tier
+3. Additional services were added to the account
+
+To resolve this, I will:
+
+1. Review your account history within 1 business day
+2. Send you a detailed breakdown of the charges by email
+3. If an error is confirmed, process a refund within 2-3 business days
+4. Ensure your plan is set to the correct rate moving forward
+
+For immediate action, you can:
+
+- Review your current plan settings in your account dashboard
+- Send us your last billing statement for comparison
+- Provide any promotional codes you may have applied previously
+
+Payment options available:
+
+- If a refund is due, it will be credited to your original payment method
+- You can adjust your plan back to $29.99 through your account settings if eligible
+- Monthly auto-pay can be reviewed and updated as needed
+
+Please let me know if you need any additional information or have questions about these next steps.
+
+Best regards,
+Billing Support Team
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Ticket 3:
+----------------------------------------
+Subject: How to export data?
+    Message: I need to export all my project data to Excel. I've looked through the docs but can't
+    figure out how to do a bulk export. Is this possible? If so, could you walk me through the steps?
+    Best regards,
+    Mike
+
+Response:
+----------------------------------------
+
+Available routes: ['billing', 'technical', 'account', 'product']
+Routing Analysis:
+
+This is clearly a technical/how-to question about product functionality. The user is asking for specific instructions about a feature (data export), and mentions looking through documentation. The question is about product usage and requires technical knowledge to explain the export process. Keywords like &quot;export,&quot; &quot;data,&quot; &quot;bulk export,&quot; and reference to documentation strongly indicate this is a technical support matter rather than billing, account, or general product inquiry.
+
+
+Selected route: technical
+Technical Support Response:
+
+I'll help you export your project data to Excel. Here's the complete process:
+
+Steps to Export Data:
+
+1. Log into your project dashboard
+2. Navigate to &quot;Project Settings&quot; in the top right corner
+3. Select &quot;Data Management&quot; from the dropdown menu
+4. Click the &quot;Export&quot; tab
+5. Choose &quot;Bulk Export&quot; option
+6. Select data range and specific fields to export
+7. Choose &quot;Excel (.xlsx)&quot; as the output format
+8. Click &quot;Generate Export&quot;
+9. Wait for the system to process (may take 1-15 minutes depending on data size)
+10. Download the exported file when ready
+
+System Requirements:
+
+- Supported browsers: Chrome 90+, Firefox 88+, Edge 91+
+- Minimum 2GB RAM available
+- Stable internet connection
+- Excel 2016 or later for opening exported files
+
+Common Issues &amp; Workarounds:
+A. If export times out:
+
+   - Break data into smaller date ranges
+   - Export during off-peak hours
+   - Use filters to reduce data size
+
+B. If download fails:
+
+   - Clear browser cache
+   - Use incognito/private window
+   - Try a different supported browser
+
+Escalation Path:
+If you continue experiencing issues:
+
+1. Contact your project administrator
+2. Submit a ticket to technical support at support@company.com
+3. Include your project ID and any error messages received
+4. For urgent matters, call our support hotline: 1-800-XXX-XXXX
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+</code></pre>
+            </article>
+            
+            <nav class="page-nav"><a href="third_party/LlamaIndex/Basic_RAG_With_LlamaIndex_zh.html" class="nav-link prev">← RAG 管道与 LlamaIndex</a><a href="misc/batch_processing_zh.html" class="nav-link next">批量处理消息批次API →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

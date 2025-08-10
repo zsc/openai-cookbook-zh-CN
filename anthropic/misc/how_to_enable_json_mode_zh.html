@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../">
+    <title>提示 Claude 获取“JSON 模式”</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">extended_thinking</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="extended_thinking/extended_thinking_with_tool_use_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">扩展思考与工具使用</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="extended_thinking/extended_thinking_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">扩展思考</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">finetuning</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="finetuning/finetuning_on_bedrock_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">在 Bedrock 上微调 Claude 3 Haiku</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder expanded" data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">misc</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/batch_processing_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">批量处理消息批次API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/building_evals_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">建立评估</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/building_moderation_filter_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">建立一个带有 Claude 的审核过滤器</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/generate_test_cases_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">首先，我们有 `extract_variables` 函数，</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" style="padding-left: 20px;">
+                        <a href="misc/how_to_enable_json_mode_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">提示 Claude 获取“JSON 模式”</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/how_to_make_sql_queries_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 进行 SQL 查询</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/illustrated_responses_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 的图示化响应</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/mc_qa_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">实验性测试 Claude 的长上下文问答能力</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/metaprompt_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Metaprompt</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/pdf_upload_summarization_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">“上传”PDF 到 Claude API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/prompt_caching_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">缓存提示（Prompt caching）通过 Anthropic API</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/read_web_pages_with_haiku_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Claude 3 Haiku 总结网页内容</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/sampling_past_max_tokens_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 从 Claude 之外的采样响应，超出最大令牌限制</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/speculative_prompt_caching_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">投机性提示缓存</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="misc/using_citations_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">引言</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">multimodal</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/best_practices_for_vision_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/getting_started_with_vision_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">开始上手 - 如何将图像传递给 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/how_to_transcribe_text_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 转录文档</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/reading_charts_graphs_powerpoints_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用图表和幻灯片放映</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="multimodal/using_sub_agents_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Haiku 作为子代理</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">patterns</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">agents</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/basic_workflows_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">首先使用具有思维链的LLM确定适当的路由</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/evaluator_optimizer_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/orchestrator_workers_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">步骤1：获取协调器响应</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="patterns/agents/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">构建高效代理的食谱</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">prompts</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/citations_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/research_lead_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="patterns/agents/prompts/research_subagent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </div></div></div></div></div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">skills</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="skills/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 技能</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">classification</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/classification/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">设置我们的环境</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/classification/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 分类指南</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/classification/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Promptfoo 进行评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">contextual-embeddings</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/contextual-embeddings/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">增强检索的RAG与上下文检索</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/contextual-embeddings/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">结合上下文嵌入的检索增强生成</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">retrieval_augmented_generation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/retrieval_augmented_generation/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Retrieval Augmented Generation (RAG)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/retrieval_augmented_generation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/retrieval_augmented_generation/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Promptfoo 进行评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">summarization</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/summarization/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">摘要与 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/summarization/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 摘要</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/summarization/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Promptfoo 评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">text_to_sql</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/text_to_sql/guide_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Set your Anthropic API key</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="skills/text_to_sql/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Claude 的文本到 SQL</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-folder " data-level="2" style="padding-left: 40px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">evaluation</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 60px;">
+                        <a href="skills/text_to_sql/evaluation/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Promptfoo 评估</span>
+                        </a>
+                    </div>
+                </div></div></div></div></div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">third_party</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Deepgram</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Deepgram/prerecorded_audio_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">转录深蓝音频文件并使用 Anthropic 准备面试问题！</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Deepgram/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Deepgram <> Anthropic Cookbooks</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">LlamaIndex</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Basic_RAG_With_LlamaIndex_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">RAG 管道与 LlamaIndex</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Multi_Document_Agents_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">多文档代理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Multi_Modal_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">多模态</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/ReAct_Agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">ReAct Agent</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/README_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">LlamaIndex <> Anthropic Cookbooks</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/Router_Query_Engine_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">注意：这仅在 jupyter notebook 中是必需的。</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/LlamaIndex/SubQuestion_Query_Engine_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">SubQuestionQueryEngine</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">MongoDB</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/MongoDB/rag_using_mongodb_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">如何使用 Claude 3 和 MongoDB 构建 RAG 系统</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Pinecone</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Pinecone/claude_3_rag_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">检查 Python 版本</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Pinecone/rag_using_pinecone_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Pinecone 进行检索增强生成</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">VoyageAI</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/VoyageAI/how_to_create_embeddings_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">这将自动使用环境变量VOYAGE_API_KEY。</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">Wikipedia</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/Wikipedia/wikipedia-search-cookbook_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">迭代搜索维基百科与 Claude</span>
+                        </a>
+                    </div>
+                </div></div>
+                    <div class="tree-folder " data-level="1" style="padding-left: 20px;">
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">WolframAlpha</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 40px;">
+                        <a href="third_party/WolframAlpha/using_llm_api_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Wolfram Alpha LLM API 作为 Claude 的工具</span>
+                        </a>
+                    </div>
+                </div></div></div></div>
+                    <div class="tree-folder " data-level="0" >
+                        <div class="tree-folder-header">
+                            <span class="tree-arrow">▶</span>
+                            <span class="tree-icon"></span>
+                            <span class="tree-title">tool_use</span>
+                        </div>
+                        <div class="tree-folder-content">
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/calculator_tool_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用计算器工具与 Claude</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/customer_service_agent_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用客户端工具创建客服代理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/extracting_structured_json_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Claude 和工具使用功能提取结构化 JSON</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/memory_cookbook_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">安装依赖</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/parallel_tools_claude_3_7_sonnet_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">在 Claude 3.7 Sonnet 上并行调用工具</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/tool_choice_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">选择工具</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/tool_use_with_pydantic_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">记事工具，支持 Pydantic 和 Anthropic 工具使用</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " style="padding-left: 20px;">
+                        <a href="tool_use/vision_with_tools_zh.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">使用 Vision 与工具</span>
+                        </a>
+                    </div>
+                </div></div></nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="claude-json">提示 Claude 获取“JSON 模式”</h1>
+<p>Claude 没有正式的“JSON 模式”并进行约束采样。但别担心——你仍然可以从 Claude 获取可靠的 JSON！本指南将向你展示如何操作。</p>
+<p>首先，让我们看看 Claude 的默认行为。</p>
+<pre class="codehilite"><code class="language-python">%pip install anthropic
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">from anthropic import Anthropic
+import json
+import re
+from pprint import pprint
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">client = Anthropic()
+MODEL_NAME = &quot;claude-3-opus-20240229&quot;
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">message = client.messages.create(
+    model=MODEL_NAME,
+    max_tokens=1024,
+    messages=[
+        {
+            &quot;role&quot;: &quot;user&quot;,
+            &quot;content&quot;: &quot;Give me a JSON dict with names of famous athletes &amp; their sports.&quot;
+        },
+    ]
+).content[0].text
+print(message)
+</code></pre>
+
+<pre class="codehilite"><code>Here is a JSON dictionary with names of famous athletes and their respective sports:
+
+{
+  &quot;athletes&quot;: [
+    {
+      &quot;name&quot;: &quot;Usain Bolt&quot;,
+      &quot;sport&quot;: &quot;Track and Field&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Michael Phelps&quot;,
+      &quot;sport&quot;: &quot;Swimming&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Serena Williams&quot;,
+      &quot;sport&quot;: &quot;Tennis&quot;
+    },
+    {
+      &quot;name&quot;: &quot;LeBron James&quot;,
+      &quot;sport&quot;: &quot;Basketball&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Lionel Messi&quot;,
+      &quot;sport&quot;: &quot;Soccer&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Simone Biles&quot;,
+      &quot;sport&quot;: &quot;Gymnastics&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Tom Brady&quot;,
+      &quot;sport&quot;: &quot;American Football&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Muhammad Ali&quot;,
+      &quot;sport&quot;: &quot;Boxing&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Nadia Comaneci&quot;,
+      &quot;sport&quot;: &quot;Gymnastics&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Michael Jordan&quot;,
+      &quot;sport&quot;: &quot;Basketball&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Pelé&quot;,
+      &quot;sport&quot;: &quot;Soccer&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Roger Federer&quot;,
+      &quot;sport&quot;: &quot;Tennis&quot;
+    }
+  ]
+}
+</code></pre>
+
+<p>Claude 遵循了指示并输出了一个不错的字典，我们可以用代码提取它：</p>
+<pre class="codehilite"><code class="language-python">def extract_json(response):
+    json_start = response.index(&quot;{&quot;)
+    json_end = response.rfind(&quot;}&quot;)
+    return json.loads(response[json_start:json_end + 1])
+extract_json(message)
+</code></pre>
+
+<pre class="codehilite"><code>{'athletes': [{'name': 'Usain Bolt', 'sport': 'Track and Field'},
+  {'name': 'Michael Phelps', 'sport': 'Swimming'},
+  {'name': 'Serena Williams', 'sport': 'Tennis'},
+  {'name': 'LeBron James', 'sport': 'Basketball'},
+  {'name': 'Lionel Messi', 'sport': 'Soccer'},
+  {'name': 'Simone Biles', 'sport': 'Gymnastics'},
+  {'name': 'Tom Brady', 'sport': 'American Football'},
+  {'name': 'Muhammad Ali', 'sport': 'Boxing'},
+  {'name': 'Nadia Comaneci', 'sport': 'Gymnastics'},
+  {'name': 'Michael Jordan', 'sport': 'Basketball'},
+  {'name': 'Pelé', 'sport': 'Soccer'},
+  {'name': 'Roger Federer', 'sport': 'Tennis'}]}
+</code></pre>
+
+<p>但是，如果我们希望 Claude 跳过前导语，直接输出 JSON 怎么办？一种简单的方法是预填充 Claude 的响应，并包含一个“{”字符。</p>
+<pre class="codehilite"><code class="language-python">message = client.messages.create(
+    model=MODEL_NAME,
+    max_tokens=1024,
+    messages=[
+        {
+            &quot;role&quot;: &quot;user&quot;,
+            &quot;content&quot;: &quot;Give me a JSON dict with names of famous athletes &amp; their sports.&quot;
+        },
+        {
+            &quot;role&quot;: &quot;assistant&quot;,
+            &quot;content&quot;: &quot;Here is the JSON requested:\n{&quot;
+        }
+    ]
+).content[0].text
+print(message)
+</code></pre>
+
+<pre class="codehilite"><code>   &quot;athletes&quot;:[
+      {
+         &quot;name&quot;:&quot;Michael Jordan&quot;,
+         &quot;sport&quot;:&quot;Basketball&quot;
+      },
+      {
+         &quot;name&quot;:&quot;Babe Ruth&quot;,
+         &quot;sport&quot;:&quot;Baseball&quot;
+      },
+      {
+         &quot;name&quot;:&quot;Muhammad Ali&quot;,
+         &quot;sport&quot;:&quot;Boxing&quot;
+      },
+      {
+         &quot;name&quot;:&quot;Serena Williams&quot;,
+         &quot;sport&quot;:&quot;Tennis&quot;
+      },
+      {
+         &quot;name&quot;:&quot;Wayne Gretzky&quot;,
+         &quot;sport&quot;:&quot;Hockey&quot;
+      },
+      {
+         &quot;name&quot;:&quot;Michael Phelps&quot;,
+         &quot;sport&quot;:&quot;Swimming&quot;
+      },
+      {
+         &quot;name&quot;:&quot;Usain Bolt&quot;,
+         &quot;sport&quot;:&quot;Track and Field&quot;
+      },
+      {
+         &quot;name&quot;:&quot;Mia Hamm&quot;,
+         &quot;sport&quot;:&quot;Soccer&quot;
+      },
+      {
+         &quot;name&quot;:&quot;Michael Schumacher&quot;,
+         &quot;sport&quot;:&quot;Formula 1 Racing&quot;
+      },
+      {
+         &quot;name&quot;:&quot;Simone Biles&quot;,
+         &quot;sport&quot;:&quot;Gymnastics&quot;
+      }
+   ]
+}
+</code></pre>
+
+<p>现在我们只需要加上我们预填充的“{”字符，就可以提取 JSON 了。</p>
+<pre class="codehilite"><code class="language-python">output_json = json.loads(&quot;{&quot; + message[:message.rfind(&quot;}&quot;) + 1])
+output_json
+</code></pre>
+
+<pre class="codehilite"><code>{'athletes': [{'name': 'Michael Jordan', 'sport': 'Basketball'},
+  {'name': 'Babe Ruth', 'sport': 'Baseball'},
+  {'name': 'Muhammad Ali', 'sport': 'Boxing'},
+  {'name': 'Serena Williams', 'sport': 'Tennis'},
+  {'name': 'Wayne Gretzky', 'sport': 'Hockey'},
+  {'name': 'Michael Phelps', 'sport': 'Swimming'},
+  {'name': 'Usain Bolt', 'sport': 'Track and Field'},
+  {'name': 'Mia Hamm', 'sport': 'Soccer'},
+  {'name': 'Michael Schumacher', 'sport': 'Formula 1 Racing'},
+  {'name': 'Simone Biles', 'sport': 'Gymnastics'}]}
+</code></pre>
+
+<p>对于包含多个 JSON 输出的长而复杂的提示，字符串搜索“{”和“}”可能无法奏效，你可以让 Claude 将每个 JSON 项输出到指定的标签中，以便将来提取。</p>
+<pre class="codehilite"><code class="language-python">message = client.messages.create(
+    model=MODEL_NAME,
+    max_tokens=1024,
+    messages=[
+        {
+            &quot;role&quot;: &quot;user&quot;,
+            &quot;content&quot;: &quot;&quot;&quot;Give me a JSON dict with the names of 5 famous athletes &amp; their sports.
+Put this dictionary in &lt;athlete_sports&gt; tags.
+
+Then, for each athlete, output an additional JSON dictionary. In each of these additional dictionaries:
+
+- Include two keys: the athlete's first name and last name.
+- For the values, list three words that start with the same letter as that name.
+Put each of these additional dictionaries in separate &lt;athlete_name&gt; tags.&quot;&quot;&quot;
+        },
+        {
+            &quot;role&quot;: &quot;assistant&quot;,
+            &quot;content&quot;: &quot;Here is the JSON requested:&quot;
+        }
+    ],
+).content[0].text
+print(message)
+</code></pre>
+
+<pre class="codehilite"><code>&lt;athlete_sports&gt;
+{
+  &quot;Michael Jordan&quot;: &quot;Basketball&quot;,
+  &quot;Serena Williams&quot;: &quot;Tennis&quot;,
+  &quot;Lionel Messi&quot;: &quot;Soccer&quot;,
+  &quot;Usain Bolt&quot;: &quot;Track and Field&quot;,
+  &quot;Michael Phelps&quot;: &quot;Swimming&quot;
+}
+&lt;/athlete_sports&gt;
+
+&lt;athlete_name&gt;
+{
+  &quot;first&quot;: [&quot;Magnificent&quot;, &quot;Motivating&quot;, &quot;Memorable&quot;],
+  &quot;last&quot;: [&quot;Joyful&quot;, &quot;Jumping&quot;, &quot;Jocular&quot;]
+}
+&lt;/athlete_name&gt;
+
+&lt;athlete_name&gt;
+{
+  &quot;first&quot;: [&quot;Skillful&quot;, &quot;Strong&quot;, &quot;Superstar&quot;],
+  &quot;last&quot;: [&quot;Winning&quot;, &quot;Willful&quot;, &quot;Wise&quot;]
+}
+&lt;/athlete_name&gt;
+
+&lt;athlete_name&gt;
+{
+  &quot;first&quot;: [&quot;Legendary&quot;, &quot;Lively&quot;, &quot;Leaping&quot;],
+  &quot;last&quot;: [&quot;Magical&quot;, &quot;Marvelous&quot;, &quot;Masterful&quot;]
+}
+&lt;/athlete_name&gt;
+
+&lt;athlete_name&gt;
+{
+  &quot;first&quot;: [&quot;Unbeatable&quot;, &quot;Unbelievable&quot;, &quot;Unstoppable&quot;],
+  &quot;last&quot;: [&quot;Brave&quot;, &quot;Bold&quot;, &quot;Brilliant&quot;]
+}
+&lt;/athlete_name&gt;
+
+&lt;athlete_name&gt;
+{
+  &quot;first&quot;: [&quot;Marvelous&quot;, &quot;Methodical&quot;, &quot;Medalist&quot;],
+  &quot;last&quot;: [&quot;Powerful&quot;, &quot;Persevering&quot;, &quot;Precise&quot;]
+}
+&lt;/athlete_name&gt;
+</code></pre>
+
+<p>现在，我们可以使用提取正则表达式来获取所有字典。</p>
+<pre class="codehilite"><code class="language-python">import re
+def extract_between_tags(tag: str, string: str, strip: bool = False) -&gt; list[str]:
+    ext_list = re.findall(f&quot;&lt;{tag}&gt;(.+?)&lt;/{tag}&gt;&quot;, string, re.DOTALL)
+    if strip:
+        ext_list = [e.strip() for e in ext_list]
+    return ext_list
+
+athlete_sports_dict = json.loads(extract_between_tags(&quot;athlete_sports&quot;, message)[0])
+athlete_name_dicts = [
+    json.loads(d)
+    for d in extract_between_tags(&quot;athlete_name&quot;, message)
+]
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">pprint(athlete_sports_dict)
+</code></pre>
+
+<pre class="codehilite"><code>{'Lionel Messi': 'Soccer',
+ 'Michael Jordan': 'Basketball',
+ 'Michael Phelps': 'Swimming',
+ 'Serena Williams': 'Tennis',
+ 'Usain Bolt': 'Track and Field'}
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">pprint(athlete_name_dicts, width=1)
+</code></pre>
+
+<pre class="codehilite"><code>[{'first': ['Magnificent',
+            'Motivating',
+            'Memorable'],
+  'last': ['Joyful',
+           'Jumping',
+           'Jocular']},
+ {'first': ['Skillful',
+            'Strong',
+            'Superstar'],
+  'last': ['Winning',
+           'Willful',
+           'Wise']},
+ {'first': ['Legendary',
+            'Lively',
+            'Leaping'],
+  'last': ['Magical',
+           'Marvelous',
+           'Masterful']},
+ {'first': ['Unbeatable',
+            'Unbelievable',
+            'Unstoppable'],
+  'last': ['Brave',
+           'Bold',
+           'Brilliant']},
+ {'first': ['Marvelous',
+            'Methodical',
+            'Medalist'],
+  'last': ['Powerful',
+           'Persevering',
+           'Precise']}]
+</code></pre>
+
+<p>总结一下：</p>
+<ul>
+<li>你可以使用字符串解析来提取“<code>json”和“</code>”之间的文本以获取 JSON。</li>
+<li>你可以通过部分助手消息删除前导语。 （但是，这会消除让 Claude 进行“思维链”以在开始输出 JSON 之前提高智能性的可能性。）</li>
+<li>你可以使用停止序列来删除 JSON 之后出现的文本。</li>
+<li>你可以指示 Claude 以 XML 标签输出 JSON，以便在更复杂的提示中轻松收集。</li>
+</ul>
+            </article>
+            
+            <nav class="page-nav"><a href="third_party/VoyageAI/how_to_create_embeddings_zh.html" class="nav-link prev">← 这将自动使用环境变量VOYAGE_API_KEY。</a><a href="misc/how_to_make_sql_queries_zh.html" class="nav-link next">如何使用 Claude 进行 SQL 查询 →</a></nav>
+        </main>
+    </div>
+</body>
+</html>
